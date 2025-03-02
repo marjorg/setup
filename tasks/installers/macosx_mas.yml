@@ -1,0 +1,9 @@
+---
+- name: "{{ package.name }} | Install via Mac App Store"
+  community.general.mas:
+    id: "{{ os_specific.id }}"
+    state: present
+  register: mas_result
+  failed_when:
+    - mas_result.failed
+    - "'already installed' not in mas_result.msg"

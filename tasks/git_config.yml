@@ -1,0 +1,42 @@
+---
+- name: Include GPG secrets
+  include_vars:
+    file: vars/gpg_secrets.yml
+  no_log: true
+
+- name: Ensure .gnupg directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.gnupg"
+    state: directory
+    mode: "0700"
+
+- name: Set proper permissions for .gnupg subdirectories
+  file:
+    path: "{{ ansible_env.HOME }}/.gnupg"
+    state: directory
+    mode: "0700"
+    recurse: yes
+  when: (ansible_env.HOME + '/.gnupg') is directory
+
+- name: Import GPG private keys
+  shell: echo "{{ item.private_key }}" | gpg --batch --import
+  loop: "{{ gpg_keys }}"
+  no_log: true
+  changed_when: false
+
+- name: Import GPG public keys
+  shell: echo "{{ item.public_key }}" | gpg --batch --import
+  loop: "{{ gpg_keys }}"
+  no_log: true
+  changed_when: false
+
+- name: Configure .gitconfig
+  template:
+    src: gitconfig.j2
+    dest: "{{ ansible_env.HOME }}/.gitconfig"
+    mode: 0644
+  vars:
+    git_user_name: "Marius Jørgensen"
+    git_user_email: "{{ git_config.email }}"
+    git_signing_key: "{{ git_config.gpg_key_id }}"
+    git_gpg_program: "/run/current-system/sw/bin/gpg"

@@ -1,0 +1,12 @@
+# Managed by Ansible
+# Last updated: {{ ansible_date_time.date }} {{ ansible_date_time.time }}
+
+{% for host in ssh_config.hosts %}
+Host {{ host.name }}
+{% if host.options is defined %}
+{% for key, value in host.options.items() %}
+    {{ key }} {{ value }}
+{% endfor %}
+{% endif %}
+
+{% endfor %}

@@ -1,0 +1,55 @@
+---
+- name: Include encrypted variables
+  include_vars:
+    file: vars/env_secrets.yml
+  no_log: true
+
+- name: Create .config test directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config"
+    state: directory
+    mode: "0755"
+
+- name: Find top-level directories in .config
+  ansible.builtin.find:
+    paths: "{{ playbook_dir }}/.config"
+    file_type: directory
+    recurse: no
+  register: config_dirs
+
+- name: Debug found directories
+  ansible.builtin.debug:
+    msg: "Found directories to symlink: {{ config_dirs.files | map(attribute='path') | map('basename') | list }}"
+    verbosity: 1
+
+- name: Symlink config directories
+  ansible.builtin.file:
+    src: "{{ item.path }}"
+    dest: "{{ ansible_env.HOME }}/.config/{{ item.path | basename }}"
+    state: link
+    force: yes
+  loop: "{{ config_dirs.files }}"
+
+- name: Symlink root dotfiles
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/{{ item }}"
+    state: link
+    force: yes
+  loop:
+    - .gitconfig
+    - .zshrc
+
+- name: Create .zshenv with environment variables
+  template:
+    src: "templates/zshenv.j2"
+    dest: "{{ ansible_env.HOME }}/.zshenv"
+    mode: "0600"
+  no_log: true
+
+- name: Create .wakatime.cfg file
+  template:
+    src: "templates/wakatime.j2"
+    dest: "{{ ansible_env.HOME }}/.wakatime.cfg"
+    mode: "0600"
+  no_log: true

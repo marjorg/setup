@@ -1,0 +1,20 @@
+browsers:
+  - name: Arc
+    macosx:
+      type: homebrew_cask
+      package: arc
+
+  - name: Brave
+    macosx:
+      type: homebrew_cask
+      package: brave-browser
+
+  - name: Firefox
+    macosx:
+      type: homebrew_cask
+      package: firefox
+
+  - name: Google Chrome
+    macosx:
+      type: homebrew_cask
+      package: google-chrome

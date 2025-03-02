@@ -1,0 +1,16 @@
+---
+- name: "{{ package.name }} | Set OS-specific variables"
+  ansible.builtin.set_fact:
+    os_specific: "{{ package[ansible_distribution | lower] | default({}) }}"
+
+- name: "{{ package.name }} | Check if OS-specific configuration exists"
+  ansible.builtin.set_fact:
+    has_os_config: "{{ os_specific != {} }}"
+
+# If we have config for current OS, use appropriate installer
+- name: "{{ package.name }} | Include appropriate installer"
+  include_tasks: "installers/{{ ansible_distribution | lower }}_{{ os_specific.type }}.yml"
+  when:
+    - has_os_config | bool
+    - os_specific.type is defined
+    - ansible_distribution | lower == 'macosx' or ansible_distribution | lower == 'ubuntu'

@@ -1,0 +1,10 @@
+# Managed by Ansible
+# Last updated: {{ ansible_date_time.date }} {{ ansible_date_time.time }}
+
+# Base zshenv configuration
+{{ lookup('file', playbook_dir ~ '/.zshenv') }}
+
+# Encrypted environment variables
+{% for var in env_vars %}
+export {{ var.name }}="{{ var.value }}"
+{% endfor %}

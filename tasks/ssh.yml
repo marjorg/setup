@@ -1,0 +1,33 @@
+---
+- name: Include SSH secrets
+  include_vars:
+    file: vars/ssh_secrets.yml
+  no_log: true
+
+- name: Ensure .ssh directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    state: directory
+    mode: "0700"
+
+- name: Create private SSH keys
+  copy:
+    content: "{{ item.private_key }}"
+    dest: "{{ ansible_env.HOME }}/.ssh/{{ item.name }}"
+    mode: "0600"
+  loop: "{{ ssh_keys }}"
+  no_log: true
+
+- name: Create public SSH keys
+  copy:
+    content: "{{ item.public_key }}"
+    dest: "{{ ansible_env.HOME }}/.ssh/{{ item.name }}.pub"
+    mode: "0644"
+  loop: "{{ ssh_keys }}"
+  no_log: true
+
+- name: Create SSH config file
+  template:
+    src: "templates/ssh_config.j2"
+    dest: "{{ ansible_env.HOME }}/.ssh/config"
+    mode: "0644"

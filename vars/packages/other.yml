@@ -1,0 +1,65 @@
+other:
+  - name: 1password
+    macosx:
+      type: homebrew_cask
+      package: 1password
+
+  - name: Discord
+    macosx:
+      type: homebrew_cask
+      package: discord
+
+  - name: Figma
+    macosx:
+      type: homebrew_cask
+      package: figma
+
+  - name: ImageOptim
+    macosx:
+      type: homebrew_cask
+      package: imageoptim
+
+  - name: Ice Menu Bar
+    macosx:
+      type: homebrew_cask
+      package: jordanbaird-ice
+
+  - name: Karabiner Elements
+    macosx:
+      type: homebrew_cask
+      package: karabiner-elements
+
+  - name: Ngrok
+    macosx:
+      type: homebrew_cask
+      package: ngrok
+
+  - name: Obsidian
+    macosx:
+      type: homebrew_cask
+      package: obsidian
+
+  - name: Postman
+    macosx:
+      type: homebrew_cask
+      package: postman
+
+  - name: Proxyman
+    macosx:
+      type: homebrew_cask
+      package: proxyman
+
+  - name: Raycast
+    macosx:
+      type: homebrew_cask
+      package: raycast
+
+  - name: Spotify
+    macosx:
+      type: homebrew_cask
+      package: spotify
+
+  - name: The Unarchiver
+    macosx:
+      type: homebrew_cask
+      package: the-unarchiver

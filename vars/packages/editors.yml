@@ -1,0 +1,15 @@
+editors:
+  - name: Neovim
+    macosx:
+      type: homebrew
+      package: neovim
+
+  - name: Zed
+    macosx:
+      type: homebrew_cask
+      package: zed
+
+  - name: Visual Studio Code
+    macosx:
+      type: homebrew_caks
+      package: visual-studio-code

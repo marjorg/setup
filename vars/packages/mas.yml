@@ -1,0 +1,25 @@
+mas:
+  - name: "1Password Safari"
+    macosx:
+      type: mas
+      id: 1569813296
+
+  - name: "Amphetamine"
+    macosx:
+      type: mas
+      id: 937984704
+
+  - name: "Messenger"
+    macosx:
+      type: mas
+      id: 1480068668
+
+  - name: "TestFlight"
+    macosx:
+      type: mas
+      id: 899247664
+
+  - name: "Xcode"
+    macosx:
+      type: mas
+      id: 497799835
