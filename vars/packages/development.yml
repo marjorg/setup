@@ -19,6 +19,11 @@ development:
       type: homebrew_cask
       package: font-jetbrains-mono
 
+  - name: JetBrains Mono Nerd Font
+    macosx:
+      type: homebrew_cask
+      package: font-jetbrains-mono-nerd-font
+
   - name: Ghostty
     macosx:
       type: homebrew_cask
