@@ -47,7 +47,7 @@ development:
   - name: Bun
     macosx:
       type: homebrew
-      package: bun
+      package: oven-sh/bun/bun
 
   - name: Deno
     macosx:

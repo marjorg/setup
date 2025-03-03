@@ -11,5 +11,5 @@ editors:
 
   - name: Visual Studio Code
     macosx:
-      type: homebrew_caks
+      type: homebrew_cask
       package: visual-studio-code

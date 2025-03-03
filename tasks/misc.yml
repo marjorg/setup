@@ -1,7 +1,7 @@
 ---
 - name: Clone notes repository
   ansible.builtin.git:
-    repo: https://github.com/marjorg/notes
+    repo: git@github.com:marjorg/notes.git
     dest: "{{ ansible_env.HOME }}/notes"
     clone: yes
     update: no
@@ -31,7 +31,10 @@
     executable: /bin/bash
 
 - name: Enable pnpm with corepack
-  shell: corepack enable pnpm
+  shell: |
+    export NVM_DIR="{{ ansible_env.HOME }}/.nvm"
+    source $NVM_DIR/nvm.sh
+    corepack enable pnpm
   args:
     executable: /bin/bash
 
