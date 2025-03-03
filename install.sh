@@ -39,10 +39,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
   fi
 
   if ! [ -x "$(command -v ansible)" ]; then
-    # The commented out might be needed
-    # export PATH="$HOME/Library/Python/3.9/bin:/opt/homebrew/bin:$PATH"
-    # sudo pip3 install --upgrade pip
-    pip3 install ansible
+    brew install ansible
     ansible-galaxy collection install community.general
     echo "✅ Installed Ansible"
   else

@@ -39,4 +39,4 @@
     git_user_name: "Marius Jørgensen"
     git_user_email: "{{ git_config.email }}"
     git_signing_key: "{{ git_config.gpg_key_id }}"
-    git_gpg_program: "/run/current-system/sw/bin/gpg"
+    git_gpg_program: "/opt/homebrew/bin/gpg"
