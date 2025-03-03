@@ -4,3 +4,4 @@
 .config/tmux/plugins
 .config/zed/conversations
 .config/zed/prompts
+pass_*.txt

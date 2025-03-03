@@ -63,5 +63,30 @@ else
   echo "🟡 Updated repository"
 fi
 
+PASS_SSH="$DOTFILES_DIR/pass_ssh.txt"
+PASS_ENV="$DOTFILES_DIR/pass_env.txt"
+PASS_GPG="$DOTFILES_DIR/pass_gpg.txt"
+
+create_password_file() {
+  local file_path=$1
+  local vault_name=$2
+
+  if [[ ! -f "$file_path" ]]; then
+    echo "Password file for $vault_name vault not found."
+    read -s -p "Enter $vault_name vault password: " password
+    # echo
+    echo "$password" > "$file_path"
+    chmod 600 "$file_path"
+    echo "Created $vault_name password file."
+  fi
+}
+
+create_password_file "$PASS_SSH" "ssh"
+create_password_file "$PASS_ENV" "env"
+create_password_file "$PASS_GPG" "gpg"
+
 # TODO: Integrate with 1pass?
-ansible-playbook "$DOTFILES_DIR/main.yml" --vault-id=ssh@prompt --vault-id=env@prompt --vault-id=gpg@prompt
+ansible-playbook "$DOTFILES_DIR/main.yml" \
+  --vault-id=ssh@$DOTFILES_DIR/pass_ssh.txt \
+  --vault-id=env@$DOTFILES_DIR/pass_env.txt \
+  --vault-id=gpg@$DOTFILES_DIR/pass_gpg.txt
