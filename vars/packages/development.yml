@@ -56,7 +56,7 @@ development:
 
   - name: Docker
     macosx:
-      type: homebrew
+      type: homebrew_cask
       package: docker
 
   - name: Fd
