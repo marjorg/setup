@@ -36,6 +36,13 @@ if [[ "$(uname)" == "Darwin" ]]; then
     echo "🟡 Mac App Store CLI already installed"
   fi
 
+  if ! [ -x "$(command -v op)" ]; then
+    brew install 1password-cli
+    echo "✅ Installed 1Password CLI"
+  else
+    echo "🟡 1Password CLI already installed"
+  fi
+
   if ! [ -x "$(command -v git)" ]; then
     brew install git
     echo "✅ Installed Git"
@@ -63,30 +70,20 @@ else
   echo "🟡 Updated repository"
 fi
 
-PASS_SSH="$DOTFILES_DIR/pass_ssh.txt"
-PASS_ENV="$DOTFILES_DIR/pass_env.txt"
-PASS_GPG="$DOTFILES_DIR/pass_gpg.txt"
+if ! op account get >/dev/null 2>&1; then
+  echo "Sign in to 1Password CLI"
+  eval $(op signin)
+  echo "✅ Signed in to 1Password CLI"
+else
+  echo "🟡 Already signed in to 1Password CLI"
+fi
 
-create_password_file() {
-  local file_path=$1
-  local vault_name=$2
-
-  if [[ ! -f "$file_path" ]]; then
-    echo "Password file for $vault_name vault not found."
-    read -s -p "Enter $vault_name vault password: " password
-    # echo
-    echo "$password" > "$file_path"
-    chmod 600 "$file_path"
-    echo "Created $vault_name password file."
-  fi
-}
-
-create_password_file "$PASS_SSH" "ssh"
-create_password_file "$PASS_ENV" "env"
-create_password_file "$PASS_GPG" "gpg"
+SSH_PASS=$("$DOTFILES_DIR/scripts/get-op-vault-password.sh" zt523aidyr72aidluibpvs5zxy)
+ENV_PASS=$("$DOTFILES_DIR/scripts/get-op-vault-password.sh" o5pckyjgmw7y5v4clccfhrq2ky)
+GPG_PASS=$("$DOTFILES_DIR/scripts/get-op-vault-password.sh" i3uhsfzvqjtgxx2iqszjkv6hri)
 
 # TODO: Integrate with 1pass?
 ansible-playbook "$DOTFILES_DIR/main.yml" \
-  --vault-id=ssh@$DOTFILES_DIR/pass_ssh.txt \
-  --vault-id=env@$DOTFILES_DIR/pass_env.txt \
-  --vault-id=gpg@$DOTFILES_DIR/pass_gpg.txt
+  --vault-id=ssh@<(echo "$SSH_PASS") \
+  --vault-id=env@<(echo "$ENV_PASS") \
+  --vault-id=gpg@<(echo "$GPG_PASS")
