@@ -57,7 +57,6 @@ bindkey "^[[1;3D" backward-word # Use Option + Left Arrow to move back a word
 bindkey "^[[1;3C" forward-word # Use Option + Right Arrow to move forward a word
 
 # Aliases
-# alias python=/usr/bin/python3 # Use Python 3 for python
 alias ld='lazydocker'
 alias lg='lazygit'
 
@@ -107,6 +106,9 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
+
+# Python
+export PATH="$PATH:$HOME/Library/Python/3.9/bin"
 
 # Go
 export PATH=$PATH:$HOME/go/bin
