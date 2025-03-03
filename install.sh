@@ -19,6 +19,11 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
   if ! [ -x "$(command -v brew)" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # TODO: Delete this after, only needed before zsh is setup
+    echo >> "$HOME/.zprofile"
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
     echo "✅ Installed Homebrew"
   else
     echo "🟡 Homebrew already installed"
