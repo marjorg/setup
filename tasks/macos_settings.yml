@@ -1,4 +1,8 @@
 ---
+# Find some settings with defaults read -g
+# Figure out how to make these work (works when run manually, but not via osx_defaults):
+# defaults write -g com.apple.swipescrolldirection -boolean YES
+# Others: Disable all Spotlight settings
 - name: Configure macOS settings
   when: ansible_distribution | lower == 'macosx'
   block:
