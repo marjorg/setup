@@ -82,7 +82,6 @@ SSH_PASS=$("$DOTFILES_DIR/scripts/get-op-vault-password.sh" zt523aidyr72aidluibp
 ENV_PASS=$("$DOTFILES_DIR/scripts/get-op-vault-password.sh" o5pckyjgmw7y5v4clccfhrq2ky)
 GPG_PASS=$("$DOTFILES_DIR/scripts/get-op-vault-password.sh" i3uhsfzvqjtgxx2iqszjkv6hri)
 
-# TODO: Integrate with 1pass?
 ansible-playbook "$DOTFILES_DIR/main.yml" \
   --vault-id=ssh@<(echo "$SSH_PASS") \
   --vault-id=env@<(echo "$ENV_PASS") \
