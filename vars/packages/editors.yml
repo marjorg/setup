@@ -9,6 +9,11 @@ editors:
       type: homebrew_cask
       package: zed
 
+  - name: Zed Preview
+    macosx:
+      type: homebrew_cask
+      package: zed@preview
+
   - name: Visual Studio Code
     macosx:
       type: homebrew_cask
