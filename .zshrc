@@ -115,6 +115,11 @@ export PATH=$PATH:$HOME/go/bin
 export PATH="$PATH:$HOME/.local/bin:$(go env GOPATH)/bin"
 export GOPRIVATE=github.com/marjorg
 
+# Ngrok
+if command -v ngrok &>/dev/null; then
+  eval "$(ngrok completion)"
+fi
+
 # Deno
 # Add deno completions to search path
 if [[ ":$FPATH:" != *":/Users/marius/.zsh/completions:"* ]]; then export FPATH="/Users/marius/.zsh/completions:$FPATH"; fi
