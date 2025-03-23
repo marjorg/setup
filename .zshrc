@@ -9,6 +9,9 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
         print -P "%F{160} The clone has failed.%f%b"
 fi
 
+# Homebrew, needs to be loaded before fzf, oh-my-posh, etc.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Initialize Zinit
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
@@ -71,9 +74,6 @@ setopt hist_ignore_space # Ignore commands starting with space, useful for secre
 setopt hist_ignore_all_dups # Ignore all duplicates
 setopt hist_save_no_dups # Do not save duplicates
 setopt hist_ignore_dups # Ignore duplicates in history
-
-# Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # zoxide, smarter cd command
 eval "$(zoxide init --cmd cd zsh)"
