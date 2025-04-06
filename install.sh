@@ -1,88 +1,68 @@
 #!/bin/bash
 
+set -e
+set -o pipefail
+
+DRY=false
+DEBUG=false
+
 DOTFILES_DIR="$HOME/dotfiles"
+IS_MAC=$(uname -s | grep -q Darwin && echo true || echo false)
 
-if [[ "$(uname)" == "Darwin" ]]; then
-  # Using command -v on xcode-select is untested, might have to use "if ! xcode-select -p &> /dev/null; then"
-  if ! [ -x "$(command -v xcode-select)" ]; then
-    xcode-select --install &> /dev/null
-
-    # This section is untested
-    until command -v xcode-select &> /dev/null; do
-      sleep 5
-    done
-
-    echo "✅ Installed XCode Command Line Tools"
-  else
-    echo "🟡 XCode Command Line Tools already installed"
+while [[ $# > 0 ]]; do
+  if [[ $1 == "--dry" ]]; then
+    DRY=true
+  elif [[ $1 == "--debug" ]]; then
+    DEBUG=true
   fi
 
-  if ! [ -x "$(command -v brew)" ]; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    # TODO: Delete this after, only needed before zsh is setup
-    echo >> "$HOME/.zprofile"
-    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+  shift
+done
 
-    echo "✅ Installed Homebrew"
-  else
-    echo "🟡 Homebrew already installed"
+for file in "$DOTFILES_DIR/scripts/"*; do
+  if [ -f "$file" ]; then
+    source "$file"
   fi
+done
 
-  if ! [ -x "$(command -v mas)" ]; then
-    brew install mas
-    echo "✅ Installed Mac App Store CLI"
-  else
-    echo "🟡 Mac App Store CLI already installed"
-  fi
-
-  if ! [ -x "$(command -v op)" ]; then
-    brew install 1password-cli
-    echo "✅ Installed 1Password CLI"
-  else
-    echo "🟡 1Password CLI already installed"
-  fi
-
-  if ! [ -x "$(command -v git)" ]; then
-    brew install git
-    echo "✅ Installed Git"
-  else
-    echo "🟡 Git already installed"
-  fi
-
-  if ! [ -x "$(command -v ansible)" ]; then
-    brew install ansible
-    ansible-galaxy collection install community.general
-    echo "✅ Installed Ansible"
-  else
-    echo "🟡 Ansible already installed"
-  fi
+if $IS_MAC; then
+  pre_setup_mac
 else
-  echo "🚨 Unsupported OS"
+  log "🚨 Unsupported OS"
   exit 1
 fi
 
 if ! [[ -d "$DOTFILES_DIR" ]]; then
-  git clone --quiet https://github.com/marjorg/setup.git $DOTFILES_DIR
-  echo "✅ Cloned repository"
+  execute git clone --quiet https://github.com/marjorg/setup.git $DOTFILES_DIR
+  log "✅ Cloned repository"
 else
-  git -C $DOTFILES_DIR pull --quiet
-  echo "🟡 Updated repository"
+  if [ -z "$(git -C $DOTFILES_DIR status --porcelain)" ]; then
+    execute git -C $DOTFILES_DIR pull --quiet
+    log "✅ Updated repository"
+  else
+    debug "⚠️ Local changes detected in dotfiles repository, skipping pull"
+  fi
 fi
 
-if ! op account get >/dev/null 2>&1; then
-  echo "Sign in to 1Password CLI"
-  eval $(op signin)
-  echo "✅ Signed in to 1Password CLI"
-else
-  echo "🟡 Already signed in to 1Password CLI"
+if ! execute op account get >/dev/null 2>&1; then
+  log "Sign in to 1Password CLI"
+  execute eval "$(op signin)"
+  log "✅ Signed in to 1Password CLI"
 fi
 
-SSH_PASS=$("$DOTFILES_DIR/scripts/get-op-vault-password.sh" zt523aidyr72aidluibpvs5zxy)
-ENV_PASS=$("$DOTFILES_DIR/scripts/get-op-vault-password.sh" o5pckyjgmw7y5v4clccfhrq2ky)
-GPG_PASS=$("$DOTFILES_DIR/scripts/get-op-vault-password.sh" i3uhsfzvqjtgxx2iqszjkv6hri)
+SSH_PASS=$(execute capture get_op_password zt523aidyr72aidluibpvs5zxy)
+ENV_PASS=$(execute capture get_op_password o5pckyjgmw7y5v4clccfhrq2ky)
+GPG_PASS=$(execute capture get_op_password i3uhsfzvqjtgxx2iqszjkv6hri)
 
-ansible-playbook "$DOTFILES_DIR/main.yml" \
+execute ansible-playbook "$DOTFILES_DIR/main.yml" \
   --vault-id=ssh@<(echo "$SSH_PASS") \
   --vault-id=env@<(echo "$ENV_PASS") \
   --vault-id=gpg@<(echo "$GPG_PASS")
+
+if $IS_MAC; then
+  setup_mac
+fi
+
+if $IS_MAC; then
+  post_setup_mac
+fi

@@ -1,6 +1,0 @@
----
-- name: "{{ package.name }} | Install via APT"
-  ansible.builtin.apt:
-    name: "{{ os_specific.package }}"
-    state: present
-  become: true

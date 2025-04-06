@@ -1,5 +1,0 @@
----
-- name: "{{ package.name }} | Install via Homebrew"
-  community.general.homebrew:
-    name: "{{ os_specific.package }}"
-    state: present

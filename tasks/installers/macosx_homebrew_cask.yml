@@ -1,5 +1,0 @@
----
-- name: "{{ package.name }} | Install via Homebrew Cask"
-  community.general.homebrew_cask:
-    name: "{{ os_specific.package }}"
-    state: present

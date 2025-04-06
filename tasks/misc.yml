@@ -37,8 +37,3 @@
 #     corepack enable pnpm
 #   args:
 #     executable: /bin/bash
-
-# - name: Install global npm packages
-#   shell: npm install -g clinic eas-cli turbo
-#   args:
-#     executable: /bin/bash
