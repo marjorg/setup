@@ -1,1 +1,6 @@
-
+keybinding:
+  universal:
+    nextTab: <right>
+    prevTab: <left>
+    prevBlock: ''
+    nextBlock: ''
