@@ -98,7 +98,6 @@ esac
 export JAVA_HOME="/opt/homebrew/opt/openjdk"
 export PATH="$JAVA_HOME/bin:$PATH"
 export CPPFLAGS="-I$JAVA_HOME/include"
-
 export ANDROID_SDK_ROOT=/Users/marius/Library/Android/sdk
 export ANDROID_HOME=$ANDROID_SDK_ROOT
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -123,3 +122,7 @@ fi
 # Deno
 # Add deno completions to search path
 if [[ ":$FPATH:" != *":/Users/marius/.zsh/completions:"* ]]; then export FPATH="/Users/marius/.zsh/completions:$FPATH"; fi
+
+# Bun
+# Completions
+[ -s "/Users/mariusj/.bun/_bun" ] && source "/Users/mariusj/.bun/_bun"
