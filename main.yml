@@ -22,5 +22,5 @@
     #   include_tasks: tasks/macos_settings.yml
     #   when: ansible_distribution | lower == 'macosx'
 
-    # - name: Setup misc
-    #   include_tasks: tasks/misc.yml
+    - name: Setup misc
+      include_tasks: tasks/misc.yml
