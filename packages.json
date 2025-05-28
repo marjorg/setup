@@ -49,7 +49,6 @@
 		{ "homebrew_cask": "the-unarchiver", "name": "The Unarchiver" },
 		{ "homebrew_cask": "visual-studio-code", "name": "Visual Studio Code" },
 		{ "homebrew_cask": "zed", "name": "Zed" },
-		{ "homebrew_cask": "zed@preview", "name": "Zed Preview" },
 		{ "mas": 1569813296, "name": "1Password Safari" },
 		{ "mas": 937984704, "name": "Amphetamine" }
 	]

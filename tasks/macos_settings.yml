@@ -51,8 +51,6 @@
         macos_dock_apps:
           - "/Applications/Brave Browser.app"
           - "/Applications/Ghostty.app"
-          - "/Applications/Obsidian.app"
-          - "/System/Applications/Mail.app"
           - "/System/Applications/Calendar.app"
         value_start: "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>"
         value_end: "</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
