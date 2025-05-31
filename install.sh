@@ -8,6 +8,7 @@ DEBUG=false
 
 DOTFILES_DIR="$HOME/dotfiles"
 IS_MAC=$(uname -s | grep -q Darwin && echo true || echo false)
+IS_LINUX=$(uname -s | grep -q Linux && echo true || echo false)
 
 while [[ $# > 0 ]]; do
   if [[ $1 == "--dry" ]]; then
@@ -19,20 +20,22 @@ while [[ $# > 0 ]]; do
   shift
 done
 
-for file in "$DOTFILES_DIR/scripts/"*; do
-  if [ -f "$file" ]; then
-    source "$file"
-  fi
-done
-
 if $IS_MAC; then
   pre_setup_mac
+elif $IS_LINUX; then
+  # Temp
 else
-  log "🚨 Unsupported OS"
+  echo "🚨 Unsupported OS"
   exit 1
 fi
 
 if ! [[ -d "$DOTFILES_DIR" ]]; then
+  for file in "$DOTFILES_DIR/scripts/"*; do
+    if [ -f "$file" ]; then
+      source "$file"
+    fi
+  done
+
   execute git clone --quiet https://github.com/marjorg/setup.git $DOTFILES_DIR
   log "✅ Cloned repository"
 else
