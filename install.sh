@@ -23,22 +23,22 @@ done
 if $IS_MAC; then
   pre_setup_mac
 elif $IS_LINUX; then
-  # Temp
+  echo ""
 else
   echo "🚨 Unsupported OS"
   exit 1
 fi
 
 if ! [[ -d "$DOTFILES_DIR" ]]; then
+  execute git clone --quiet https://github.com/marjorg/setup.git $DOTFILES_DIR
+  echo "✅ Cloned repository"
+else
   for file in "$DOTFILES_DIR/scripts/"*; do
     if [ -f "$file" ]; then
       source "$file"
     fi
   done
 
-  execute git clone --quiet https://github.com/marjorg/setup.git $DOTFILES_DIR
-  log "✅ Cloned repository"
-else
   if [ -z "$(git -C $DOTFILES_DIR status --porcelain)" ]; then
     execute git -C $DOTFILES_DIR pull --quiet
     log "✅ Updated repository"
@@ -64,8 +64,5 @@ execute ansible-playbook "$DOTFILES_DIR/main.yml" \
 
 if $IS_MAC; then
   setup_mac
-fi
-
-if $IS_MAC; then
   post_setup_mac
 fi
