@@ -20,9 +20,9 @@ while [[ $# > 0 ]]; do
   shift
 done
 
-if $IS_MAC; then
+if [[ "$IS_MAC" == true ]]; then
   pre_setup_mac
-elif $IS_LINUX; then
+elif [[ "$IS_LINUX" == true ]]; then
   echo ""
 else
   echo "🚨 Unsupported OS"
@@ -62,7 +62,7 @@ execute ansible-playbook "$DOTFILES_DIR/main.yml" \
   --vault-id=env@<(echo "$ENV_PASS") \
   --vault-id=gpg@<(echo "$GPG_PASS")
 
-if $IS_MAC; then
+if [[ "$IS_MAC" == true ]]; then
   setup_mac
   post_setup_mac
 fi
