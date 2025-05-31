@@ -18,14 +18,24 @@
     recurse: yes
   when: (ansible_env.HOME + '/.gnupg') is directory
 
+- name: Find GPG binary
+  command: which gpg
+  register: gpg_path
+  changed_when: false
+  failed_when: gpg_path.rc != 0
+
+- name: Set GPG program path fact
+  set_fact:
+    default_gpg_program: "{{ gpg_path.stdout }}"
+
 - name: Import GPG private keys
-  shell: echo "{{ item.private_key }}" | gpg --batch --import
+  shell: echo "{{ item.private_key }}" | "{{ default_gpg_program }}" --batch --import
   loop: "{{ gpg_keys }}"
   no_log: true
   changed_when: false
 
 - name: Import GPG public keys
-  shell: echo "{{ item.public_key }}" | gpg --batch --import
+  shell: echo "{{ item.public_key }}" | "{{ default_gpg_program }}" --batch --import
   loop: "{{ gpg_keys }}"
   no_log: true
   changed_when: false
@@ -34,9 +44,9 @@
   template:
     src: gitconfig.j2
     dest: "{{ ansible_env.HOME }}/.gitconfig"
-    mode: 0644
+    mode: "0644"
   vars:
     git_user_name: "Marius Jørgensen"
     git_user_email: "{{ git_config.email }}"
     git_signing_key: "{{ git_config.gpg_key_id }}"
-    git_gpg_program: "/opt/homebrew/bin/gpg"
+    git_gpg_program: "{{ git_config.gpg_program | default(default_gpg_program) }}"
