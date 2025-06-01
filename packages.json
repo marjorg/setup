@@ -11,6 +11,7 @@
 		{ "homebrew": "ripgrep", "apt": "ripgrep", "name": "Ripgrep" },
 		{ "homebrew": "tmux", "apt": "tmux", "name": "Tmux" },
 		{ "homebrew": "zsh", "apt": "zsh", "name": "Zsh" },
+		{ "homebrew": "imagemagick", "apt": "imagemagick", "name": "ImageMagick" },
 		{ "homebrew_cask": "1password", "name": "1Password" },
 		{ "homebrew_cask": "brave-browser", "name": "Brave Browser" },
 		{ "homebrew_cask": "discord", "name": "Discord" },
