@@ -48,8 +48,10 @@ else
     fi
   done
 
-  if ! execute op account get >/dev/null 2>&1; then
-    log "Sign in to 1Password CLI"
+  if op whoami 2>&1 | grep -q "no account found"; then
+    log "Please add 1pass account manually with op account add"
+    exit 1
+  else
     execute eval "$(op signin)"
     log "✅ Signed in to 1Password CLI"
   fi
