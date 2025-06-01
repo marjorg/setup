@@ -1,7 +1,7 @@
 #!/bin/bash
 
-pre_setup_mac() {
-  log "⌛ Starting MacOS pre setup..."
+setup_mac() {
+  log "⌛ Starting MacOS setup..."
 
   # Using command -v on xcode-select is untested, might have to use "if ! xcode-select -p &> /dev/null; then"
   if ! [ -x "$(command -v xcode-select)" ]; then
@@ -49,42 +49,5 @@ pre_setup_mac() {
     log "✅ Installed Ansible"
   fi
 
-  log "✅ Completed MacOS pre setup"
-}
-
-setup_mac() {
-  log "⌛ Starting MacOS setup..."
-
-  local packages_file="$DOTFILES_DIR/packages.json"
-  install_package_type "Homebrew formulae" "$packages_file" '.homebrew != null' 'homebrew' install_brew
-  install_package_type "Homebrew casks" "$packages_file" '.homebrew_cask != null' 'homebrew_cask' install_brew_cask
-  install_package_type "NPM packages" "$packages_file" '.npm != null' 'npm' install_npm
-  # MAS temporarily disabled due to https://github.com/mas-cli/mas/issues/724
-  # install_package_type "Mac App Store apps" "$packages_file" '.mas != null' 'mas' install_mas_app
-
-  debug "⌛ Running Homebrew cleanup..."
-  execute brew cleanup
-
   log "✅ Completed MacOS setup"
-}
-
-post_setup_mac() {
-  log "⌛ Starting MacOS post setup..."
-
-  execute rm -f "$HOME/.zprofile"
-
-  log "✅ Completed MacOS post setup"
-}
-
-update_mac() {
-  log "⌛ Starting MacOS update..."
-
-  execute brew update
-  execute brew upgrade
-  execute brew cleanup
-  # MAS temporarily disabled due to https://github.com/mas-cli/mas/issues/724
-  # execute mas upgrade
-  # TODO: NPM global
-
-  log "✅ Completed MacOS update"
 }

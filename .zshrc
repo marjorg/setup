@@ -1,24 +1,39 @@
 export XDG_CONFIG_HOME="$HOME/.config"
+export TERM=xterm-256color
+export PATH=$PATH:"$HOME/.local/bin"
 
-# Install Zinit if it is not installed
+IS_MAC=$(uname -s | grep -q Darwin && echo true || echo false)
+IS_LINUX=$(uname -s | grep -q Linux && echo true || echo false)
+
+### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
+  print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+  command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+  command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+    print -P "%F{33} %F{34}Installation successful.%f%b" || \
+    print -P "%F{160} The clone has failed.%f%b"
 fi
 
-# Homebrew, needs to be loaded before fzf, oh-my-posh, etc.
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# Initialize Zinit
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+if [[ "$IS_MAC" == true ]]; then
+  # Homebrew, needs to be loaded before fzf, oh-my-posh, etc.
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # fzf, a fuzzy finder
-source <(fzf --zsh) # Trigger with ctrl+r, needs to be loaded before the plugin for tab completion
+# Trigger with ctrl+r, needs to be loaded before the plugin for tab completion
+if [[ "$IS_MAC" == true ]]; then
+  # --zsh is not avalable < v0.48.0, which is not on apt for Ubuntu yet
+  # https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration
+  source <(fzf --zsh)
+elif [[ "$IS_LINUX" == true ]]; then
+  # TODO
+  # source /usr/share/fzf/completion.zsh
+  # source /usr/share/fzf/key-bindings.zsh
+fi
 
 # Add zsh plugins
 # More plugins can be found on:
@@ -50,10 +65,8 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/config.json)"
 fi
 
-export TERM=xterm-256color
-
 # Keybindings
-bindkey '^f' autosuggest-accept # Use auto suggestion with ctrl+f (Also try out emacs mode with bindkey -e instead)
+bindkey '^f' autosuggest-accept # Use auto suggestion with ctrl+f
 bindkey '^[[1;5A' history-search-backward # Use ctrl+arrow-up to search history backward
 bindkey '^[[1;5B' history-search-forward # Use ctrl+arrow-down to search history forward
 bindkey "^[[1;3D" backward-word # Use Option + Left Arrow to move back a word
@@ -78,51 +91,22 @@ setopt hist_ignore_dups # Ignore duplicates in history
 # zoxide, smarter cd command
 eval "$(zoxide init --cmd cd zsh)"
 
-# CocoaPods
-export LANG=en_US.UTF-8
+# Go
+export GOPRIVATE=github.com/marjorg
+# Homebrew manages this for MacOS
+if [[ "$IS_LINUX" == true ]]; then
+  export PATH=$PATH:/usr/local/go/bin
+fi
+
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-
-# PNPM
-export PNPM_HOME="/Users/marius/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-# Android & Java
-export JAVA_HOME="/opt/homebrew/opt/openjdk"
-export PATH="$JAVA_HOME/bin:$PATH"
-export CPPFLAGS="-I$JAVA_HOME/include"
-export ANDROID_SDK_ROOT=/Users/marius/Library/Android/sdk
-export ANDROID_HOME=$ANDROID_SDK_ROOT
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
-
-# Python
-export PATH="$PATH:$HOME/Library/Python/3.9/bin"
-
-# Go
-export PATH=$PATH:$HOME/go/bin
-export PATH="$PATH:$HOME/.local/bin:$(go env GOPATH)/bin"
-export GOPRIVATE=github.com/marjorg
-
-# Ngrok
-if command -v ngrok &>/dev/null; then
-  eval "$(ngrok completion)"
-fi
-
-# Deno
-# Add deno completions to search path
-if [[ ":$FPATH:" != *":/Users/marius/.zsh/completions:"* ]]; then export FPATH="/Users/marius/.zsh/completions:$FPATH"; fi
-
-# Bun
-# Completions
-[ -s "/Users/mariusj/.bun/_bun" ] && source "/Users/mariusj/.bun/_bun"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

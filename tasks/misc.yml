@@ -12,28 +12,3 @@
     dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
     clone: yes
     update: no
-# TODO: Figure out how to check changed below
-# TODO: Figure out how to not overwrite existing versions if already installed
-# - name: Install Node.js LTS version with NVM
-#   shell: |
-#     export NVM_DIR="{{ ansible_env.HOME }}/.nvm"
-#     source $NVM_DIR/nvm.sh
-#     nvm install --lts
-#   args:
-#     executable: /bin/bash
-
-# - name: Set default Node.js version
-#   shell: |
-#     export NVM_DIR="{{ ansible_env.HOME }}/.nvm"
-#     source $NVM_DIR/nvm.sh
-#     nvm alias default node
-#   args:
-#     executable: /bin/bash
-
-# - name: Enable pnpm with corepack
-#   shell: |
-#     export NVM_DIR="{{ ansible_env.HOME }}/.nvm"
-#     source $NVM_DIR/nvm.sh
-#     corepack enable pnpm
-#   args:
-#     executable: /bin/bash

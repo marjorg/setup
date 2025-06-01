@@ -15,7 +15,7 @@ debug() {
 }
 
 execute() {
-  if $DRY; then
+  if [[ "$DRY" == "true" ]]; then
     log "$@"
 
     if [[ "$*" == *"get_op_password"* ]]; then
@@ -51,10 +51,9 @@ install_package_type() {
   echo "$packages" | while read -r package; do
     if [[ -n "$package" ]]; then
       local id=$(echo "$package" | jq -r ".$id_field")
-      local name=$(echo "$package" | jq -r '.name')
 
       if [[ -n "$id" ]]; then
-        "$install_function" "$id" "$name"
+        "$install_function" "$id"
       fi
     fi
   done

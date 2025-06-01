@@ -2,12 +2,11 @@
 
 install_npm() {
   local pkg_id="$1"
-  local pkg_name="$2"
 
   if ! npm list -g "$pkg_id" &>/dev/null; then
     execute npm install -g "$pkg_id"
-    log "✅ Installed $pkg_name"
+    log "✅ Installed $pkg_id"
   else
-    debug "Skipping npm package $pkg_name"
+    debug "Skipping npm package $pkg_id"
   fi
 }
