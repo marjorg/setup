@@ -12,6 +12,10 @@ install_latest_linux() {
 }
 
 install() {
+  if command -v go &> /dev/null; then
+    return
+  fi
+
   if [[ "$IS_LINUX" == "true" ]]; then
     install_latest_linux
     # This currently breaks when running on Linux/WSL2

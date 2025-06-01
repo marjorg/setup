@@ -1,6 +1,10 @@
 #!/bin/bash
 
 install() {
+  if command -v oha &> /dev/null; then
+    return
+  fi
+
   if [[ "$IS_MAC" == true ]]; then
     install_brew oha
   elif [[ "$IS_LINUX" == true ]]; then

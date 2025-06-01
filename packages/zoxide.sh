@@ -1,6 +1,10 @@
 #!/bin/bash
 
 install() {
+  if command -v zoxide &> /dev/null; then
+    return
+  fi
+
   if [[ "$IS_MAC" == true ]]; then
     install_brew zoxide
   elif [[ "$IS_LINUX" == true ]]; then

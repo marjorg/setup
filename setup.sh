@@ -31,7 +31,7 @@ else
     execute brew update
   elif [[ "$IS_LINUX" == true ]]; then
     setup_linux
-    execute sudo apt-get update
+    execute sudo apt-get update > /dev/null 2>&1
   fi
 
   for pkg in "$PACKAGES_DIR"/*.sh; do
@@ -65,8 +65,7 @@ else
     --vault-id=env@<(echo "$ENV_PASS") \
     --vault-id=gpg@<(echo "$GPG_PASS")
 
-  if [[ "$IS_LINUX" == true ]]; then
-    execute sudo chsh -s $(which zsh)
-  fi
-
+  # if [[ "$IS_LINUX" == true ]]; then
+  #   execute sudo chsh -s $(which zsh)
+  # fi
 fi

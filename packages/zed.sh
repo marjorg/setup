@@ -1,6 +1,10 @@
 #!/bin/bash
 
 install() {
+  if command -v zed &> /dev/null; then
+    return
+  fi
+  
   execute curl -f https://zed.dev/install.sh | sh
 }
 
@@ -10,5 +14,5 @@ update() {
     exit 1
   fi
 
-  install
+  execute curl -f https://zed.dev/install.sh | sh
 }

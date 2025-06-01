@@ -1,6 +1,10 @@
 #!/bin/bash
 
 install() {
+  if command -v bun &> /dev/null; then
+    return
+  fi
+
   execute eval "curl -fsSL https://bun.sh/install | bash"
 }
 

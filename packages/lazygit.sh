@@ -1,6 +1,10 @@
 #!/bin/bash
 
 install() {
+  if command -v lazygit &> /dev/null; then
+    return
+  fi
+
   execute go install github.com/jesseduffield/lazygit@latest
 }
 
@@ -10,5 +14,5 @@ update() {
     exit 1
   fi
 
-  install
+  execute go install github.com/jesseduffield/lazygit@latest
 }
