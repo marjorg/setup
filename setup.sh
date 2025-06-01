@@ -48,8 +48,8 @@ else
     fi
   done
 
-  if op whoami 2>&1 | grep -q "no account found"; then
-    log "Please add 1pass account manually with op account add"
+  if ! jq -e '.accounts | length > 0' "$HOME/.config/op/config" >/dev/null 2>&1; then
+    log "❌ No 1Password configuration found. Please run: op account add"
     exit 1
   else
     execute eval "$(op signin)"
@@ -64,4 +64,9 @@ else
     --vault-id=ssh@<(echo "$SSH_PASS") \
     --vault-id=env@<(echo "$ENV_PASS") \
     --vault-id=gpg@<(echo "$GPG_PASS")
+
+  if [[ "$IS_LINUX" == true ]]; then
+    execute sudo chsh -s $(which zsh)
+  fi
+
 fi
