@@ -73,7 +73,6 @@ bindkey "^[[1;3D" backward-word # Use Option + Left Arrow to move back a word
 bindkey "^[[1;3C" forward-word # Use Option + Right Arrow to move forward a word
 
 # Aliases
-alias ld='lazydocker'
 alias lg='lazygit'
 
 # History
@@ -97,6 +96,8 @@ export GOPRIVATE=github.com/marjorg
 if [[ "$IS_LINUX" == true ]]; then
   export PATH=$PATH:/usr/local/go/bin
 fi
+# For binaries installed with go install
+export PATH=$PATH:~/go/bin
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
