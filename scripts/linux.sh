@@ -5,12 +5,12 @@ setup_linux() {
 
   if ! [ -x "$(command -v jq)" ]; then
     log "✅ Installed jq"
-    sudo apt-get install jq
+    sudo apt-get install jq -y
   fi
 
   if ! [ -x "$(command -v unzip)" ]; then
     log "✅ Installed unzip"
-    sudo apt-get install unzip
+    sudo apt-get install unzip -y
   fi
 
   if ! [ -x "$(command -v op)" ]; then
@@ -30,12 +30,12 @@ setup_linux() {
 
   if ! [ -x "$(command -v git)" ]; then
     log "✅ Installed Git"
-    sudo apt-get install git
+    sudo apt-get install git -y
   fi
 
   if ! [ -x "$(command -v ansible)" ]; then
     log "✅ Installed Ansible"
-    sudo apt-get install ansible
+    sudo apt-get install ansible -y
   fi
 
   log "✅ Completed Linux setup"
