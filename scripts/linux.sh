@@ -1,20 +1,17 @@
 #!/bin/bash
 
 setup_linux() {
-  log "⌛ Starting Linux setup..."
-
   if ! [ -x "$(command -v jq)" ]; then
-    log "✅ Installed jq"
     sudo apt-get install jq -y
+    log "✅ Installed jq"
   fi
 
   if ! [ -x "$(command -v unzip)" ]; then
-    log "✅ Installed unzip"
     sudo apt-get install unzip -y
+    log "✅ Installed unzip"
   fi
 
   if ! [ -x "$(command -v op)" ]; then
-    log "✅ Installed 1Password CLI"
     curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
       sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg && \
       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" | \
@@ -26,16 +23,17 @@ setup_linux() {
       curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
       sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg && \
       sudo apt update && sudo apt install 1password-cli
+      log "✅ Installed 1Password CLI"Q
   fi
 
   if ! [ -x "$(command -v git)" ]; then
-    log "✅ Installed Git"
     sudo apt-get install git -y
+    log "✅ Installed Git"
   fi
 
   if ! [ -x "$(command -v ansible)" ]; then
-    log "✅ Installed Ansible"
     sudo apt-get install ansible -y
+    log "✅ Installed Ansible"
   fi
 
   log "✅ Completed Linux setup"

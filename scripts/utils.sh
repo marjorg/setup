@@ -33,18 +33,15 @@ execute() {
 }
 
 install_package_type() {
-  local type_name="$1"
-  local packages_file="$2"
-  local jq_filter="$3"
-  local id_field="$4"
-  local install_function="$5"
-
-  log "⌛ Installing ${type_name}..."
+  local packages_file="$1"
+  local jq_filter="$2"
+  local id_field="$3"
+  local install_function="$4"
 
   local packages=$(jq -c "to_entries[] | .value[] | select($jq_filter)" "$packages_file")
 
   if [[ -z "$packages" ]]; then
-    debug "⚠️ No applications with ${type_name}"
+    debug "⚠️ No applications with ${jq_filter}"
     return
   fi
 
