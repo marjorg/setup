@@ -7,6 +7,9 @@
 // custom settings, run the `zed: Open Default Settings` command
 // from the command palette
 {
+	"telemetry": {
+		"diagnostics": false
+	},
 	"features": {
 		"edit_prediction_provider": "zed"
 	},
