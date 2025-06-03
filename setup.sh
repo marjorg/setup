@@ -12,10 +12,13 @@ if [[ "$IS_MAC" == "false" && "$IS_LINUX" == "false" ]]; then
 fi
 
 DOTFILES_DIR="$HOME/dotfiles"
+SCRIPT_NAME=$(basename "$0")
 
-if ! [[ -d "$DOTFILES_DIR" ]]; then
+if [[ "$0" != "$DOTFILES_DIR/$SCRIPT_NAME" && ! -d "$DOTFILES_DIR" ]]; then
   git clone --quiet https://github.com/marjorg/setup.git $DOTFILES_DIR
   echo "✅ Cloned repository"
+  cd "$DOTFILES_DIR"
+  ./setup.sh
 else
   source shared.sh
 
@@ -65,7 +68,12 @@ else
     --vault-id=env@<(echo "$ENV_PASS") \
     --vault-id=gpg@<(echo "$GPG_PASS")
 
-  # if [[ "$IS_LINUX" == true ]]; then
-  #   execute sudo chsh -s $(which zsh)
-  # fi
+  if [[ "$IS_LINUX" == true ]]; then
+    if [[ "$SHELL" != "/usr/bin/zsh" ]]; then
+      execute chsh -s $(which zsh)
+      log "Changed default shell to zsh, restart terminal"
+    else
+      debug "Default shell is already zsh"
+    fi
+  fi
 fi
