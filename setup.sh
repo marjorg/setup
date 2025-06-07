@@ -44,7 +44,7 @@ else
     execute brew update
   elif [[ "$IS_LINUX" == true ]]; then
     setup_linux
-    execute sudo apt-get update > /dev/null 2>&1
+    execute sudo apt-get update
   fi
 
   for pkg in "$PACKAGES_DIR"/*.sh; do
@@ -53,10 +53,8 @@ else
       name=$(basename "${pkg%.sh}")
 
       if declare -F install > /dev/null; then
-        debug "Installing $name"
         install
         unset -f install
-        log "✅ Installed $name"
       else
         debug "Skipping $name – no install function"
       fi
@@ -75,10 +73,21 @@ else
   ENV_PASS=$(execute capture get_op_password o5pckyjgmw7y5v4clccfhrq2ky)
   GPG_PASS=$(execute capture get_op_password i3uhsfzvqjtgxx2iqszjkv6hri)
 
-  execute ansible-playbook "$DOTFILES_DIR/main.yml" \
-    --vault-id=ssh@<(echo "$SSH_PASS") \
-    --vault-id=env@<(echo "$ENV_PASS") \
-    --vault-id=gpg@<(echo "$GPG_PASS")
+  # Write to tempfile to avoid that pipe process can exit before Ansible reads it
+  SSH_FILE=$(mktemp)
+  ENV_FILE=$(mktemp)
+  GPG_FILE=$(mktemp)
+
+  echo "$SSH_PASS" > "$SSH_FILE"
+  echo "$ENV_PASS" > "$ENV_FILE"
+  echo "$GPG_PASS" > "$GPG_FILE"
+
+  ansible-playbook "$DOTFILES_DIR/main.yml" \
+      --vault-id="ssh@$SSH_FILE" \
+      --vault-id="env@$ENV_FILE" \
+      --vault-id="gpg@$GPG_FILE"
+
+  shred -u "$SSH_FILE" "$ENV_FILE" "$GPG_FILE"
 
   if [[ "$IS_LINUX" == true ]]; then
     if [[ "$SHELL" != "/usr/bin/zsh" ]]; then
