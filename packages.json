@@ -12,7 +12,6 @@
 		{ "homebrew": "tmux", "apt": "tmux", "name": "Tmux" },
 		{ "homebrew": "zsh", "apt": "zsh", "name": "Zsh" },
 		{ "homebrew": "imagemagick", "apt": "imagemagick", "name": "ImageMagick" },
-		{ "homebrew_cask": "1password", "name": "1Password" },
 		{ "homebrew_cask": "discord", "name": "Discord" },
 		{ "homebrew_cask": "docker", "name": "Docker" },
 		{ "homebrew_cask": "figma", "name": "Figma" },
