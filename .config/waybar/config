@@ -1,11 +1,16 @@
 {
   "layer": "top",
   "position": "top",
-  "modules-left": ["sway/workspaces"],
+  "modules-left": ["sway/workspaces", "sway/window"],
   "modules-center": ["clock"],
   "modules-right": ["tray"],
-  "clock": {
+  "sway/clock": {
     "format": "{:%H:%M:%S}",
     "interval": 1
+  },
+  "sway/window": {
+    "format": "{title}",
+    "max-length": 32,
+    "tooptip": true
   }
 }
