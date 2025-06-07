@@ -38,7 +38,7 @@
 	"ui_font_family": "JetBrainsMono Nerd Font",
 	"relative_line_numbers": true,
 	"theme": {
-		"mode": "system",
+		"mode": "dark",
 		"light": "Tokyo Night Light",
 		"dark": "Tokyo Night"
 	},
