@@ -5,6 +5,7 @@
 		{ "homebrew": "fzf", "apt": "fzf", "name": "Fzf" },
 		{ "homebrew": "gcc", "apt": "gcc", "name": "GNU Compiler Collection" },
 		{ "homebrew": "gh", "apt": "gh", "name": "GitHub CLI" },
+		{ "apt": "wofi", "name": "Wofi launcher" },
 		{ "homebrew": "gnupg", "apt": "gnupg", "name": "GnuPG" },
 		{ "homebrew": "neovim", "apt": "neovim", "name": "Neovim" },
 		{ "homebrew": "protobuf", "apt": "protobuf-compiler", "name": "Protobuf" },
