@@ -14,10 +14,3 @@ install() {
     install_apt oha
   fi
 }
-
-update() {
-  if ! command -v oha &> /dev/null; then
-    log "🚨 OHA is not installed"
-    exit 1
-  fi
-}

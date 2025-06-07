@@ -12,8 +12,3 @@ install() {
     install_package_type "$packages_file" '.apt != null' 'apt' install_apt
   fi
 }
-
-update() {
-  # No update function needed because they are managed by package managers
-  debug "No update function for other"
-}

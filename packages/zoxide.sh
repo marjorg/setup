@@ -14,10 +14,3 @@ install() {
     install_apt zoxide
   fi
 }
-
-update() {
-  if ! command -v zoxide &> /dev/null; then
-    log "🚨 'Zoxide is not installed"
-    exit 1
-  fi
-}

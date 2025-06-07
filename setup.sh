@@ -52,11 +52,13 @@ else
       source "$pkg"
       name=$(basename "${pkg%.sh}")
 
-      if declare -f install > /dev/null; then
+      if declare -F install > /dev/null; then
         debug "Installing $name"
         install
         unset -f install
         log "✅ Installed $name"
+      else
+        debug "Skipping $name – no install function"
       fi
     fi
   done

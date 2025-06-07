@@ -17,11 +17,13 @@ for pkg in "$PACKAGES_DIR"/*; do
     source "$pkg"
     name=$(basename "${pkg%.sh}")
 
-    if declare -f update > /dev/null; then
+    if declare -F update > /dev/null; then
       debug "Updating $name"
       update
       unset -f update
       log "✅ Updated $name"
+    else
+      debug "Skipping $name – no update function"
     fi
   fi
 done
