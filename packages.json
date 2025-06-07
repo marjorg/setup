@@ -19,7 +19,6 @@
 		{ "homebrew_cask": "figma", "name": "Figma" },
 		{ "homebrew_cask": "firefox", "name": "Firefox" },
 		{ "homebrew_cask": "ghostty", "name": "Ghostty" },
-		{ "homebrew_cask": "google-chrome", "name": "Google Chrome" },
 		{ "homebrew_cask": "imageoptim", "name": "ImageOptim" },
 		{ "homebrew_cask": "jordanbaird-ice", "name": "Ice Menu Bar" },
 		{ "homebrew_cask": "karabiner-elements", "name": "Karabiner Elements" },
