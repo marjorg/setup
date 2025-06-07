@@ -23,12 +23,7 @@ setup_linux() {
       curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
       sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg && \
       sudo apt update && sudo apt install 1password-cli
-      log "✅ Installed 1Password CLI"Q
-  fi
-
-  if ! [ -x "$(command -v git)" ]; then
-    sudo apt-get install git -y
-    log "✅ Installed Git"
+      log "✅ Installed 1Password CLI"
   fi
 
   if ! [ -x "$(command -v ansible)" ]; then

@@ -39,11 +39,6 @@ setup_mac() {
     log "✅ Installed 1Password CLI"
   fi
 
-  if ! [ -x "$(command -v git)" ]; then
-    execute brew install git
-    log "✅ Installed Git"
-  fi
-
   if ! [ -x "$(command -v ansible)" ]; then
     execute brew install ansible
     log "✅ Installed Ansible"

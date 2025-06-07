@@ -15,6 +15,16 @@ DOTFILES_DIR="$HOME/dotfiles"
 SCRIPT_NAME=$(basename "$0")
 
 if [[ "$0" != "$DOTFILES_DIR/$SCRIPT_NAME" && ! -d "$DOTFILES_DIR" ]]; then
+  if ! [ -x "$(command -v git)" ]; then
+    if [[ "$IS_MAC" == true ]]; then
+      brew install git
+    elif [[ "$IS_LINUX" == true ]]; then
+      sudo apt-get install git -y
+    fi
+
+    log "✅ Installed Git"
+  fi
+
   git clone --quiet https://github.com/marjorg/setup.git $DOTFILES_DIR
   echo "✅ Cloned repository"
   cd "$DOTFILES_DIR"
