@@ -83,6 +83,9 @@ input * {
     # Reload the configuration file
     bindsym $mod+Shift+c reload
 
+    # Restart waybar
+    bindsym $mod+Shift+w exec "pkill waybar; waybar &"
+
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec "swaymsg exit"
 #
