@@ -1,0 +1,10 @@
+* {
+	/* `otf-font-awesome` is required to be installed for icons */
+	font-family: "Ubuntu", sans-serif;
+	font-size: 14px;
+}
+
+#clock {
+	color: white;
+	padding: 0 10px;
+}
