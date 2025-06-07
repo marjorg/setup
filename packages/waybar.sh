@@ -6,8 +6,6 @@ install() {
   fi
 
   if [[ "$IS_LINUX" == "true" ]]; then
-    eecute sudo add-apt-repository ppa:nschloe/waybar
-    execute sudo apt update
     install_apt waybar
   fi
 }
