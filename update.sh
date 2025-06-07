@@ -34,5 +34,3 @@ elif [[ "$IS_LINUX" == true ]]; then
   execute sudo apt autoremove
   execute sudo apt autoclean
 fi
-
-execute rm -f "$HOME/.zprofile"

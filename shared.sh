@@ -7,7 +7,7 @@ DOTFILES_DIR="$HOME/dotfiles"
 PACKAGES_DIR="$DOTFILES_DIR/packages"
 
 # Avoid tools such as NVM from modifying these files
-rm -f "$HOME/.bashrc" "$HOME/.profile" "$HOME/.zprofile"
+rm -f "$HOME/.bashrc" "$HOME/.profile"
 
 DRY=false
 DEBUG=false

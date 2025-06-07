@@ -39,6 +39,7 @@
   loop:
     - .gitconfig
     - .zshrc
+    - .zprofile
 
 - name: Create .zshenv with environment variables
   template:
