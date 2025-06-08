@@ -17,6 +17,15 @@
     recurse: no
   register: config_dirs
 
+- name: Remove existing directories in .config that would conflict with symlinks
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/{{ item.path | basename }}"
+    state: absent
+  when:
+    - ansible_facts['os_family'] != 'Windows'
+    - lookup('ansible.builtin.file', ansible_env.HOME + '/.config/' + (item.path | basename), errors='ignore') == 'directory'
+  loop: "{{ config_dirs.files }}"
+
 - name: Symlink config directories
   ansible.builtin.file:
     src: "{{ item.path }}"
