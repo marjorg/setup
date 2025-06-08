@@ -45,7 +45,6 @@ zinit light Aloxaf/fzf-tab # Adds fzf keybindings to tab completion
 
 # Add snippets
 zinit snippet OMZP::git # Adds git aliases and functions.
-zinit snippet OMZP::aws # Adds AWS aliases and functions.
 zinit snippet OMZP::sudo # Run current or previous command with sudo by pressing `esc` twice.
 zinit snippet OMZP::command-not-found # Suggests packages for unknown commands.
 
