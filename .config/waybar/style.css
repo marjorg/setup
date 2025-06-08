@@ -37,3 +37,7 @@ window#waybar {
     color: @fg;
     padding: 0;
 }
+
+#tray {
+  padding-right: 8px;
+}

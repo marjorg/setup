@@ -14,5 +14,9 @@
     "format": "{title}",
     "max-length": 32,
     "tooptip": true
+  },
+  "tray": {
+    "icon-size": 12,
+    "spacing": 8
   }
 }
