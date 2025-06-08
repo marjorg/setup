@@ -8,8 +8,17 @@
 		{ "apt": "wofi", "name": "Wofi launcher" },
 		{ "homebrew": "gnupg", "apt": "gnupg", "name": "GnuPG" },
 		{ "homebrew": "neovim", "apt": "neovim", "name": "Neovim" },
+		{ "homebrew": "ansible", "apt": "ansible", "name": "Ansible" },
 		{ "homebrew": "protobuf", "apt": "protobuf-compiler", "name": "Protobuf" },
 		{ "homebrew": "ripgrep", "apt": "ripgrep", "name": "Ripgrep" },
+		{ "apt": "unzip", "name": "Unzip" },
+		{ "homebrew": "jq", "apt": "jq", "name": "Jq" },
+		{ "homebrew": "mas", "name": "MAS" },
+		{
+			"homebrew": "1password-cli",
+			"apt": "1password-cli",
+			"name": "1password CLI"
+		},
 		{ "homebrew": "tmux", "apt": "tmux", "name": "Tmux" },
 		{ "homebrew": "zsh", "apt": "zsh", "name": "Zsh" },
 		{ "homebrew": "imagemagick", "apt": "imagemagick", "name": "ImageMagick" },

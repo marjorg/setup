@@ -22,44 +22,18 @@ if [[ "$0" != "$DOTFILES_DIR/$SCRIPT_NAME" && ! -d "$DOTFILES_DIR" ]]; then
       sudo apt-get install git -y
     fi
 
-    log "✅ Installed Git"
+    echo "✅ Installed Git"
   fi
 
   git clone --quiet https://github.com/marjorg/setup.git $DOTFILES_DIR
   echo "✅ Cloned repository"
-  cd "$DOTFILES_DIR"
-  ./setup.sh
 else
-  source shared.sh
-
   if [ -z "$(git -C $DOTFILES_DIR status --porcelain)" ]; then
-    execute git -C $DOTFILES_DIR pull --quiet
-    log "✅ Updated repository"
+    git -C $DOTFILES_DIR pull --quiet
+    echo "✅ Updated repository"
   else
     log "⚠️ Local changes detected in dotfiles repository, skipping pull"
   fi
-
-  if [[ "$IS_MAC" == true ]]; then
-    setup_mac
-    execute brew update
-  elif [[ "$IS_LINUX" == true ]]; then
-    setup_linux
-    execute sudo apt-get update
-  fi
-
-  for pkg in "$PACKAGES_DIR"/*.sh; do
-    if [[ -f "$pkg" ]]; then
-      source "$pkg"
-      name=$(basename "${pkg%.sh}")
-
-      if declare -F install > /dev/null; then
-        install
-        unset -f install
-      else
-        debug "Skipping $name – no install function"
-      fi
-    fi
-  done
 
   if ! jq -e '.accounts | length > 0' "$HOME/.config/op/config" >/dev/null 2>&1; then
     log "❌ No 1Password configuration found. Please run: op account add"
