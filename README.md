@@ -1,9 +1,7 @@
 # Dotfiles & Setup
 
-- Install Curl if not installed.
-
 1. [Mac Only] Log with Apple ID to enable installation of Mac App Store apps via CLI.
-2. `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/marjorg/setup/main/setup.sh)"`
+2. `/bin/bash -c "$(wget -qO- https://raw.githubusercontent.com/marjorg/setup/main/setup.sh)"`
 
 <!--
 ## Ansible Vault
