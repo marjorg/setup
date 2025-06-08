@@ -4,7 +4,7 @@
   "modules-left": ["sway/workspaces", "sway/window"],
   "modules-center": ["clock"],
   "modules-right": ["tray"],
-  "sway/clock": {
+  "clock": {
     "format": "{:%H:%M:%S}",
     "interval": 1
   },
