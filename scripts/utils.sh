@@ -31,27 +31,3 @@ execute() {
     fi
   fi
 }
-
-install_package_type() {
-  local packages_file="$1"
-  local jq_filter="$2"
-  local id_field="$3"
-  local install_function="$4"
-
-  local packages=$(jq -c "to_entries[] | .value[] | select($jq_filter)" "$packages_file")
-
-  if [[ -z "$packages" ]]; then
-    debug "⚠️ No applications with ${jq_filter}"
-    return
-  fi
-
-  echo "$packages" | while read -r package; do
-    if [[ -n "$package" ]]; then
-      local id=$(echo "$package" | jq -r ".$id_field")
-
-      if [[ -n "$id" ]]; then
-        "$install_function" "$id"
-      fi
-    fi
-  done
-}

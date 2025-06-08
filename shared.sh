@@ -5,7 +5,6 @@ set -o pipefail
 
 DOTFILES_DIR="$HOME/dotfiles"
 PACKAGES_DIR="$DOTFILES_DIR/packages"
-PACKAGES_FILE="$DOTFILES_DIR/packages.json"
 
 # Avoid tools such as NVM from modifying these files
 rm -f "$HOME/.bashrc" "$HOME/.profile"

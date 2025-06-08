@@ -1,6 +1,6 @@
 #!/bin/bash
 
-install_mas_app() {
+install_mas() {
   local app_id="$1"
 
   if ! mas list | grep -q "^${app_id} "; then
