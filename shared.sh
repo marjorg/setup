@@ -11,12 +11,15 @@ rm -f "$HOME/.bashrc" "$HOME/.profile"
 
 DRY=false
 DEBUG=false
+WORK=false
 
 while [[ $# > 0 ]]; do
   if [[ $1 == "--dry" ]]; then
     DRY=true
   elif [[ $1 == "--debug" ]]; then
     DEBUG=true
+  elif [[ $1 == "--work" ]]; then
+    WORK=true
   fi
 
   shift

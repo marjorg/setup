@@ -1,6 +1,10 @@
 #!/bin/bash
 
 install() {
+  if [[ "$IS_WORK" == "true" ]]; then
+    return
+  fi
+
   if command -v 1password &> /dev/null; then
     return
   fi

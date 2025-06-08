@@ -61,12 +61,16 @@ if [[ "$IS_MAC" == true ]]; then
   install_brew_cask tableplus
   install_brew_cask the-unarchiver
   install_brew_cask visual-studio-code
-  install_mas 1569813296 # 1Password Safari
-  install_mas 937984704 # Amphetamine
+
+  if [[ ! "$IS_WORK" == true ]]; then
+    install_brew 1password-cli
+    install_mas 1569813296 # 1Password Safari
+    install_mas 937984704 # Amphetamine
+  fi
 elif [[ "$IS_LINUX" == true ]]; then
   install_apt curl
 
-  if ! [ -x "$(command -v op)" ]; then
+  if [[ ! "$IS_WORK" == true && ! $(command -v op) ]]; then
     curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
       sudo gpg --dearmor --yes --output /usr/share/keyrings/1password-archive-keyring.gpg && \
       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" | \
@@ -94,10 +98,13 @@ elif [[ "$IS_LINUX" == true ]]; then
   install_apt ripgrep
   install_apt unzip
   install_apt jq
-  install_apt 1password-cli
   install_apt tmux
   install_apt zsh
   install_apt imagemagick
+
+  if [[ ! "$IS_WORK" == true ]]; then
+    install_apt 1password-cli
+  fi
 fi
 
 for pkg in "$PACKAGES_DIR"/*.sh; do
