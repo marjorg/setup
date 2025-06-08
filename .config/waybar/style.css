@@ -54,7 +54,7 @@ window#waybar {
 }
 
 #workspaces button.urgent {
-  color: @magenta; /* TODO */
+  color: @red;
 }
 
 #workspaces button.hosting-monitor {
