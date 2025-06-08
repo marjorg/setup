@@ -10,32 +10,61 @@
 @define-color gray #565f89;
 
 * {
-    border: none;
-    border-radius: 0;
-    font-family: JetBrainsMono Nerd Font, monospace;
-    font-size: 13px;
-    min-height: 0;
+  border: none;
+  border-radius: 0;
+  font-family: JetBrainsMono Nerd Font, monospace;
+  font-size: 13px;
+  min-height: 0;
 }
 
 window#waybar {
-    background: @bg;
-    color: @fg;
+  background: @bg;
+  color: @fg;
+}
+
+#workspaces {
+  background: transparent;
+  color: @gray;
 }
 
 #workspaces button {
-    background: transparent;
-    color: @gray;
-    padding: 2px 2px;
+  background: transparent;
+  color: @gray;
+  padding: 2px 2px;
 }
 
 #workspaces button.active {
-    color: @blue;
+  color: @blue; /* TODO */
+}
+
+#workspaces button.empty {
+  color: @red; /* TODO */
+}
+
+#workspaces button.visible {
+  color: @blue;
+}
+
+#workspaces button.persistent {
+  color: @yellow; /* TODO */
+}
+
+#workspaces button.special {
+  color: @gray; /* TODO */
+}
+
+#workspaces button.urgent {
+  color: @magenta; /* TODO */
+}
+
+#workspaces button.hosting-monitor {
+  color: @cyan; /* TODO */
 }
 
 #clock, #battery, #network, #pulseaudio, #tray {
-    background: @bg;
-    color: @fg;
-    padding: 0;
+  background: @bg;
+  color: @fg;
+  padding: 0;
 }
 
 #clock {

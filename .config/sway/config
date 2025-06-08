@@ -20,6 +20,12 @@ input * {
   xkb_layout no
 }
 
+# Automatically move to specified workspace index, not sure about this yet.
+# Can also be combined with `exec app` to auto start.
+assign [app_id="com.mitchellh.ghostty"] 1
+assign [app_id="dev.zed.Zed"] 2
+assign [title=".*Brave.*"] 3
+
 exec_always {
   export XDG_CURRENT_DESKTOP=sway
   export XDG_THEME_PREFERENCE=dark
