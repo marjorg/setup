@@ -26,6 +26,10 @@ exec_always {
   export QT_QPA_PLATFORM=wayland
 }
 
+# Remove the title bar, handled by Waybar
+default_border none
+default_floating_border none
+
 # Key bindings
 # Change default terminal
 bindsym $mod+Return exec ghostty
