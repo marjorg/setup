@@ -6,11 +6,17 @@ install() {
     return
   fi
 
-  local url
-  url=$(curl -sf "https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases/latest" \
-    | grep "browser_download_url.*deb" \
-    | cut -d '"' -f 4)
+  local ubuntu_version
+  ubuntu_version=$(lsb_release -rs)
 
+  local url
+  url=$(curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases | \
+    jq -r --arg ver "$ubuntu_version" '
+      [.[] | select(.prerelease == false)][0].assets[]
+      | select(.name | test("^ghostty_.*_amd64_" + ($ver | gsub("\\."; "\\.")) + "\\.deb$"))
+      | .browser_download_url')
+
+  echo "$url"
   local temp_deb
   temp_deb=$(mktemp --suffix=.deb)
 
