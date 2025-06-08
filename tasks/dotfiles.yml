@@ -10,21 +10,23 @@
     state: directory
     mode: "0755"
 
+- name: Check if gtk-3.0 is a symlink
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.config/gtk-3.0"
+  register: gtk3_stat
+
+- name: Remove gtk-3.0 if it's not a symlink
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/gtk-3.0"
+    state: absent
+  when: gtk3_stat.stat.isdir and not gtk3_stat.stat.islnk
+
 - name: Find top-level directories in .config
   ansible.builtin.find:
     paths: "{{ playbook_dir }}/.config"
     file_type: directory
     recurse: no
   register: config_dirs
-
-- name: Remove existing directories in .config that would conflict with symlinks
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/{{ item.path | basename }}"
-    state: absent
-  when:
-    - ansible_facts['os_family'] != 'Windows'
-    - lookup('ansible.builtin.file', ansible_env.HOME + '/.config/' + (item.path | basename), errors='ignore') == 'directory'
-  loop: "{{ config_dirs.files }}"
 
 - name: Symlink config directories
   ansible.builtin.file:
