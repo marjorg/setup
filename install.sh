@@ -87,6 +87,7 @@ elif [[ "$IS_LINUX" == true ]]; then
   install_apt gh
   install_apt wofi
   install_apt gnupg
+  install_apt gnupg2
   install_apt neovim
   install_apt ansible
   install_apt protobuf-compiler
