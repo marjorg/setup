@@ -19,19 +19,6 @@ include /etc/sway/config-vars.d/*
 # Output configuration
 output * bg ~/.config/sway/bg-3.png fill
 
-### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-
 # Input configuration
 input * {
   xkb_layout no
@@ -62,8 +49,19 @@ bindsym $mod+Shift+w exec "pkill waybar; waybar &"
 
 # Exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+e exec "swaymsg exit"
+
 # Lock sway
-bindsym $mod+Ctrl+l exec "swaylock -i ~/.config/sway/bg-2.png"
+bindsym $mod+Ctrl+l exec "swaylock -i $HOME/.config/sway/bg-2.png"
+
+# Lock after 300 seconds of inactivity
+# Turn off displays after 600 seconds of inactivity
+# Lock screen when computer goes to sleep
+# exec_always swayidle -w \
+#   timeout 5 'swaylock -i $HOME/.config/sway/bg-2.png' \
+#   timeout 600 'swaymsg "output * power off"' \
+#   resume 'swaymsg "output * power on"' \
+#   before-sleep 'swaylock -i $HOME/.config/sway/bg-2.png'
+
 
 # Moving around:
 # Move your focus around
@@ -175,5 +173,6 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 exec waybar
+exec mako
 
 include /etc/sway/config.d/*
