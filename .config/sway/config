@@ -1,8 +1,4 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
+exec_always --no-startup-id $HOME/.config/sway/import-gtk-settings.sh
 
 ### Variables
 #
@@ -22,6 +18,12 @@ output * bg ~/.config/sway/bg-2.png fill
 # Input configuration
 input * {
   xkb_layout no
+}
+
+exec_always {
+  export XDG_CURRENT_DESKTOP=sway
+  export XDG_THEME_PREFERENCE=dark
+  export QT_QPA_PLATFORM=wayland
 }
 
 # Key bindings

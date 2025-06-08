@@ -4,7 +4,7 @@
     file: vars/env_secrets.yml
   no_log: true
 
-- name: Create .config test directory
+- name: Create .config directory
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config"
     state: directory
@@ -17,11 +17,6 @@
     recurse: no
   register: config_dirs
 
-- name: Debug found directories
-  ansible.builtin.debug:
-    msg: "Found directories to symlink: {{ config_dirs.files | map(attribute='path') | map('basename') | list }}"
-    verbosity: 1
-
 - name: Symlink config directories
   ansible.builtin.file:
     src: "{{ item.path }}"
@@ -29,6 +24,27 @@
     state: link
     force: yes
   loop: "{{ config_dirs.files }}"
+
+- name: Create .themes directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.themes"
+    state: directory
+    mode: "0755"
+
+- name: Find top-level directories in .themes
+  ansible.builtin.find:
+    paths: "{{ playbook_dir }}/.themes"
+    file_type: directory
+    recurse: no
+  register: themes_dirs
+
+- name: Symlink themes directories
+  ansible.builtin.file:
+    src: "{{ item.path }}"
+    dest: "{{ ansible_env.HOME }}/.themes/{{ item.path | basename }}"
+    state: link
+    force: yes
+  loop: "{{ themes_dirs.files }}"
 
 - name: Symlink root dotfiles
   ansible.builtin.file:
