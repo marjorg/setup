@@ -17,7 +17,7 @@ set $right l
 include /etc/sway/config-vars.d/*
 
 # Output configuration
-output * bg ~/.config/sway/bg-3.png fill
+output * bg ~/.config/sway/bg-2.png fill
 
 # Input configuration
 input * {
@@ -42,13 +42,19 @@ bindsym $mod+d exec wofi --show drun
 floating_modifier $mod normal
 
 # Reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Ctrl+c reload
 
 # Restart waybar
-bindsym $mod+Shift+w exec "pkill waybar; waybar &"
+bindsym $mod+Ctrl+w exec "pkill waybar; waybar &"
 
-# Exit sway (logs you out of your Wayland session)
-bindsym $mod+Shift+e exec "swaymsg exit"
+# Exit sway session
+bindsym $mod+Ctrl+e exec "swaymsg exit"
+
+# Restarts computer
+bindsym $mod+Ctrl+r exec "systemctl reboot"
+
+# Shuts down computer
+bindsym $mod+Ctrl+q exec "systemctl poweroff"
 
 # Lock sway
 bindsym $mod+Ctrl+l exec "swaylock -i $HOME/.config/sway/bg-2.png"
