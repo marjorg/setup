@@ -1,9 +1,9 @@
 {
   "layer": "top",
   "position": "top",
-  "modules-left": ["sway/workspaces", "sway/window"],
-  "modules-center": ["clock"],
-  "modules-right": ["tray"],
+  "modules-left": ["sway/workspaces"],
+  "modules-center": ["sway/window"],
+  "modules-right": ["tray", "clock"],
   "clock": {
     "interval": 1,
     "format": "{:%a %-d. %b %H:%M:%S}",

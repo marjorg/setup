@@ -38,6 +38,10 @@ window#waybar {
     padding: 0;
 }
 
+#clock {
+  padding-right: 8px;
+}
+
 #tray {
   padding-right: 8px;
 }
