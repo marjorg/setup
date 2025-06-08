@@ -10,7 +10,7 @@ install() {
   elif [[ "$IS_LINUX" == true ]]; then
     execute echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
     execute sudo curl -fsSL https://azlux.fr/repo.gpg -o /usr/share/keyrings/azlux-archive-keyring.gpg
-    execute sudo apt update
+    execute sudo apt-get update
     install_apt oha
   fi
 }

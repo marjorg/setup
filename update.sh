@@ -31,6 +31,6 @@ done
 if [[ "$IS_MAC" == true ]]; then
   execute brew cleanup
 elif [[ "$IS_LINUX" == true ]]; then
-  execute sudo apt autoremove
-  execute sudo apt autoclean
+  execute sudo apt-get autoremove
+  execute sudo apt-get autoclean
 fi

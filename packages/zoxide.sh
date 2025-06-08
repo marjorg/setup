@@ -10,7 +10,7 @@ install() {
   elif [[ "$IS_LINUX" == true ]]; then
     execute eval curl -fsSL https://apt.cli.rs/pubkey.asc | sudo tee -a /usr/share/keyrings/rust-tools.asc
     execute eval curl -fsSL https://apt.cli.rs/rust-tools.list | sudo tee /etc/apt/sources.list.d/rust-tools.list
-    execute sudo apt update
+    execute sudo apt-get update
     install_apt zoxide
   fi
 }

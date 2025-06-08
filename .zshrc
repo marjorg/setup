@@ -26,7 +26,7 @@ fi
 # fzf, a fuzzy finder
 # Trigger with ctrl+r, needs to be loaded before the plugin for tab completion
 if [[ "$IS_MAC" == true ]]; then
-  # --zsh is not avalable < v0.48.0, which is not on apt for Ubuntu yet
+  # --zsh is not available < v0.48.0, which is not on apt for Ubuntu yet
   # https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration
   source <(fzf --zsh)
 elif [[ "$IS_LINUX" == true ]]; then
