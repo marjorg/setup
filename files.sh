@@ -5,44 +5,16 @@ set -o pipefail
 
 source shared.sh
 
-EXTRA_VARS=""
+read -sp "Vault password: " VAULT_PW
+echo
 
-if [[ "$WORK" == "true" ]]; then
-  EXTRA_VARS="work_mode=true"
-  debug "Running in work mode - personal configurations will be skipped"
+VAULT_PW_FILE=$(mktemp)
+chmod 600 "$VAULT_PW_FILE"
+echo "$VAULT_PW" > "$VAULT_PW_FILE"
 
-  ansible-playbook "$DOTFILES_DIR/main.yml" \
-    ${EXTRA_VARS:+-e "$EXTRA_VARS"}
-else
-  if ! jq -e '.accounts | length > 0' "$HOME/.config/op/config" >/dev/null 2>&1; then
-    log "❌ No 1Password configuration found. Please run: op account add"
-    exit 1
-  else
-    execute eval "$(op signin)"
-    log "✅ Signed in to 1Password CLI"
-  fi
-
-  SSH_PASS=$(execute capture get_op_password zt523aidyr72aidluibpvs5zxy)
-  ENV_PASS=$(execute capture get_op_password o5pckyjgmw7y5v4clccfhrq2ky)
-  GPG_PASS=$(execute capture get_op_password i3uhsfzvqjtgxx2iqszjkv6hri)
-
-  # Write to tempfile to avoid that pipe process can exit before Ansible reads it
-  SSH_FILE=$(mktemp)
-  ENV_FILE=$(mktemp)
-  GPG_FILE=$(mktemp)
-
-  echo "$SSH_PASS" > "$SSH_FILE"
-  echo "$ENV_PASS" > "$ENV_FILE"
-  echo "$GPG_PASS" > "$GPG_FILE"
-
-  ansible-playbook "$DOTFILES_DIR/main.yml" \
-    --vault-id="ssh@$SSH_FILE" \
-    --vault-id="env@$ENV_FILE" \
-    --vault-id="gpg@$GPG_FILE" \
-    ${EXTRA_VARS:+-e "$EXTRA_VARS"}
-
-  shred -u "$SSH_FILE" "$ENV_FILE" "$GPG_FILE"
-fi
+ansible-playbook "$DOTFILES_DIR/main.yml" \
+  -e "work_mode=$WORK" \
+  --vault-password-file "$VAULT_PW_FILE"
 
 if [[ "$IS_LINUX" == true ]]; then
   if [[ "$SHELL" != "/usr/bin/zsh" ]]; then

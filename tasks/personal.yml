@@ -1,9 +1,4 @@
 ---
-- name: Include encrypted variables
-  include_vars:
-    file: vars/env_secrets.yml
-  no_log: true
-
 - name: Create .zshenv with environment variables
   template:
     src: "templates/zshenv.j2"

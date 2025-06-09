@@ -1,7 +1,10 @@
 ---
-- name: Setup dotfiles
+- name: Setup
   hosts: localhost
   connection: local
+
+  vars_files:
+    - modules/private/vault.yml
 
   vars:
     work_mode: false
@@ -12,6 +15,16 @@
         msg: "Distribution {{ ansible_distribution }} is not supported"
       when: ansible_distribution | lower not in ['macosx', 'ubuntu']
 
+    - name: Personal mode
+      ansible.builtin.debug:
+        msg: "Running in personal mode"
+      when: not work_mode | bool
+
+    - name: Work mode
+      ansible.builtin.debug:
+        msg: "Running in work mode"
+      when: work_mode | bool
+
     - name: Setup dotfiles
       include_tasks: tasks/dotfiles.yml
 
@@ -19,15 +32,13 @@
       include_tasks: tasks/personal.yml
       when: not work_mode | bool
 
-    - name: Setup SSH
-      include_tasks: tasks/ssh.yml
+    - name: Setup SSH (personal)
+      include_tasks: tasks/ssh_personal.yml
+      when: not work_mode | bool
 
-    - name: Setup GPG and Git
-      include_tasks: tasks/git_config.yml
-
-    # - name: Configure macOS settings
-    #   include_tasks: tasks/macos_settings.yml
-    #   when: ansible_distribution | lower == 'macosx'
+    - name: Setup GPG and Git (personal)
+      include_tasks: tasks/git_personal.yml
+      when: not work_mode | bool
 
     - name: Setup misc
       include_tasks: tasks/misc.yml
