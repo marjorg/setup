@@ -25,7 +25,7 @@ if [[ "$0" != "$DOTFILES_DIR/$SCRIPT_NAME" && ! -d "$DOTFILES_DIR" ]]; then
     echo "✅ Installed Git"
   fi
 
-  git clone --quiet https://github.com/marjorg/setup.git $DOTFILES_DIR
+  git clone --quiet --recurse-submodules https://github.com/marjorg/setup.git $DOTFILES_DIR
   echo "✅ Cloned repository"
 else
   if [ -z "$(git -C $DOTFILES_DIR status --porcelain)" ]; then
