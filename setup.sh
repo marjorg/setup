@@ -12,9 +12,8 @@ if [[ "$IS_MAC" == "false" && "$IS_LINUX" == "false" ]]; then
 fi
 
 DOTFILES_DIR="$HOME/dotfiles"
-SCRIPT_NAME=$(basename "$0")
 
-if [[ "$0" != "$DOTFILES_DIR/$SCRIPT_NAME" && ! -d "$DOTFILES_DIR" ]]; then
+if [[ ! -d "$DOTFILES_DIR" ]]; then
   if ! [ -x "$(command -v git)" ]; then
     if [[ "$IS_MAC" == true ]]; then
       brew install git
@@ -25,15 +24,8 @@ if [[ "$0" != "$DOTFILES_DIR/$SCRIPT_NAME" && ! -d "$DOTFILES_DIR" ]]; then
     echo "✅ Installed Git"
   fi
 
-  git clone --quiet --recurse-submodules https://github.com/marjorg/setup.git $DOTFILES_DIR
-  git -C $DOTFILES_DIR submodule update --init --recursive
-  echo "✅ Cloned repository"
+  git clone --quiet https://github.com/marjorg/setup.git $DOTFILES_DIR
+  echo "✅ Cloned repository to $DOTFILES_DIR"
 else
-  if [ -z "$(git -C $DOTFILES_DIR status --porcelain)" ]; then
-    git -C $DOTFILES_DIR pull --quiet
-    git -C $DOTFILES_DIR submodule update --init --recursive
-    echo "✅ Updated repository"
-  else
-    echo "⚠️ Local changes detected in dotfiles repository, skipping pull"
-  fi
+  echo "⚠️ Repository already exist in $DOTFILES_DIR"
 fi

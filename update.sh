@@ -12,18 +12,15 @@ elif [[ "$IS_LINUX" == true ]]; then
   execute sudo apt-get upgrade -y
 fi
 
-for pkg in "$PACKAGES_DIR"/*; do
-  if [[ -f "$pkg" ]]; then
-    source "$pkg"
-    name=$(basename "${pkg%.sh}")
+for task in "$TASKS_DIR"/*.sh; do
+  if [[ -f "$task" ]]; then
+    source "$task"
+    TASK_NAME=$(basename "${task%.sh}")
 
     if declare -F update > /dev/null; then
-      debug "Updating $name"
+      debug "Running $TASK_NAME update..."
       update
       unset -f update
-      log "✅ Updated $name"
-    else
-      debug "Skipping $name – no update function"
     fi
   fi
 done
