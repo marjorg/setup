@@ -6,7 +6,7 @@ set -o pipefail
 source shared.sh
 source utilities.sh
 
-if [[ ! -d "$DOTFILES_DIR/modules/private" ]]; then
+if [[ ! -d "$DOTFILES_DIR/modules/private/vault.yml" ]]; then
   read -sp "Github Token (Scopes: admin:public_key, repo): " GH_TOKEN
   echo
 
@@ -28,7 +28,7 @@ if [[ ! -d "$DOTFILES_DIR/modules/private" ]]; then
   export GIT_SSH_COMMAND="ssh -i /tmp/temp_github_key -o IdentitiesOnly=yes"
 
   # TODO: These trigger a yes prompt, can that be auto?
-  git clone --quiet --recurse-submodules https://github.com/marjorg/setup.git $DOTFILES_DIR
+#  git clone --quiet --recurse-submodules https://github.com/marjorg/setup.git $DOTFILES_DIR
   git -C $DOTFILES_DIR submodule update --init --recursive
 
   KEY_ID=$(wget --header="Authorization: token $GH_TOKEN" \
