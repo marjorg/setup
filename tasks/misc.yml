@@ -1,11 +1,4 @@
 ---
-- name: Clone notes repository
-  ansible.builtin.git:
-    repo: git@github.com:marjorg/notes.git
-    dest: "{{ ansible_env.HOME }}/notes"
-    clone: yes
-    update: no
-
 - name: Install tmux plugin manager
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm

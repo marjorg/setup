@@ -1,9 +1,4 @@
 ---
-- name: Include encrypted variables
-  include_vars:
-    file: vars/env_secrets.yml
-  no_log: true
-
 - name: Create .config directory
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config"
@@ -67,17 +62,3 @@
     - .gitconfig
     - .zshrc
     - .zprofile
-
-- name: Create .zshenv with environment variables
-  template:
-    src: "templates/zshenv.j2"
-    dest: "{{ ansible_env.HOME }}/.zshenv"
-    mode: "0600"
-  no_log: true
-
-- name: Create .wakatime.cfg file
-  template:
-    src: "templates/wakatime.j2"
-    dest: "{{ ansible_env.HOME }}/.wakatime.cfg"
-    mode: "0600"
-  no_log: true

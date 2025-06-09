@@ -1,0 +1,26 @@
+---
+- name: Include encrypted variables
+  include_vars:
+    file: vars/env_secrets.yml
+  no_log: true
+
+- name: Create .zshenv with environment variables
+  template:
+    src: "templates/zshenv.j2"
+    dest: "{{ ansible_env.HOME }}/.zshenv"
+    mode: "0600"
+  no_log: true
+
+- name: Create .wakatime.cfg file
+  template:
+    src: "templates/wakatime.j2"
+    dest: "{{ ansible_env.HOME }}/.wakatime.cfg"
+    mode: "0600"
+  no_log: true
+
+- name: Clone notes repository
+  ansible.builtin.git:
+    repo: git@github.com:marjorg/notes.git
+    dest: "{{ ansible_env.HOME }}/notes"
+    clone: yes
+    update: no
