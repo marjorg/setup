@@ -3,6 +3,9 @@
   hosts: localhost
   connection: local
 
+  vars:
+    work_mode: false
+
   pre_tasks:
     - name: Check for supported distribution
       ansible.builtin.fail:
@@ -11,6 +14,10 @@
 
     - name: Setup dotfiles
       include_tasks: tasks/dotfiles.yml
+
+    - name: Setup personal
+      include_tasks: tasks/personal.yml
+      when: not work_mode | bool
 
     - name: Setup SSH
       include_tasks: tasks/ssh.yml
