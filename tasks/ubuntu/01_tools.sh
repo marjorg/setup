@@ -1,7 +1,7 @@
 #!/bin/bash
 
 install() {
-  sudo apt-get install btop \
+  sudo apt-get install -y btop \
     fd-find \
     fzf \
     gcc \

@@ -6,14 +6,14 @@ install() {
 
   # Papirus Icon theme
   # lxappearance: Preview/edit themes/icons
-  sudo apt-get install \
+  sudo apt-get install -y \
     lxappearance \
     sassc \
     gtk2-engines-murrine \
     gnome-themes-extra \
     papirus-icon-theme
 
-  sudo apt-get install \
+  sudo apt-get install -y \
     sway \
     swaylock \
     swayidle \
@@ -21,7 +21,7 @@ install() {
     waybar
 
   # When updating to Ubuntu 23+ this (deps below, +wayland-protocols & mako) can be replaced by install_apt sway-notification-center
-  sudo apt-get install \
+  sudo apt-get install -y \
     meson \
     libwayland-dev \
     libpango1.0-dev \

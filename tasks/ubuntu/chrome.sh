@@ -5,5 +5,5 @@ install() {
   echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
   sudo apt-get update
 
-  sudo apt-get install google-chrome-stable
+  sudo apt-get install -y google-chrome-stable
 }
