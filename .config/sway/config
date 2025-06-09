@@ -192,5 +192,6 @@ bindsym $mod+r mode "resize"
 
 exec waybar
 exec mako
+exec wlsunset -l 59.9 -L 10.7
 
 include /etc/sway/config.d/*
