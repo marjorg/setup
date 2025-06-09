@@ -5,7 +5,7 @@ install() {
     return
   fi
 
-  execute eval "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 }
 
 update() {
@@ -14,5 +14,5 @@ update() {
     exit 1
   fi
 
-  execute rustup update
+  rustup update
 }

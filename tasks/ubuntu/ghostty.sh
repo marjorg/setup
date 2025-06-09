@@ -1,11 +1,6 @@
 #!/bin/bash
 
-# https://ghostty.org/docs/install/binary#ubuntu
 install() {
-  if command -v ghostty &> /dev/null; then
-    return
-  fi
-
   local ubuntu_version
   ubuntu_version=$(lsb_release -rs)
 
@@ -20,7 +15,7 @@ install() {
   local temp_deb
   temp_deb=$(mktemp --suffix=.deb)
 
-  execute curl -L "$url" -o "$temp_deb"
-  execute sudo dpkg -i "$temp_deb"
-  execute rm -f "$temp_deb"
+  curl -L "$url" -o "$temp_deb"
+  sudo dpkg -i "$temp_deb"
+  rm -f "$temp_deb"
 }
