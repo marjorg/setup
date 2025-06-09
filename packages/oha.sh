@@ -5,12 +5,12 @@ install() {
     return
   fi
 
-  if [[ "$IS_MAC" == true ]]; then
-    install_brew oha
-  elif [[ "$IS_LINUX" == true ]]; then
+  if [[ "$IS_LINUX" == true ]]; then
     execute echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
     execute sudo curl -fsSL https://azlux.fr/repo.gpg -o /usr/share/keyrings/azlux-archive-keyring.gpg
     execute sudo apt-get update
-    install_apt oha
   fi
+
+  install_brew oha
+  install_apt oha
 }

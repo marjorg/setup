@@ -5,7 +5,5 @@ install() {
     return
   fi
 
-  if [[ "$IS_LINUX" == "true" ]]; then
-    install_apt waybar
-  fi
+  install_apt waybar
 }

@@ -11,10 +11,10 @@ install() {
     execute tar -xf JetBrainsMono.tar.xz -C $HOME/.fonts/JetBrainsMono
     execute rm JetBrainsMono.tar.xz
     execute fc-cache -f -v
-  elif [[ "$IS_MACOS" == "true" ]]; then
-    install_brew_cask font-jetbrains-mono
-    install_brew_cask font-jetbrains-mono-nerd-font
   fi
+
+  install_brew_cask font-jetbrains-mono
+  install_brew_cask font-jetbrains-mono-nerd-font
 }
 
 update() {

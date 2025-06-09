@@ -1,6 +1,10 @@
 #!/bin/bash
 
 install_apt() {
+  if [[ "$IS_LINUX" == "false" ]]; then
+    return
+  fi
+
   local pkg_id="$1"
 
   if ! dpkg -s "$pkg_id" &>/dev/null; then

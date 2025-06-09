@@ -20,10 +20,9 @@ install() {
     install_latest_linux
     # This currently breaks when running on Linux/WSL2
     # execute export PATH=$PATH:$HOME/go/bin
-  elif [[ "$IS_MACOS" == "true" ]]; then
-    install_brew go
   fi
 
+  install_brew go
   execute go install golang.org/x/tools/gopls@latest
 }
 
@@ -43,6 +42,6 @@ update() {
   if [[ "$IS_LINUX" == "true" ]]; then
     install_latest_linux
   fi
-  
+
   execute go install golang.org/x/tools/gopls@latest
 }

@@ -1,6 +1,10 @@
 #!/bin/bash
 
 install_brew() {
+  if [[ "$IS_MAC" == "false" ]]; then
+    return
+  fi
+
   local pkg_id="$1"
 
   if ! brew list --formula "$pkg_id" &>/dev/null; then
@@ -12,6 +16,10 @@ install_brew() {
 }
 
 upgrade_brew() {
+  if [[ "$IS_MAC" == "false" ]]; then
+    return
+  fi
+
   local pkg_id="$1"
 
   if ! brew list --formula "$pkg_id" &>/dev/null; then
@@ -22,6 +30,10 @@ upgrade_brew() {
 }
 
 install_brew_cask() {
+  if [[ "$IS_MAC" == "false" ]]; then
+    return
+  fi
+
   local pkg_id="$1"
 
   if ! brew list --cask "$pkg_id" &>/dev/null; then

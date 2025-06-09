@@ -1,6 +1,10 @@
 #!/bin/bash
 
 install_mas() {
+  if [[ "$IS_MAC" == "false" ]]; then
+    return
+  fi
+
   local app_id="$1"
 
   if ! mas list | grep -q "^${app_id} "; then
