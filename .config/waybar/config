@@ -8,7 +8,8 @@
     "interval": 1,
     "format": "{:%a %-d. %b %H:%M:%S}",
     "tooltip": true,
-    "tooltip-format": "{:%A, %d. %B %Y}"
+    "tooltip-format": "{:%A, %d. %B %Y}",
+    "on-click": "gnome-calendar"
   },
   "sway/window": {
     "format": "{title}",
