@@ -12,3 +12,7 @@
 - With specific editor: `EDITOR="code --wait" *command*`
  https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent -->
 <!-- https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key -->
+
+<!--
+- Firefox, set ui.systemUsesDarkTheme = 1 in about:config
+-->
