@@ -26,10 +26,12 @@ if [[ "$0" != "$DOTFILES_DIR/$SCRIPT_NAME" && ! -d "$DOTFILES_DIR" ]]; then
   fi
 
   git clone --quiet --recurse-submodules https://github.com/marjorg/setup.git $DOTFILES_DIR
+  git -C $DOTFILES_DIR submodule update --init --recursive
   echo "✅ Cloned repository"
 else
   if [ -z "$(git -C $DOTFILES_DIR status --porcelain)" ]; then
     git -C $DOTFILES_DIR pull --quiet
+    git -C $DOTFILES_DIR submodule update --init --recursive
     echo "✅ Updated repository"
   else
     echo "⚠️ Local changes detected in dotfiles repository, skipping pull"
