@@ -63,29 +63,14 @@ if [[ "$IS_MAC" == true ]]; then
   install_brew_cask visual-studio-code
 
   if [[ ! "$IS_WORK" == true ]]; then
-    install_brew 1password-cli
     install_mas 1569813296 # 1Password Safari
     install_mas 937984704 # Amphetamine
   fi
 elif [[ "$IS_LINUX" == true ]]; then
-  install_apt curl
-
-  if [[ ! "$IS_WORK" == true && ! $(command -v op) ]]; then
-    curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
-      sudo gpg --dearmor --yes --output /usr/share/keyrings/1password-archive-keyring.gpg && \
-      echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" | \
-      sudo tee /etc/apt/sources.list.d/1password.list && \
-      sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/ && \
-      curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | \
-      sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol && \
-      sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22 && \
-      curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
-      sudo gpg --dearmor --yes --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
-  fi
-
   execute sudo apt-get update
   install_apt btop
   install_apt fd-find
+  install_apt curl
   install_apt fzf
   install_apt gcc
   install_apt gh
@@ -101,10 +86,6 @@ elif [[ "$IS_LINUX" == true ]]; then
   install_apt tmux
   install_apt zsh
   install_apt imagemagick
-
-  if [[ ! "$IS_WORK" == true ]]; then
-    install_apt 1password-cli
-  fi
 fi
 
 for pkg in "$PACKAGES_DIR"/*.sh; do
