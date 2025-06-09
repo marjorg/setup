@@ -27,8 +27,7 @@ if [[ ! -d "$DOTFILES_DIR/modules/private/vault.yml" ]]; then
 
   export GIT_SSH_COMMAND="ssh -i /tmp/temp_github_key -o IdentitiesOnly=yes"
 
-  # TODO: These trigger a yes prompt, can that be auto?
-#  git clone --quiet --recurse-submodules https://github.com/marjorg/setup.git $DOTFILES_DIR
+  # TODO: This trigger a yes prompt, can that be auto?
   git -C $DOTFILES_DIR submodule update --init --recursive
 
   KEY_ID=$(wget --header="Authorization: token $GH_TOKEN" \
