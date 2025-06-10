@@ -59,7 +59,7 @@ install_brew_cask tableplus
 install_brew_cask the-unarchiver
 install_brew_cask visual-studio-code
 
-if [[ ! "$IS_WORK" == true ]]; then
+if [[ ! "$WORK" == true ]]; then
   install_mas 1569813296 # 1Password Safari
   install_mas 937984704 # Amphetamine
 fi

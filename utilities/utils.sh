@@ -15,7 +15,7 @@ debug() {
 }
 
 execute() {
-  if [[ "$DRY" == "true" ]]; then
+  if [[ "$DRY" == true ]]; then
     log "$@"
 
     if [[ "$*" == *"get_op_password"* ]]; then

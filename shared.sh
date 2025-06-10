@@ -29,7 +29,7 @@ IS_LINUX=$(uname -s | grep -q Linux && echo true || echo false)
 IS_UBUNTU=false
 IS_ARCH=false
 
-if [[ "$IS_LINUX" == "true" ]]; then
+if [[ "$IS_LINUX" == true ]]; then
   OS_ID=$(grep '^ID=' /etc/os-release | cut -d= -f2 | tr -d '"')
 
   if [[ "$OS_ID" == "ubuntu" ]]; then

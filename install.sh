@@ -6,9 +6,9 @@ set -o pipefail
 source shared.sh
 source utilities.sh
 
-if [[ "$IS_MAC" == "true" ]]; then
+if [[ "$IS_MAC" == true ]]; then
   TASKS_DIR="$DOTFILES_DIR/tasks/mac"
-elif [[ "$IS_UBUNTU" == "true" ]]; then
+elif [[ "$IS_UBUNTU" == true ]]; then
   TASKS_DIR="$DOTFILES_DIR/tasks/ubuntu"
 else
   echo "🚨 Unsupported OS/Distribution" >&2
