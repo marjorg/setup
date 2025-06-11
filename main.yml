@@ -3,9 +3,6 @@
   hosts: localhost
   connection: local
 
-  vars_files:
-    - modules/private/vault.yml
-
   vars:
     work_mode: false
 
@@ -25,6 +22,7 @@
         msg: "Running in work mode"
       when: work_mode | bool
 
+  tasks:
     - name: Setup dotfiles
       include_tasks: tasks/dotfiles.yml
 

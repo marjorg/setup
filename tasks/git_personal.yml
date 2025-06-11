@@ -1,4 +1,7 @@
 ---
+- name: Include variables
+  include_vars: "modules/private/vault.yml"
+
 - name: Ensure .gnupg directory exists
   file:
     path: "{{ ansible_env.HOME }}/.gnupg"
