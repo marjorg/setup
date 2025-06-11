@@ -9,7 +9,17 @@ source utilities.sh
 if [[ "$IS_MAC" == true ]]; then
   TASKS_DIR="$DOTFILES_DIR/tasks/mac"
 elif [[ "$IS_UBUNTU" == true ]]; then
-  TASKS_DIR="$DOTFILES_DIR/tasks/ubuntu"
+  UBUNTU_VERSION=$(lsb_release -rs)
+
+  case "$UBUNTU_VERSION" in
+    22.04)
+      TASKS_DIR="$DOTFILES_DIR/tasks/ubuntu/22.04"
+      ;;
+    *)
+      echo "🚨 Unsupported Ubuntu version: $UBUNTU_VERSION" >&2
+      exit 1
+      ;;
+  esac
 else
   echo "🚨 Unsupported OS/Distribution" >&2
   exit 1
