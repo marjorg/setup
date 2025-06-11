@@ -1,13 +1,14 @@
 #!/bin/bash
 
 source shared.sh
+source utilities.sh
 
 if [[ "$IS_MAC" == true ]]; then
   execute brew update
   execute brew upgrade
   # MAS temporarily disabled due to https://github.com/mas-cli/mas/issues/724
   # execute mas upgrade
-elif [[ "$IS_LINUX" == true ]]; then
+elif [[ "$IS_UBUNTU" == true ]]; then
   execute sudo apt-get update
   execute sudo apt-get upgrade -y
 fi
@@ -27,7 +28,7 @@ done
 
 if [[ "$IS_MAC" == true ]]; then
   execute brew cleanup
-elif [[ "$IS_LINUX" == true ]]; then
+elif [[ "$IS_UBUNTU" == true ]]; then
   execute sudo apt-get autoremove
   execute sudo apt-get autoclean
 fi
