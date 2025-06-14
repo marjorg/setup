@@ -68,7 +68,7 @@ for task in "$TASKS_DIR"/*.sh; do
     source "$task"
     TASK_NAME=$(basename "${task%.sh}")
 
-    if $TASK_NAME == "00_prerequisites"; then
+    if [[ "$TASK_NAME" == "00_prerequisites" ]]; then
       continue
     fi
 
