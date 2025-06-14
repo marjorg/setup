@@ -1,7 +1,4 @@
 ---
-- name: Include variables
-  include_vars: "modules/private/vault.yml"
-
 - name: Ensure .ssh directory exists
   file:
     path: "{{ ansible_env.HOME }}/.ssh"
@@ -14,7 +11,8 @@
     dest: "{{ ansible_env.HOME }}/.ssh/{{ item.name }}"
     mode: "0600"
   loop: "{{ ssh.credentials }}"
-  no_log: false
+  when: ssh is defined
+  no_log: true
 
 - name: Create public SSH keys
   copy:
@@ -22,15 +20,22 @@
     dest: "{{ ansible_env.HOME }}/.ssh/{{ item.name }}.pub"
     mode: "0644"
   loop: "{{ ssh.credentials }}"
+  when: ssh is defined
   no_log: true
 
-- name: Create SSH config file
-  template:
-    src: "templates/ssh_config.j2"
-    dest: "{{ ansible_env.HOME }}/.ssh/config"
-    mode: "0644"
+- name: Check if a key already exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.ssh/id_ed25519"
+  register: ssh_stat
+
+- name: Generate SSH key with script if not present
+  script: ./scripts/generate-ssh-key.sh {{ email }}
+  args:
+    creates: "{{ ansible_env.HOME }}/.ssh/id_ed25519"
+  when: not ssh_stat.stat.exists
 
 - name: Ensure github.com is in known_hosts
+  when: not work_mode | bool
   known_hosts:
     path: "{{ ansible_env.HOME }}/.ssh/known_hosts"
     name: github.com

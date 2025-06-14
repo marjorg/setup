@@ -1,7 +1,4 @@
 ---
-- name: Include variables
-  include_vars: "modules/private/vault.yml"
-
 - name: Ensure .gnupg directory exists
   file:
     path: "{{ ansible_env.HOME }}/.gnupg"
@@ -27,16 +24,32 @@
     default_gpg_program: "{{ gpg_path.stdout }}"
 
 - name: Import GPG private keys
+  when: gpg is defined
   shell: echo "{{ item.private_key }}" | "{{ default_gpg_program }}" --batch --import
   loop: "{{ gpg.credentials }}"
   no_log: true
   changed_when: false
 
 - name: Import GPG public keys
+  when: gpg is defined
   shell: echo "{{ item.public_key }}" | "{{ default_gpg_program }}" --batch --import
   loop: "{{ gpg.credentials }}"
   no_log: true
   changed_when: false
+
+- name: Generate GPG key
+  script: ./scripts/generate-gpg-key.sh {{ email }}
+
+- name: Get GPG key ID
+  command: ./scripts/get-gpg-key-id.sh {{ email }}
+  register: gpg_key_id_result
+  changed_when: false
+
+- name: Create SSH config file
+  template:
+    src: "templates/ssh_config.j2"
+    dest: "{{ ansible_env.HOME }}/.ssh/config"
+    mode: "0644"
 
 - name: Configure .gitconfig
   template:
@@ -44,7 +57,6 @@
     dest: "{{ ansible_env.HOME }}/.gitconfig"
     mode: "0644"
   vars:
-    git_user_name: "Marius Jørgensen"
-    git_user_email: "{{ git.email }}"
-    git_signing_key: "{{ git.gpg_key_id }}"
+    git_user_email: "{{ email }}"
+    git_signing_key: "{{ gpg_key_id_result.stdout }}"
     git_gpg_program: "{{ default_gpg_program }}"

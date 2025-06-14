@@ -1,13 +1,4 @@
 ---
-- name: Include variables
-  include_vars: "modules/private/vault.yml"
-
-- name: Create .zshenv with environment variables
-  template:
-    src: "templates/zshenv.j2"
-    dest: "{{ ansible_env.HOME }}/.zshenv"
-    mode: "0600"
-  no_log: true
 
 - name: Create .wakatime.cfg file
   template:

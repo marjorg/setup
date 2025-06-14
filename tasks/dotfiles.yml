@@ -14,7 +14,7 @@
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config/gtk-3.0"
     state: absent
-  when: gtk3_stat.stat.isdir and not gtk3_stat.stat.islnk
+  when: gtk3_stat.stat.exists and gtk3_stat.stat.isdir and not gtk3_stat.stat.islnk
 
 - name: Find top-level directories in .config
   ansible.builtin.find:
@@ -51,6 +51,41 @@
     state: link
     force: yes
   loop: "{{ themes_dirs.files }}"
+
+- name: Check if .fonts is a symlink
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.fonts"
+  register: fonts_stat
+
+- name: Remove .fonts if it's not a symlink
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.fonts"
+    state: absent
+  when: fonts_stat.stat.exists and fonts_stat.stat.isdir and not fonts_stat.stat.islnk
+
+- name: Create .fonts directory
+  when: ansible_system == 'Linux'
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.fonts"
+    state: directory
+    mode: "0755"
+
+- name: Find top-level directories in .fonts
+  when: ansible_system == 'Linux'
+  ansible.builtin.find:
+    paths: "{{ playbook_dir }}/.fonts"
+    file_type: directory
+    recurse: no
+  register: fonts_dirs
+
+- name: Symlink fonts directories
+  when: ansible_system == 'Linux'
+  ansible.builtin.file:
+    src: "{{ item.path }}"
+    dest: "{{ ansible_env.HOME }}/.fonts/{{ item.path | basename }}"
+    state: link
+    force: yes
+  loop: "{{ fonts_dirs.files }}"
 
 - name: Symlink root dotfiles
   ansible.builtin.file:
