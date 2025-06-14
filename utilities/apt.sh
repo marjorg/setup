@@ -1,7 +1,7 @@
 #!/bin/bash
 
 install_apt() {
-  if [[ "$IS_LINUX" == "false" ]]; then
+  if [[ "$IS_UBUNTU" == "false" ]]; then
     return
   fi
 
