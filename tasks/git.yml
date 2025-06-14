@@ -23,20 +23,6 @@
   set_fact:
     default_gpg_program: "{{ gpg_path.stdout }}"
 
-- name: Import GPG private keys
-  when: gpg is defined
-  shell: echo "{{ item.private_key }}" | "{{ default_gpg_program }}" --batch --import
-  loop: "{{ gpg.credentials }}"
-  no_log: true
-  changed_when: false
-
-- name: Import GPG public keys
-  when: gpg is defined
-  shell: echo "{{ item.public_key }}" | "{{ default_gpg_program }}" --batch --import
-  loop: "{{ gpg.credentials }}"
-  no_log: true
-  changed_when: false
-
 - name: Generate GPG key
   script: ./scripts/generate-gpg-key.sh {{ email }}
 
