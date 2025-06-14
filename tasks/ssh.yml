@@ -35,7 +35,6 @@
   when: not ssh_stat.stat.exists
 
 - name: Ensure github.com is in known_hosts
-  when: not work_mode | bool
   known_hosts:
     path: "{{ ansible_env.HOME }}/.ssh/known_hosts"
     name: github.com
