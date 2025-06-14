@@ -14,9 +14,6 @@ install() {
     cd -
   fi
 
-  sudo apt-get update
-  sudo apt-get install -y zoxide
-
   curl -s https://ohmyposh.dev/install.sh | bash -s
 }
 
