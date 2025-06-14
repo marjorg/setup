@@ -1,16 +1,23 @@
 #!/bin/bash
 
 install() {
-  sudo apt-get install -y btop \
+  sudo apt-get install -y curl \
+    ansible \
+    btop \
+    btop \
     fd-find \
     fzf \
     gcc \
+    gnupg \
+    gnupg2 \
+    imagemagick \
+    jq \
     neovim \
     protobuf-compiler \
     ripgrep \
     tmux \
-    zsh \
-    imagemagick
+    unzip \
+    zsh
 
   curl -fsS https://dl.brave.com/install.sh | sh
   curl -fsSL https://bun.sh/install | bash
