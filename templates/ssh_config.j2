@@ -1,6 +1,7 @@
 # Managed by Ansible
 # Last updated: {{ ansible_date_time.date }} {{ ansible_date_time.time }}
 
+{% if ssh is defined %}
 {% for host in ssh.config.hosts %}
 Host {{ host.name }}
 {% if host.options is defined %}
@@ -8,5 +9,11 @@ Host {{ host.name }}
     {{ key }} {{ value }}
 {% endfor %}
 {% endif %}
-
 {% endfor %}
+{% endif %}
+
+Host *
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+    ServerAliveInterval 60

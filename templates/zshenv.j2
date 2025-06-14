@@ -2,8 +2,10 @@
 # Last updated: {{ ansible_date_time.date }} {{ ansible_date_time.time }}
 
 # Encrypted environment variables
+{% if env_vars is defined %}
 {% if env_vars %}
 {% for var in env_vars %}
 export {{ var.name }}="{{ var.value }}"
 {% endfor %}
+{% endif %}
 {% endif %}
