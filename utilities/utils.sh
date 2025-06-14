@@ -18,9 +18,6 @@ execute() {
   if [[ "$DRY" == true ]]; then
     log "$@"
 
-    if [[ "$*" == *"get_op_password"* ]]; then
-      echo "dry-run-password"
-    fi
   else
     if [[ "$1" == "eval" ]]; then
       eval "${@:2}"
