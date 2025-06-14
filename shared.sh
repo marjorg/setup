@@ -11,6 +11,7 @@ rm -f "$HOME/.bashrc" "$HOME/.profile"
 DRY=false
 DEBUG=false
 WORK=false
+EMAIL="git@mjorg.dev"
 
 while [[ $# > 0 ]]; do
   if [[ $1 == "--dry" ]]; then
@@ -19,6 +20,9 @@ while [[ $# > 0 ]]; do
     DEBUG=true
   elif [[ $1 == "--work" ]]; then
     WORK=true
+  elif [[ $1 == "--email" ]]; then
+    shift
+    EMAIL="$1"
   fi
 
   shift
