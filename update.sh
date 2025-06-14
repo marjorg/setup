@@ -11,6 +11,8 @@ if [[ "$IS_MAC" == true ]]; then
 elif [[ "$IS_UBUNTU" == true ]]; then
   execute sudo apt-get update
   execute sudo apt-get upgrade -y
+elif [[ "$IS_ARCH" == true ]]; then
+  execute sudo pacman -Syu --noconfirm
 fi
 
 for task in "$TASKS_DIR"/*.sh; do
@@ -31,4 +33,6 @@ if [[ "$IS_MAC" == true ]]; then
 elif [[ "$IS_UBUNTU" == true ]]; then
   execute sudo apt-get autoremove
   execute sudo apt-get autoclean
+elif [[ "$IS_ARCH" == true ]]; then
+  execute sudo pacman -Sc --noconfirm
 fi
