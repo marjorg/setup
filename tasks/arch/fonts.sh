@@ -1,6 +1,7 @@
 #!/bin/bash
 
 install() {
+  sudo pacman -Sy --noconfirm --needed ttf-hack ttf-ubuntu-font-family ttf-dejavu noto-fonts ttf-liberation ttf-font-awesome
   fc-cache -f -v
 }
 

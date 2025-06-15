@@ -13,7 +13,9 @@ install() {
     tmux \
     zsh \
     zoxide \
-    xdg-user-dirs
+    xdg-user-dirs \
+    man-db \
+    man-pages
 
   if [[ -d "$HOME/Desktop" ]]; then
     xdg-user-dirs-update
