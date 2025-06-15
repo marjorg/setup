@@ -73,6 +73,7 @@ bindkey "^[[1;3C" forward-word # Use Option + Right Arrow to move forward a word
 
 # Aliases
 alias lg='lazygit'
+alias vim='nvim'
 
 # History
 HISTSIZE=5000
