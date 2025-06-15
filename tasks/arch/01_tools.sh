@@ -12,7 +12,14 @@ install() {
     ripgrep \
     tmux \
     zsh \
-    zoxide
+    zoxide \
+    xdg-user-dirs
 
-  curl -s https://ohmyposh.dev/install.sh | bash -s
+  if [[ -d "$HOME/Desktop" ]]; then
+    xdg-user-dirs-update
+  fi
+
+  if ! command -v oh-my-posh &> /dev/null; then
+    curl -s https://ohmyposh.dev/install.sh | bash -s
+  fi
 }
