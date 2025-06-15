@@ -1,0 +1,132 @@
+# Import GTK settings
+exec --no-startup-id $HOME/.config/sway/import-gtk-settings.sh
+
+# Variables
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Background (handled differently in X11)
+exec_always --no-startup-id feh --bg-fill ~/.config/sway/bg-2.png
+
+# Keyboard layout (X11 method)
+exec --no-startup-id setxkbmap no
+
+# Application assignments (via WM_CLASS or title in X11)
+assign [class="ghostty"] 1
+assign [class="Zed"] 2
+assign [title=".*Brave.*"] 3
+
+# Environment variables
+exec --no-startup-id bash -c 'export XDG_CURRENT_DESKTOP=i3; export XDG_THEME_PREFERENCE=dark; export QT_QPA_PLATFORM=xcb'
+
+# No title bars
+new_window none
+new_float none
+
+# Keybindings
+bindsym $mod+Return exec ghostty
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec rofi -show drun
+
+# Mouse bindings
+floating_modifier $mod
+
+# Reload and exit
+bindsym $mod+Ctrl+c reload
+bindsym $mod+Ctrl+e exit
+bindsym $mod+Ctrl+r exec systemctl reboot
+bindsym $mod+Ctrl+q exec systemctl poweroff
+bindsym $mod+Ctrl+l exec $HOME/.config/i3/lock-screen.sh
+
+# Focus movement
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move windows
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Workspaces
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# Layout control
+bindsym $mod+b split h
+bindsym $mod+v split v
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# Resize mode
+mode "resize" {
+  bindsym $left resize shrink width 10 px or 10 ppt
+  bindsym $down resize grow height 10 px or 10 ppt
+  bindsym $up resize shrink height 10 px or 10 ppt
+  bindsym $right resize grow width 10 px or 10 ppt
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+bar {
+  status_command i3blocks
+  font pango:JetBrainsMono Nerd Font 13
+  colors {
+    background #1a1b26
+    statusline #c0caf5
+    focused_workspace #7aa2f7 #3d59a1 #7aa2f7
+    inactive_workspace #1a1b26 #1a1b26 #565f89
+    urgent_workspace #f7768e #914c54 #ffffff
+  }
+  tray_output primary
+  position top
+}
+
+# Startup applications
+exec --no-startup-id redshift -l 59.9:-10.7

@@ -6,10 +6,18 @@ install() {
     xorg-xinit \
     i3-wm \
     i3status \
-    i3lock \
+    i3blocks \
     dmenu \
     lightdm \
-    lightdm-gtk-greeter
+    lightdm-gtk-greeter \
+    feh \
+    rofi \
+    redshift \
+    lxappearance \
+    sassc \
+    gnome-themes-extra
+
+  yay -Sy --noconfirm --needed i3lock-color gtk-engine-murrine papirus-icon-theme
 
   # sudo systemctl enable lightdm
   # sudo systemctl start lightdm
