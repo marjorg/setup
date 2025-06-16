@@ -1,12 +1,5 @@
 ---
 
-- name: Create .wakatime.cfg file
-  template:
-    src: "templates/wakatime.j2"
-    dest: "{{ ansible_env.HOME }}/.wakatime.cfg"
-    mode: "0600"
-  no_log: true
-
 - name: Clone notes repository
   ansible.builtin.git:
     repo: git@github.com:marjorg/notes.git

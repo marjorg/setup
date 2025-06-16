@@ -82,7 +82,6 @@
 		"tmux": true,
 		"tokyo-night": true,
 		"toml": true,
-		"typos": true,
-		"wakatime": true
+		"typos": true
 	}
 }
