@@ -13,9 +13,7 @@ install() {
     ripgrep \
     tmux \
     zsh \
-    ghostty \
     zoxide
-
 }
 
 update() {
