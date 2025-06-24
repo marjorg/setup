@@ -36,10 +36,10 @@ floating_modifier $mod
 
 # Reload and exit
 bindsym $mod+Ctrl+c reload
-bindsym $mod+Ctrl+e exit
-bindsym $mod+Ctrl+r exec systemctl reboot
-bindsym $mod+Ctrl+q exec systemctl poweroff
-bindsym $mod+Ctrl+l exec $HOME/.config/i3/lock-screen.sh
+bindsym $mod+Ctrl+Shift+e exit
+bindsym $mod+Ctrl+Shift+r exec systemctl reboot
+bindsym $mod+Ctrl+Shift+q exec systemctl poweroff
+bindsym $mod+Ctrl+Shift+l exec $HOME/.config/i3/lock-screen.sh
 
 # Focus movement
 bindsym $mod+$left focus left
