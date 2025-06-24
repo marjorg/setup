@@ -116,7 +116,7 @@ bindsym $mod+r mode "resize"
 
 bar {
   status_command i3blocks
-  font pango:JetBrainsMono Nerd Font 13
+  font pango:JetBrainsMono Nerd Font 10
   colors {
     background #1a1b26
     statusline #c0caf5
