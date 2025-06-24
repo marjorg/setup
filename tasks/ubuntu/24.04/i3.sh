@@ -21,7 +21,8 @@ install() {
     gtk2-engines-murrine \
     gnome-themes-extra \
     papirus-icon-theme \
-    pamixer
+    pamixer \
+    flameshot
 
     # sudo systemctl enable lightdm
     # sudo systemctl start lightdm
