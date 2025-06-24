@@ -20,7 +20,8 @@ install() {
     sassc \
     gtk2-engines-murrine \
     gnome-themes-extra \
-    papirus-icon-theme
+    papirus-icon-theme \
+    pamixer
 
     # sudo systemctl enable lightdm
     # sudo systemctl start lightdm

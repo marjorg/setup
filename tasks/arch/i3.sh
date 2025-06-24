@@ -15,7 +15,8 @@ install() {
     redshift \
     lxappearance \
     sassc \
-    gnome-themes-extra
+    gnome-themes-extra \
+    pamixer
 
   yay -Sy --noconfirm --needed i3lock-color gtk-engine-murrine papirus-icon-theme
 

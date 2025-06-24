@@ -1,3 +1,8 @@
+[i3volume]
+command=./volume.sh
+interval=once
+signal=30
+
 [clock]
 command=date '+%a %-d. %b %H:%M:%S'
 interval=1
