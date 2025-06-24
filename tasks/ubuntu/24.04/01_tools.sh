@@ -5,8 +5,6 @@ install() {
     fd-find \
     fzf \
     gcc \
-    gnupg \
-    gnupg2 \
     imagemagick \
     neovim \
     protobuf-compiler \

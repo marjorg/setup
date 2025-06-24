@@ -13,7 +13,7 @@ elif [[ "$IS_UBUNTU" == true ]]; then
 
   case "$UBUNTU_VERSION" in
     24.04)
-      TASKS_DIR="$DOTFILES_DIR/tasks/ubuntu/22.04"
+      TASKS_DIR="$DOTFILES_DIR/tasks/ubuntu/24.04"
       ;;
     *)
       echo "🚨 Unsupported Ubuntu version: $UBUNTU_VERSION" >&2
