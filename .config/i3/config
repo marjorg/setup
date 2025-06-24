@@ -9,7 +9,7 @@ set $up k
 set $right l
 
 # Background (handled differently in X11)
-exec_always --no-startup-id feh --bg-fill ~/.config/sway/bg-2.png
+exec_always --no-startup-id feh --bg-fill "$($HOME/.config/sway/get-bg.sh)"
 
 # Keyboard layout (X11 method)
 exec --no-startup-id setxkbmap no
@@ -20,7 +20,9 @@ assign [class="Zed"] 2
 assign [title=".*Brave.*"] 3
 
 # Environment variables
-exec --no-startup-id bash -c 'export XDG_CURRENT_DESKTOP=i3; export XDG_THEME_PREFERENCE=dark; export QT_QPA_PLATFORM=xcb'
+exec_always --no-startup-id export XDG_CURRENT_DESKTOP=i3
+exec_always --no-startup-id export XDG_THEME_PREFERENCE=dark
+exec_always --no-startup-id export QT_QPA_PLATFORM=xcb
 
 # No title bars
 new_window none

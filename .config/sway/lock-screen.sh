@@ -1,7 +1,9 @@
 #!/bin/bash
 
+BG_IMG="$("$HOME/.config/sway/get-bg.sh")"
+
 swaylock \
-  -i $HOME/.config/sway/bg-2.png \
+  -i $BG_IMG \
   --font "JetBrainsMono Nerd Font" \
   --font-size 16 \
   --indicator-radius 130 \

@@ -1,7 +1,9 @@
 #!/bin/bash
 
+BG_IMG="$("$HOME/.config/sway/get-bg.sh")"
+
 i3lock \
-  --image="$HOME/.config/sway/bg-2.png" \
+  --image="$BG_IMG" \
   --fill \
   --clock \
   --radius=130 \

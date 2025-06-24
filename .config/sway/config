@@ -13,7 +13,7 @@ set $right l
 include /etc/sway/config-vars.d/*
 
 # Output configuration
-output * bg ~/.config/sway/bg-2.png fill
+output * bg "$($HOME/.config/sway/get-bg.sh)" fill
 
 # Input configuration
 input * {
