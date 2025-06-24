@@ -106,6 +106,9 @@ bindsym XF86AudioMute exec pamixer -t && pkill -RTMIN+30 i3blocks
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui --no-tray
 bindsym $mod+Ctrl+s exec --no-startup-id sh -c 'flameshot screen --clipboard --no-tray && notify-send "Flameshot" "Copied screenshot to clipboard"'
 
+# Notifications
+exec --no-startup-id dunst
+
 # Scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
