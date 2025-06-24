@@ -138,6 +138,3 @@ bar {
   tray_output primary
   position top
 }
-
-# Startup applications
-exec --no-startup-id redshift -l 59.9:-10.7
