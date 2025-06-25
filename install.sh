@@ -12,8 +12,8 @@ elif [[ "$IS_UBUNTU" == true ]]; then
   UBUNTU_VERSION=$(lsb_release -rs)
 
   case "$UBUNTU_VERSION" in
-    24.04)
-      TASKS_DIR="$DOTFILES_DIR/tasks/ubuntu/24.04"
+    24.10)
+      TASKS_DIR="$DOTFILES_DIR/tasks/ubuntu/24.10"
       ;;
     *)
       echo "🚨 Unsupported Ubuntu version: $UBUNTU_VERSION" >&2
