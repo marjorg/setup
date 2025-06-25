@@ -96,4 +96,5 @@
   loop:
     - .gitconfig
     - .zshrc
-    - .zprofile
+    - .bashrc
+    - .profile
