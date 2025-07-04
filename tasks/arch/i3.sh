@@ -19,7 +19,7 @@ install() {
     pamixer \
     flameshot
 
-  yay -Sy --noconfirm --needed i3lock-color gtk-engine-murrine papirus-icon-theme
+  yay -Sy --noconfirm --needed i3lock-color gtk-engine-murrine papirus-icon-theme i3-resurrect
 
   # sudo systemctl enable lightdm
   # sudo systemctl start lightdm

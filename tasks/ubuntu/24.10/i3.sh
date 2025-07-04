@@ -24,6 +24,8 @@ install() {
     pamixer \
     flameshot
 
+    pip install --user i3-resurrect
+
     # sudo systemctl enable lightdm
     # sudo systemctl start lightdm
 }
