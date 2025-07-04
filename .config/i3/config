@@ -8,6 +8,10 @@ set $down j
 set $up k
 set $right l
 
+gaps inner 4px
+gaps outer 0px
+smart_gaps on
+
 # Background (handled differently in X11)
 exec_always --no-startup-id feh --bg-fill "$($HOME/.config/sway/get-bg.sh)"
 
