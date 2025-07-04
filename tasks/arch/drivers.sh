@@ -3,7 +3,8 @@
 install() {
   # Video
   sudo pacman -Sy --noconfirm --needed nvidia \
-    nvidia-utils
+    nvidia-utils \
+    nvidia-settings
 
   # Audio
   sudo pacman -Sy --noconfirm --needed pipewire \
