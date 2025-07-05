@@ -1,6 +1,9 @@
 # Import GTK settings
 exec --no-startup-id $HOME/.config/sway/import-gtk-settings.sh
 
+# Picom compositor for better window rendering
+exec --no-startup-id picom --config $HOME/.config/picom/picom.conf
+
 # Variables
 set $mod Mod4
 set $left h

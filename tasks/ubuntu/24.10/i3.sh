@@ -22,7 +22,8 @@ install() {
     gnome-themes-extra \
     papirus-icon-theme \
     pamixer \
-    flameshot
+    flameshot \
+    picom
 
     pip install --user i3-resurrect
 

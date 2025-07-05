@@ -17,7 +17,8 @@ install() {
     sassc \
     gnome-themes-extra \
     pamixer \
-    flameshot
+    flameshot \
+    picom
 
   yay -Sy --noconfirm --needed i3lock-color gtk-engine-murrine papirus-icon-theme i3-resurrect
 
