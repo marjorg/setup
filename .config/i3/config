@@ -15,6 +15,16 @@ gaps inner 4px
 gaps outer 0px
 smart_gaps on
 
+# Trying to avoid issue of copying the wrong things based on focus
+focus_follows_mouse no
+
+# No title bars
+new_window none
+new_float none
+
+# Mouse bindings
+floating_modifier $mod
+
 # Background (handled differently in X11)
 exec_always --no-startup-id feh --bg-fill "$($HOME/.config/sway/get-bg.sh)"
 
@@ -25,10 +35,6 @@ exec --no-startup-id setxkbmap no
 exec_always --no-startup-id export XDG_CURRENT_DESKTOP=i3
 exec_always --no-startup-id export XDG_THEME_PREFERENCE=dark
 exec_always --no-startup-id export QT_QPA_PLATFORM=xcb
-
-# No title bars
-new_window none
-new_float none
 
 # Keybindings
 bindsym $mod+Return exec ghostty
@@ -105,6 +111,11 @@ bindsym XF86AudioRaiseVolume exec pamixer -i 5 && pkill -RTMIN+30 i3blocks
 bindsym XF86AudioLowerVolume exec pamixer -d 5 && pkill -RTMIN+30 i3blocks
 bindsym XF86AudioMute exec pamixer -t && pkill -RTMIN+30 i3blocks
 
+# Media
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
 # Screenshot
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 bindsym $mod+Ctrl+s exec --no-startup-id sh -c 'flameshot screen --clipboard --no-tray && notify-send "Flameshot" "Copied screenshot to clipboard"'
@@ -116,10 +127,8 @@ exec --no-startup-id dunst
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-# Trying to avoid issue of copying the wrong things based on focus
-focus_follows_mouse no
-
 # Resize mode
+bindsym $mod+r mode "resize"
 mode "resize" {
   bindsym $left resize shrink width 10 px or 10 ppt
   bindsym $down resize grow height 10 px or 10 ppt
@@ -132,11 +141,14 @@ mode "resize" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
 
 bar {
   status_command i3blocks
+  tray_output primary
+  position top
+
   font pango:JetBrainsMono Nerd Font 10
+
   colors {
     background #1a1b26
     statusline #c0caf5
@@ -144,6 +156,4 @@ bar {
     inactive_workspace #1a1b26 #1a1b26 #565f89
     urgent_workspace #f7768e #914c54 #ffffff
   }
-  tray_output primary
-  position top
 }
