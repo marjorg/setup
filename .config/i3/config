@@ -116,6 +116,9 @@ exec --no-startup-id dunst
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
+# Trying to avoid issue of copying the wrong things based on focus
+focus_follows_mouse no
+
 # Resize mode
 mode "resize" {
   bindsym $left resize shrink width 10 px or 10 ppt
