@@ -4,7 +4,7 @@ BG_IMG="$("$HOME/.config/sway/get-bg.sh")"
 
 swaylock \
   -i $BG_IMG \
-  --font "JetBrainsMono Nerd Font" \
+  --font "Noto Sans" \
   --font-size 16 \
   --indicator-radius 130 \
   --indicator-thickness 7 \

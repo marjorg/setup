@@ -1,6 +1,13 @@
 #!/bin/bash
 
 install() {
+  sudo apt install -y \
+    fonts-noto \
+    fonts-noto-cjk \
+    fonts-noto-extra \
+    fonts-font-awesome \
+    fonts-emojione
+
   fc-cache -f -v
 }
 

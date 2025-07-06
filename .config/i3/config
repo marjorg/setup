@@ -150,7 +150,7 @@ bar {
   tray_output primary
   position top
 
-  font pango:JetBrainsMono Nerd Font 10
+  font pango:Noto Sans 10
 
   colors {
     background #1a1b26
