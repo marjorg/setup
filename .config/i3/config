@@ -1,3 +1,6 @@
+# Apply screen configs
+exec --no-startup-id $HOME/.config/i3/screens-config.sh
+
 # Import GTK settings
 exec --no-startup-id $HOME/.config/sway/import-gtk-settings.sh
 
