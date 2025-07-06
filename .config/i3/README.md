@@ -7,11 +7,11 @@ Example config for restoring specific apps and paths on specific workspaces. The
 // $HOME/.i3/i3-resurrect/workspace-1_programs.json
 [
   {
-    "command": ["/usr/bin/ghostty", "--working-directory=$HOME/dotfiles"],
+    "command": ["zed", "$HOME/dotfiles"],
     "working_directory": "$HOME"
   },
   {
-    "command": ["/usr/lib/zed/zed-editor", "$HOME/dotfiles"],
+    "command": ["ghostty", "--working-directory=$HOME/dotfiles"],
     "working_directory": "$HOME"
   }
 ]
