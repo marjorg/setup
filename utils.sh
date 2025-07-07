@@ -15,7 +15,6 @@ WORK=false
 DEPS_ONLY=false
 EMAIL="git@mjorg.dev"
 
-
 while [[ $# > 0 ]]; do
   if [[ $1 == "--dry" ]]; then
     DRY=true
@@ -61,3 +60,17 @@ execute() {
     fi
   fi
 }
+
+IS_LINUX=$(uname -s | grep -q Linux && echo true || echo false)
+IS_UBUNTU=false
+IS_ARCH=false
+
+if [[ "$IS_LINUX" == true ]]; then
+  OS_ID=$(grep '^ID=' /etc/os-release | cut -d= -f2 | tr -d '"')
+
+  if [[ "$OS_ID" == "ubuntu" ]]; then
+    IS_UBUNTU=true
+  elif [[ "$OS_ID" == "arch" ]]; then
+    IS_ARCH=true
+  fi
+fi
