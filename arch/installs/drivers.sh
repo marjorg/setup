@@ -7,4 +7,6 @@ PACMAN_PACKAGES+=(
   vulkan-tools # Vulkan support
   gamemode # Optimise Linux system performance on demand, requires setting launch options in Steam `gamemoderun %command%`
   mangohud # Overlay for monitoring FPS++, requires setting launch options in Steam `mangohud %command%`
+  goverlay # GUI to customize mangohud
+  playerctl # Media keys
 )
