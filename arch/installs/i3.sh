@@ -17,5 +17,6 @@ PACMAN_PACKAGES+=(
 
 YAY_PACKAGES+=(
   i3-resurrect
+  i3lock-color
   papirus-icon-theme
 )
