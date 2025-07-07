@@ -5,12 +5,15 @@
 
   vars:
     work_mode: false
+    supported_distributions:
+      - ubuntu
+      - archlinux
 
   pre_tasks:
     - name: Check for supported distribution
       ansible.builtin.fail:
         msg: "Distribution {{ ansible_distribution }} is not supported"
-      when: ansible_distribution | lower not in ['macosx', 'ubuntu', 'archlinux']
+      when: ansible_distribution | lower not in supported_distributions
 
     - name: Personal mode
       ansible.builtin.debug:
