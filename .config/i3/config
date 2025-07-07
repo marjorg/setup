@@ -1,8 +1,5 @@
-# Apply screen configs
-exec --no-startup-id $HOME/.config/i3/screens-config.sh
-
 # Import GTK settings
-exec --no-startup-id $HOME/.config/sway/import-gtk-settings.sh
+#exec --no-startup-id $HOME/.config/sway/import-gtk-settings.sh
 
 # Picom compositor for better window rendering
 exec --no-startup-id picom --config $HOME/.config/picom/picom.conf
