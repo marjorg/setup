@@ -4,6 +4,9 @@
 # Picom compositor for better window rendering
 exec --no-startup-id picom --config $HOME/.config/picom/picom.conf
 
+# Network manager applet
+exec --no-startup-id nm-applet
+
 # Variables
 set $mod Mod4
 set $left h
