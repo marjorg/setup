@@ -1,16 +1,10 @@
-IS_MAC=$(uname -s | grep -q Darwin && echo true || echo false)
-IS_LINUX=$(uname -s | grep -q Linux && echo true || echo false)
-
 export XDG_CONFIG_HOME="$HOME/.config"
 export TERM=xterm-256color
 export PATH=$PATH:"$HOME/.local/bin"
 
 # Go
 export GOPRIVATE=github.com/marjorg
-# Homebrew manages this for MacOS
-if [[ "$IS_LINUX" == true ]]; then
-  export PATH=$PATH:/usr/local/go/bin
-fi
+export PATH=$PATH:/usr/local/go/bin
 # For binaries installed with go install
 export PATH=$PATH:~/go/bin
 
