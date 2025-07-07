@@ -10,6 +10,9 @@ PACMAN_PACKAGES+=(
   picom
   pamixer
   dunst
+  arandr # Screen management GUI
+  pavucontrol # Audio GUI
+  thunar # File browser GUI
 )
 
 YAY_PACKAGES+=(
