@@ -69,7 +69,7 @@ bindsym $mod+Ctrl+Shift+r exec "systemctl reboot"
 bindsym $mod+Ctrl+Shift+q exec "systemctl poweroff"
 
 # Lock sway
-bindsym $mod+Ctrl+l exec $HOME/.config/sway/lock-screen.sh
+bindsym $mod+Ctrl+l exec $HOME/.config/sway/screen-lock.sh
 
 # Lock after 300 seconds of inactivity
 # Turn off displays after 600 seconds of inactivity

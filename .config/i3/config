@@ -1,6 +1,9 @@
 # Import GTK settings
 #exec --no-startup-id $HOME/.config/sway/import-gtk-settings.sh
 
+# Align screens if ARandR config exists
+exec --no-startup-id $HOME/.config/i3/screen-align.sh
+
 # Picom compositor for better window rendering
 exec --no-startup-id picom --config $HOME/.config/picom/picom.conf
 
@@ -52,8 +55,8 @@ bindsym $mod+Ctrl+c reload
 bindsym $mod+Ctrl+Shift+e exit
 bindsym $mod+Ctrl+Shift+r exec systemctl reboot
 bindsym $mod+Ctrl+Shift+q exec systemctl poweroff
-bindsym $mod+Ctrl+Shift+l exec $HOME/.config/i3/lock-screen.sh
-bindsym $mod+Ctrl+Shift+s exec $HOME/.config/i3/lock-screen.sh && systemctl suspend
+bindsym $mod+Ctrl+Shift+l exec $HOME/.config/i3/screen-lock.sh
+bindsym $mod+Ctrl+Shift+s exec $HOME/.config/i3/screen-lock.sh && systemctl suspend
 
 # Focus movement
 bindsym $mod+$left focus left
