@@ -6,6 +6,16 @@ PACMAN_PACKAGES+=(
 
 post_install() {
   go install golang.org/x/tools/gopls@latest
-  # TODO: Add other tools
+  go install github.com/go-delve/delve/cmd/dlv@latest
+  go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+  go install github.com/air-verse/air@latest
   go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
 }
+
+# golangci-lint run
+
+# .air.toml
+# [build]
+# cmd = "go build -o ./tmp/main ."
+# bin = "./tmp/main"
+# include_ext = ["go", "tpl", "tmpl", "html"]
