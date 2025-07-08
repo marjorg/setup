@@ -2,7 +2,14 @@
 
 PACMAN_PACKAGES+=(
   docker
-  docker-compose
+  qemu
+  # Viritualization, you probably also have to change some settings in BIOS.
+  libvirt
+  virt-manager
+)
+
+YAY_PACKAGES+=(
+  docker-desktop
 )
 
 post_install() {
