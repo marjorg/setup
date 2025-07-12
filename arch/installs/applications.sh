@@ -19,7 +19,6 @@ YAY_PACKAGES+=(
 PACMAN_PACKAGES+=(
   discord
   spotify-launcher
-  steam
 )
 # End if not work
 
