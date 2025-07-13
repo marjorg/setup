@@ -18,6 +18,11 @@ PACMAN_PACKAGES+=(
   man-pages
   ufw # Firewall
   gufw # UFW GUI
+  postgresql-libs # Postgres client tools
+  unzip
+  zip
+  p7zip
+  unrar
 )
 
 post_install() {

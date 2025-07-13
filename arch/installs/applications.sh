@@ -5,10 +5,13 @@ YAY_PACKAGES+=(
   visual-studio-code-bin
   signal-desktop
   obsidian
+  tableplus
 )
 
 PACMAN_PACKAGES+=(
   ghostty
+  gimp
+  file-roller # Unzipper
 )
 
 # If not work mode

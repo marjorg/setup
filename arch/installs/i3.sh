@@ -13,6 +13,7 @@ PACMAN_PACKAGES+=(
   arandr # Screen management GUI
   pavucontrol # Audio GUI
   thunar # File browser GUI
+  papirus-icon-theme
 )
 
 YAY_PACKAGES+=(
