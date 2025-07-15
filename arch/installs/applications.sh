@@ -17,6 +17,8 @@ PACMAN_PACKAGES+=(
 # If not work mode
 YAY_PACKAGES+=(
   1password
+  proton-pass-bin
+  proton-vpn-gtk-app
 )
 
 PACMAN_PACKAGES+=(
