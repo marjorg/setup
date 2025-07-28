@@ -2,6 +2,14 @@
 -- See `:help vim.opt`
 -- For more options, you can see `:help option-list`
 
+
+-- disable netrw for nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- enable 24-bit colour
+vim.opt.termguicolors = true
+
 -- Font
 vim.g.have_nerd_font = true
 
@@ -29,10 +37,10 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 15
 
 -- Set tab size to 4 spaces
-vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for
-vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
+vim.opt.tabstop = 4      -- Number of spaces that a <Tab> in the file counts for
+vim.opt.shiftwidth = 4   -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of tabs
-vim.opt.softtabstop = 4 -- Number of spaces that a <Tab> counts for while editing
+vim.opt.softtabstop = 4  -- Number of spaces that a <Tab> counts for while editing
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
