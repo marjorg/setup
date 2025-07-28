@@ -163,3 +163,14 @@ bar {
     urgent_workspace #f7768e #914c54 #ffffff
   }
 }
+
+# Start applications or other optional startup things
+exec --no-startup-id $HOME/.config/i3/startup-optionals.sh
+
+### Default keybinds I keep forgetting
+# Stacked layout: $mod+s
+# Tabbed layout: $mod+w
+# Tiled layout (defualt): $mod+e
+# Toggle floating mode for current window: $mod+Shift+space
+# Toggle focus between tiling and floating windows: $mod+space
+###
