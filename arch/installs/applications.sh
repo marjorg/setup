@@ -15,18 +15,18 @@ PACMAN_PACKAGES+=(
   file-roller # Unzipper
 )
 
-# If not work mode
-YAY_PACKAGES+=(
-  1password
-  proton-pass-bin
-  proton-vpn-gtk-app
-)
+if [[ "$WORK" == false ]]; then
+  YAY_PACKAGES+=(
+    1password
+    proton-pass-bin
+    proton-vpn-gtk-app
+  )
 
-PACMAN_PACKAGES+=(
-  discord
-  spotify-launcher
-)
-# End if not work
+  PACMAN_PACKAGES+=(
+    discord
+    spotify-launcher
+  )
+fi
 
 post_install() {
   if ! command -v zed &> /dev/null; then
