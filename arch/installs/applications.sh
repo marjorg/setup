@@ -6,6 +6,7 @@ YAY_PACKAGES+=(
   signal-desktop
   obsidian
   tableplus
+  postman-bin
 )
 
 PACMAN_PACKAGES+=(
