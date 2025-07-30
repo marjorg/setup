@@ -1,10 +1,9 @@
 [i3volume]
-command=./volume.sh
+command=~/.config/i3blocks/volume.sh
 interval=once
 signal=30
 
 [clock]
 command=date '+%a %-d. %b %H:%M:%S'
 interval=1
-click-left=gnome-calendar
 separator=false

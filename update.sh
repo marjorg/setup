@@ -17,3 +17,5 @@ elif [[ "$IS_ARCH" == true ]]; then
   execute sudo pacman -Rns --noconfirm $(pacman -Qtdq 2>/dev/null)
   execute sudo pacman -Sc --noconfirm
 fi
+
+find ~/.local/share/Trash -type f -delete
