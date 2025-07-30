@@ -12,7 +12,7 @@ if [ -f "$FILE" ]; then
     app=$(echo "$line" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
 
     if [[ -n "$app" ]]; then
-      "$app"
+      "$app" &
     fi
   done < "$FILE"
 fi
