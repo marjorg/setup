@@ -23,6 +23,8 @@ PACMAN_PACKAGES+=(
   zip
   p7zip
   unrar
+  xdg-desktop-portal # File manager integration in apps
+  xdg-desktop-portal-gtk
 )
 
 post_install() {
@@ -40,4 +42,11 @@ post_install() {
 
   sudo systemctl enable ufw
   sudo systemctl start ufw
+
+  if pacman -Q xdg-desktop-portal-cosmic &> /dev/null; then
+    sudo pacman -R --noconfirm xdg-desktop-portal-cosmic
+  fi
+
+  systemctl --user enable --now xdg-desktop-portal
+  systemctl --user enable --now xdg-desktop-portal-gtk
 }
