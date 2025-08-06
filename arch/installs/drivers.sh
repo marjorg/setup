@@ -9,7 +9,7 @@ PACMAN_PACKAGES+=(
   mangohud # Overlay for monitoring FPS++, requires setting launch options in Steam `mangohud %command%`
   goverlay # GUI to customize mangohud
   playerctl # Media keys
-  blueman # Bluetooth GUI
+  blueberry # Bluetooth GUI
   bluez # Bluetooth
   bluez-utils # Bluetooth
 )

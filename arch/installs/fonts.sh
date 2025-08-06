@@ -10,6 +10,7 @@ PACMAN_PACKAGES+=(
 
 YAY_PACKAGES+=(
   ttf-apple-emoji
+  font-manager # Font Manager GUI
 )
 
 post_install() {
