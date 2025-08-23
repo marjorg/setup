@@ -77,6 +77,16 @@ bindsym $mod+Ctrl+l exec $HOME/.config/sway/screen-lock.sh
 # Focus behavior
 focus_follows_mouse no
 
+# Brightness keybindings
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+# Screenshot
+# Full screen
+bindsym $mod+Ctrl+s exec grim - | wl-copy && notify-send "Screenshot" "Copied to clipboard"
+# Area selection
+bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy && notify-send "Screenshot" "Copied to clipboard"
+
 # Moving around:
 # Move your focus around
 bindsym $mod+$left focus left
@@ -195,6 +205,7 @@ exec waybar
 exec mako
 exec wlsunset -l 59.9 -L 10.7
 exec nm-applet --indicator
+exec blueberry-tray
 
 
 include /etc/sway/config.d/*
