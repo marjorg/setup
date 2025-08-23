@@ -20,12 +20,6 @@ input * {
   xkb_layout no
 }
 
-# Automatically move to specified workspace index, not sure about this yet.
-# Can also be combined with `exec app` to auto start.
-assign [app_id="com.mitchellh.ghostty"] 1
-assign [app_id="dev.zed.Zed"] 2
-assign [title=".*Brave.*"] 3
-
 exec_always {
   export XDG_CURRENT_DESKTOP=sway
   export XDG_THEME_PREFERENCE=dark
@@ -129,6 +123,11 @@ bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 # Note: workspaces can have any name you want, not just numbers.
 # We just use 1-10 as the default.
+
+# Volume control
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
 # Layout stuff:
     # You can "split" the current object of your focus with
