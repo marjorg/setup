@@ -6,7 +6,7 @@ export PATH=$PATH:"$HOME/.local/bin"
 export GOPRIVATE=github.com/marjorg
 export PATH=$PATH:/usr/local/go/bin
 # For binaries installed with go install
-export PATH=$PATH:~/go/bin
+export PATH=$PATH:"$HOME/go/bin"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
