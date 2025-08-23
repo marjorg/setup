@@ -2,17 +2,13 @@
 
 YAY_PACKAGES+=(
   google-chrome
-  visual-studio-code-bin
   signal-desktop
   obsidian
-  tableplus
-  postman-bin
 )
 
 PACMAN_PACKAGES+=(
-  ghostty
   gimp
-  file-roller # Unzipper
+  # file-roller # Unzipper
 )
 
 if [[ "$WORK" == false ]]; then
@@ -29,10 +25,6 @@ if [[ "$WORK" == false ]]; then
 fi
 
 post_install() {
-  if ! command -v zed &> /dev/null; then
-    curl -fsS https://zed.dev/install.sh | sh
-  fi
-
   if ! command -v brave &> /dev/null; then
     curl -fsS https://dl.brave.com/install.sh | sh
   fi

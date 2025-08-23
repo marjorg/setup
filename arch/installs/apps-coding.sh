@@ -1,0 +1,19 @@
+#!/bin/bash
+
+YAY_PACKAGES+=(
+  visual-studio-code-bin
+  tableplus
+  postman-bin
+  lazydocker
+)
+
+PACMAN_PACKAGES+=(
+  neovim
+  lazygit
+)
+
+post_install() {
+  if ! command -v zed &> /dev/null; then
+    curl -fsS https://zed.dev/install.sh | sh
+  fi
+}
