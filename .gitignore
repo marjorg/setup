@@ -1,6 +1,8 @@
 .DS_Store
 *.log
 
+.config/fontconfig/conf.d
+
 .config/karabiner/assets
 .config/karabiner/automatic_backups
 
