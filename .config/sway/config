@@ -74,6 +74,8 @@ bindsym $mod+Ctrl+l exec $HOME/.config/sway/screen-lock.sh
 #   resume 'swaymsg "output * power on"' \
 #   before-sleep 'swaylock -i $HOME/.config/sway/bg-2.png'
 
+# Focus behavior
+focus_follows_mouse no
 
 # Moving around:
 # Move your focus around
@@ -192,5 +194,7 @@ bindsym $mod+r mode "resize"
 exec waybar
 exec mako
 exec wlsunset -l 59.9 -L 10.7
+exec nm-applet --indicator
+
 
 include /etc/sway/config.d/*

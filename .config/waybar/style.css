@@ -36,7 +36,12 @@ window#waybar {
 #workspaces button {
   background: transparent;
   color: @gray;
-  padding: 2px 2px;
+  padding: 2px 0px;
+}
+
+#workspaces button.focused {
+  color: @blue;
+  background: @blue_dim;
 }
 
 #workspaces button.active {
@@ -79,6 +84,4 @@ window#waybar {
   padding-right: 8px;
 }
 
-#tray {
-  padding-right: 8px;
-}
+#tray {}

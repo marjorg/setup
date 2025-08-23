@@ -1,9 +1,10 @@
 {
   "layer": "top",
   "position": "top",
+  "spacing": 8,
   "modules-left": ["sway/workspaces"],
   "modules-center": ["sway/window"],
-  "modules-right": ["tray", "pulseaudio", "clock"],
+  "modules-right": ["tray", "pulseaudio", "battery", "clock"],
   "clock": {
     "interval": 1,
     "format": "{:%a %d. %b %H:%M:%S}",
@@ -19,19 +20,25 @@
     "icon-size": 12,
     "spacing": 8
   },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}",
+    "format-charging": "{icon}",
+    "format-plugged": "{icon}",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "tooltip": true,
+    "tooltip-format": "Battery: {capacity}%\nEstimated: {time} left",
+    "tooltip-format-charging": "Charging: {capacity} - {time} until full",
+    "tooltip-format-plugged": "Plugged in: {capacity}"
+  },
   "pulseaudio": {
     "format": "{volume}% {icon}",
     "format-bluetooth": "{volume}% {icon}",
-    "format-muted": "🔇",
-    "format-icons": {
-      "headphone": "🎧",
-      "hands-free": "🎤",
-      "headset": "🎧",
-      "phone": "📱",
-      "portable": "📱",
-      "car": "🚗",
-      "default": ["🔈", "🔉", "🔊"]
-    },
+    "format-muted": "󰖁",
+    "format-icons": ["󰕿", "󰖀", "󰖁", "󰕾"],
     "scroll-step": 5,
     "on-click": "pavucontrol",
     "ignored-sinks": ["Easy Effects Sink"]
