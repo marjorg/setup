@@ -6,11 +6,11 @@ PACMAN_PACKAGES+=(
   noto-fonts-extra
   ttf-font-awesome
   ttf-roboto # Microsoft sucks and has no sans-serif as fallback on some services
+  font-manager # Font Manager GUI
 )
 
 YAY_PACKAGES+=(
   ttf-apple-emoji
-  font-manager # Font Manager GUI
 )
 
 post_install() {
