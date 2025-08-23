@@ -3,13 +3,12 @@
   "position": "top",
   "modules-left": ["sway/workspaces"],
   "modules-center": ["sway/window"],
-  "modules-right": ["tray", "clock"],
+  "modules-right": ["tray", "pulseaudio", "clock"],
   "clock": {
     "interval": 1,
-    "format": "{:%a %-d. %b %H:%M:%S}",
+    "format": "{:%a %d. %b %H:%M:%S}",
     "tooltip": true,
-    "tooltip-format": "{:%A, %d. %B %Y}",
-    "on-click": "gnome-calendar"
+    "tooltip-format": "{:%A, %d. %B %Y}"
   },
   "sway/window": {
     "format": "{title}",
@@ -19,5 +18,22 @@
   "tray": {
     "icon-size": 12,
     "spacing": 8
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-muted": "🔇",
+    "format-icons": {
+      "headphone": "🎧",
+      "hands-free": "🎤",
+      "headset": "🎧",
+      "phone": "📱",
+      "portable": "📱",
+      "car": "🚗",
+      "default": ["🔈", "🔉", "🔊"]
+    },
+    "scroll-step": 5,
+    "on-click": "pavucontrol",
+    "ignored-sinks": ["Easy Effects Sink"]
   }
 }
