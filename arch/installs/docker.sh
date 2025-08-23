@@ -3,9 +3,6 @@
 PACMAN_PACKAGES+=(
   docker
   qemu
-  # Viritualization, you probably also have to change some settings in BIOS.
-  libvirt
-  virt-manager
 )
 
 YAY_PACKAGES+=(
