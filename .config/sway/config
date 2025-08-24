@@ -68,11 +68,11 @@ bindsym $mod+Ctrl+l exec $HOME/.config/sway/screen-lock.sh
 # Lock after 300 seconds of inactivity
 # Turn off displays after 600 seconds of inactivity
 # Lock screen when computer goes to sleep
-# exec_always swayidle -w \
-#   timeout 5 'swaylock -i $HOME/.config/sway/bg-2.png' \
-#   timeout 600 'swaymsg "output * power off"' \
-#   resume 'swaymsg "output * power on"' \
-#   before-sleep 'swaylock -i $HOME/.config/sway/bg-2.png'
+exec_always swayidle -w \
+  timeout 300 'swaylock -i $HOME/.config/sway/bg-2.png' \
+  timeout 600 'swaymsg "output * power off"' \
+  resume 'swaymsg "output * power on"' \
+  before-sleep 'swaylock -i $HOME/.config/sway/bg-2.png'
 
 # Focus behavior
 focus_follows_mouse no
