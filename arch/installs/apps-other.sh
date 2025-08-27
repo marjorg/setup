@@ -8,7 +8,7 @@ YAY_PACKAGES+=(
 
 PACMAN_PACKAGES+=(
   gimp
-  # file-roller # Unzipper
+  file-roller # Unzipper
 )
 
 if [[ "$WORK" == false ]]; then
