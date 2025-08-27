@@ -31,8 +31,8 @@
     "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     "tooltip": true,
     "tooltip-format": "Battery: {capacity}%\nEstimated: {time} left",
-    "tooltip-format-charging": "Charging: {capacity} - {time} until full",
-    "tooltip-format-plugged": "Plugged in: {capacity}"
+    "tooltip-format-charging": "Charging: {capacity}%\n{time} until full",
+    "tooltip-format-plugged": "Plugged in: {capacity}%"
   },
   "pulseaudio": {
     "format": "{volume}% {icon}",
