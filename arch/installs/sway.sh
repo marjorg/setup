@@ -15,3 +15,5 @@ if [[ "$SWAY" == true ]]; then
     wl-clipboard
   )
 fi
+
+# TODO: Customize system prompts look?
