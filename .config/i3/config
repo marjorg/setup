@@ -116,9 +116,9 @@ bindsym $mod+a focus parent
 bindsym XF86AudioRaiseVolume exec pamixer -i 5 && pkill -RTMIN+30 i3blocks
 bindsym XF86AudioLowerVolume exec pamixer -d 5 && pkill -RTMIN+30 i3blocks
 bindsym XF86AudioMute exec pamixer -t && pkill -RTMIN+30 i3blocks
-bindsym $mod+Prior exec pamixer -i 5 && pkill -RTMIN+30 i3blocks
-bindsym $mod+Next exec pamixer -d 5 && pkill -RTMIN+30 i3blocks
-bindsym $mod+End exec pamixer -t && pkill -RTMIN+30 i3blocks
+bindsym $mod+Shift+Prior exec pamixer -i 5 && pkill -RTMIN+30 i3blocks
+bindsym $mod+Shift+Next exec pamixer -d 5 && pkill -RTMIN+30 i3blocks
+bindsym $mod+Shift+End exec pamixer -t && pkill -RTMIN+30 i3blocks
 
 # Media
 bindsym XF86AudioPlay exec playerctl play-pause
