@@ -7,6 +7,7 @@
   },
   "vim_mode": false,
   "tab_size": 2,
+  "unnecessary_code_fade": 0.7,
   "indent_guides": {
     "enabled": true,
     "coloring": "indent_aware"
@@ -16,8 +17,7 @@
     "default_model": {
       "provider": "zed.dev",
       "model": "claude-sonnet-4"
-    },
-    "version": "2"
+    }
   },
   "ui_font_size": 14,
   "buffer_font_size": 13,
@@ -92,17 +92,6 @@
         "source.organizeImports.biome": true
       }
     },
-    "JSX": {
-      "formatter": {
-        "language_server": {
-          "name": "biome"
-        }
-      },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
-    },
     "TSX": {
       "formatter": {
         "language_server": {
@@ -115,17 +104,6 @@
       }
     },
     "CSS": {
-      "formatter": {
-        "language_server": {
-          "name": "biome"
-        }
-      },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
-    },
-    "GraphQL": {
       "formatter": {
         "language_server": {
           "name": "biome"
