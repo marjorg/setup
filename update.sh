@@ -14,8 +14,11 @@ if [[ "$IS_UBUNTU" == true ]]; then
   execute sudo apt-get autoremove
   execute sudo apt-get autoclean
 elif [[ "$IS_ARCH" == true ]]; then
-  execute sudo pacman -Rns --noconfirm $(pacman -Qtdq 2>/dev/null)
+  mapfile -t orphans < <(pacman -Qtdq 2>/dev/null)
+  if [[ ${#orphans[@]} -gt 0 ]]; then
+    execute sudo pacman -Rns --noconfirm "${orphans[@]}"
+  fi
   execute sudo pacman -Sc --noconfirm
 fi
 
-find ~/.local/share/Trash -type f -delete
+find $HOME/.local/share/Trash -type f -delete
