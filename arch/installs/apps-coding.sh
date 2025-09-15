@@ -4,6 +4,7 @@ YAY_PACKAGES+=(
   visual-studio-code-bin
   tableplus
   postman-bin
+  hoppscotch-bin
   lazydocker
 )
 
