@@ -14,7 +14,6 @@ PACMAN_PACKAGES+=(
 if [[ "$WORK" == false ]]; then
   YAY_PACKAGES+=(
     1password
-    proton-pass-bin
     proton-vpn-gtk-app
   )
 
