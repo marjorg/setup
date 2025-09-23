@@ -8,6 +8,16 @@ if [[ "$IS_UBUNTU" == true ]]; then
 elif [[ "$IS_ARCH" == true ]]; then
   execute sudo pacman -S archlinux-keyring --noconfirm
   execute sudo pacman -Syu --noconfirm
+  execute sudo pacman -Fy --noconfirm
+
+  if command -v yay &> /dev/null; then
+    execute yay -Syu --noconfirm
+  fi
+
+  if command -v fwupdmgr &> /dev/null; then
+    execute fwupdmgr refresh --force
+    execute fwupdmgr update
+  fi
 fi
 
 if [[ "$IS_UBUNTU" == true ]]; then
