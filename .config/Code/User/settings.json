@@ -23,5 +23,6 @@
     "go.formatFlags": [
         "fmt",
         "--stdin"
-    ]
+    ],
+    "git.confirmSync": false
 }
