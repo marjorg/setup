@@ -3,6 +3,10 @@
 
 .config/fontconfig/conf.d
 
+.config/Code/**
+!.config/Code/User/keybindings.json
+!.config/Code/User/settings.json
+
 .config/karabiner/assets
 .config/karabiner/automatic_backups
 
