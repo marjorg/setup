@@ -24,5 +24,7 @@
         "fmt",
         "--stdin"
     ],
-    "git.confirmSync": false
+    "git.confirmSync": false,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "javascript.updateImportsOnFileMove.enabled": "always"
 }
