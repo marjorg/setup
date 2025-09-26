@@ -26,6 +26,10 @@ exec_always {
   export QT_QPA_PLATFORM=wayland
 }
 
+# Gaps
+smart_gaps on
+gaps inner 2
+
 # Remove the title bar, handled by Waybar
 default_border none
 default_floating_border none
@@ -72,7 +76,8 @@ exec_always swayidle -w \
   timeout 300 'swaylock -i $HOME/.config/sway/bg-2.png' \
   timeout 600 'swaymsg "output * power off"' \
   resume 'swaymsg "output * power on"' \
-  before-sleep 'swaylock -i $HOME/.config/sway/bg-2.png'
+  before-sleep 'swaylock -i $HOME/.config/sway/bg-2.png' \
+  idlehint 300
 
 # Focus behavior
 focus_follows_mouse no
