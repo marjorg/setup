@@ -6,6 +6,7 @@ YAY_PACKAGES+=(
   postman-bin
   hoppscotch-bin
   lazydocker
+  redisinsight-bin
 )
 
 PACMAN_PACKAGES+=(
