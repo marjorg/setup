@@ -1,10 +1,10 @@
 #!/bin/bash
 
-PACMAN_PACKAGES+=(
-  go
+MISE_PACKAGES+=(
+  go@latest
 )
 
-YAY_PACKAGES+=(
+PACMAN_PACKAGES+=(
   golangci-lint
 )
 

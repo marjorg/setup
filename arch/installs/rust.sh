@@ -1,10 +1,5 @@
 #!/bin/bash
 
-PACMAN_PACKAGES+=(
-  rustup
+MISE_PACKAGES+=(
+  rust@latest
 )
-
-post_install() {
-  # TODO: Somehow check if already latest?
-  rustup default stable
-}
