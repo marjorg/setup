@@ -14,9 +14,6 @@ DEBUG=false
 WORK=false
 DEPS_ONLY=false
 EMAIL="git@mjorg.dev"
-SWAY=false
-I3=false
-NVIDIA=false
 
 while [[ $# > 0 ]]; do
   if [[ $1 == "--dry" ]]; then
@@ -27,12 +24,6 @@ while [[ $# > 0 ]]; do
     WORK=true
   elif [[ $1 == "--deps-only" ]]; then
     DEPS_ONLY=true
-  elif [[ $1 == "--sway" ]]; then
-    SWAY=true
-  elif [[ $1 == "--i3" ]]; then
-    I3=true
-  elif [[ $1 == "--nvidia" ]]; then
-    NVIDIA=true
   elif [[ $1 == "--email" ]]; then
     shift
     EMAIL="$1"
