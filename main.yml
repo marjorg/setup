@@ -6,7 +6,6 @@
   vars:
     work_mode: false
     supported_distributions:
-      - ubuntu
       - archlinux
 
   pre_tasks:
