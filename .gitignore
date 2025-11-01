@@ -1,20 +1,11 @@
 .DS_Store
 *.log
 
-.config/fontconfig/conf.d
-
 .config/Code/**
 !.config/Code/User/keybindings.json
 !.config/Code/User/settings.json
 
-.config/karabiner/assets
-.config/karabiner/automatic_backups
-
 .config/tmux/plugins
-
-.config/i3/startup-apps.txt
 
 .config/zed/conversations
 .config/zed/prompts
-
-.config/gtk-3.0/bookmarks
