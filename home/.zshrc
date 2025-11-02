@@ -16,12 +16,10 @@ autoload -Uz _zinit
 
 # fzf, a fuzzy finder
 # Trigger with ctrl+r, needs to be loaded before the plugin for tab completion
-  # --zsh is not available < v0.48.0, which is not on apt for Ubuntu yet
-  # https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration
-#  source <(fzf --zsh)
-  # TODO
-  # source /usr/share/fzf/completion.zsh
-  # source /usr/share/fzf/key-bindings.zsh
+# https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration
+source <(fzf --zsh)
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
 
 # Add zsh plugins
 # More plugins can be found on:
