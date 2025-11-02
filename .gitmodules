@@ -1,3 +1,0 @@
-[submodule "private"]
-	path = modules/private
-	url = git@github.com:marjorg/setup-private.git
