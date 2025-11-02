@@ -38,7 +38,6 @@
     state: link
     force: yes
   loop:
-    - .gitconfig
     - .zshrc
     - .bashrc
     - .profile

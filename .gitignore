@@ -1,11 +1,11 @@
 .DS_Store
 *.log
 
-.config/Code/**
-!.config/Code/User/keybindings.json
-!.config/Code/User/settings.json
+home/.config/Code/**
+!home/.config/Code/User/keybindings.json
+!home/.config/Code/User/settings.json
 
-.config/tmux/plugins
+home/.config/tmux/plugins
 
-.config/zed/conversations
-.config/zed/prompts
+home/.config/zed/conversations
+home/.config/zed/prompts
