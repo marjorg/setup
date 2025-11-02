@@ -65,16 +65,6 @@
           }
         },
         {
-          "template": "  {{ .Full }} ",
-          "foreground": "#F9AD00",
-          "background": "transparent",
-          "type": "pnpm",
-          "style": "plain",
-          "properties": {
-            "cache_duration": "none"
-          }
-        },
-        {
           "template": "  {{ .Full }} ",
           // "template": " 󰟓 {{ .Full }} ",
           "foreground": "#7FD5EA",
