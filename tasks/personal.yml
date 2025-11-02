@@ -1,8 +1,0 @@
----
-
-- name: Clone notes repository
-  ansible.builtin.git:
-    repo: git@github.com:marjorg/notes.git
-    dest: "{{ ansible_env.HOME }}/notes"
-    clone: yes
-    update: no

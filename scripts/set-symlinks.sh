@@ -1,7 +1,21 @@
 #!/bin/bash
 
-VSCODE_CONFIG_DIR="$HOME/.config/Code/User"
-DOTFILES_VSCODE="$HOME/dotfiles/.config/Code/User"
+DOTFILES_HOME="$HOME/dotfiles/home"
+DOTFILES_CONFIG="$HOME/dotfiles/home/.config"
+HOME_CONFIG="$HOME/.config"
 
-ln -sf "$DOTFILES_VSCODE/settings.json" "$VSCODE_CONFIG_DIR/settings.json"
-ln -sf "$DOTFILES_VSCODE/keybindings.json" "$VSCODE_CONFIG_DIR/keybindings.json"
+ln -sf "$DOTFILES_HOME/.zshrc" "$HOME/.zshrc"
+ln -sf "$DOTFILES_HOME/.profile" "$HOME/.profile"
+
+for d in "$DOTFILES_CONFIG"/*/; do
+  folder=$(basename "$d")
+
+  if [[ -L "$HOME_CONFIG/$folder" ]]; then
+    continue
+  elif [[ -d "$HOME_CONFIG/$folder" ]]; then
+    echo "$folder is a folder, not symlinking"
+    continue
+  fi
+
+  ln -sf "$DOTFILES_CONFIG/$folder" "$HOME_CONFIG/$folder"
+done

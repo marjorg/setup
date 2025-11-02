@@ -5,7 +5,12 @@ home/.config/Code/**
 !home/.config/Code/User/keybindings.json
 !home/.config/Code/User/settings.json
 
+home/.config/omarchy/**
+!home/.config/omarchy/branding/screensaver.txt
+
 home/.config/tmux/plugins
+
+home/.config/hypr/shaders
 
 home/.config/zed/conversations
 home/.config/zed/prompts
