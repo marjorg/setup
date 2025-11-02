@@ -1,13 +1,9 @@
 #!/bin/bash
 
-pre_install() {
-  if command -v docker-compose &>/dev/null; then
-    execute yay -R --noconfirm docker-compose docker-buildx
-  fi
-}
-
-YAY_PACKAGES+=(
-  docker-desktop
+PACMAN_PACKAGES+=(
+  docker
+  docker-compose
+  docker-buildx
 )
 
 # post_install() {
