@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EMAIL="${1}"
+source utils.sh
 
 KEY_ID=$(gpg --list-secret-keys --with-colons "$EMAIL" 2>/dev/null | awk -F: '/^sec:/ {print $5}' | tail -n1)
 
@@ -9,4 +9,8 @@ if [[ -z "$KEY_ID" ]]; then
   exit 1
 fi
 
-echo "$KEY_ID"
+export git_signing_key=$KEY_ID
+export git_user_email=$EMAIL
+export git_gpg_program=$(which gpg)
+
+gomplate -f $HOME/dotfiles/templates/git_config.tmpl -o $HOME/.config/git/config

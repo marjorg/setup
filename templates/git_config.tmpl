@@ -1,10 +1,10 @@
-# Managed by Ansible
-# Last updated: {{ ansible_date_time.date }} {{ ansible_date_time.time }}
+# Managed by gomplate
+# Last updated: {{ (time.Now).Format "2006-01-02 15:04:05" }}
 
 [user]
-  signingkey = {{ git_signing_key }}
+  signingkey = {{ .Env.git_signing_key }}
   name = Marius Jørgensen
-  email = {{ git_user_email }}
+  email = {{ .Env.git_user_email }}
 [commit]
   gpgSign = true
 [url "git@github.com:"]
@@ -19,4 +19,9 @@
 [pull]
   rebase = true
 [gpg]
-  program = {{ git_gpg_program }}
+  program = {{ .Env.git_gpg_program }}
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
