@@ -12,7 +12,6 @@ trap 'echo "Error at line $LINENO. Check $LOG_FILE for details." >&2' ERR
 DRY=false
 DEBUG=false
 WORK=false
-DEPS_ONLY=false
 EMAIL="git@mjorg.dev"
 
 while [[ $# > 0 ]]; do
@@ -22,8 +21,6 @@ while [[ $# > 0 ]]; do
     DEBUG=true
   elif [[ $1 == "--work" ]]; then
     WORK=true
-  elif [[ $1 == "--deps-only" ]]; then
-    DEPS_ONLY=true
   elif [[ $1 == "--email" ]]; then
     shift
     EMAIL="$1"
