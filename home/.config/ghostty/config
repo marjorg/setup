@@ -30,3 +30,5 @@ shell-integration-features = ssh-env
 
 background-opacity = 0.85
 background-blur = 20
+
+initial-command = "/usr/bin/zsh"
