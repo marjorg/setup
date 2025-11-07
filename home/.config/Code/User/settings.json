@@ -26,5 +26,6 @@
     ],
     "git.confirmSync": false,
     "typescript.updateImportsOnFileMove.enabled": "always",
-    "javascript.updateImportsOnFileMove.enabled": "always"
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "workbench.secondarySideBar.defaultVisibility": "hidden"
 }
