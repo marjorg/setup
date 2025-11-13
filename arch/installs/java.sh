@@ -2,4 +2,5 @@
 
 MISE_PACKAGES+=(
   java@latest
+  kotlin@latest
 )
