@@ -2,7 +2,6 @@
 
 # TODO: Add flag to update listed deps?
 # TODO: Do I have to source shell to make go install work after mise install?
-# TODO: Add already installed filter to mise?
 
 sudo -v
 
@@ -82,10 +81,26 @@ else
 fi
 
 MISE_PACKAGES=($(printf "%s\n" "${MISE_PACKAGES[@]}" | sort -u))
+MISE_PACKAGES_NOT_INSTALLED=()
 
-if [ "${#MISE_PACKAGES[@]}" -gt 0 ]; then
-  log "Installing Mise packages: ${MISE_PACKAGES[*]}"
-  execute mise use --global "${MISE_PACKAGES[@]}" >>"$LOG_FILE" 2>&1 || log "Mise installation failed."
+for pkg in "${MISE_PACKAGES[@]}"; do
+  tool="${pkg%%@*}"
+  version="${pkg#*@}"
+
+  if mise ls --json | jq -e --arg tool "$tool" --arg version "$version" '
+    .[$tool] // [] |
+    map(select(.requested_version == $version and .active == true)) |
+    length > 0
+  ' &>/dev/null; then
+    debug "Package '$pkg' is already installed and active. Skipping."
+  else
+    MISE_PACKAGES_NOT_INSTALLED+=("$pkg")
+  fi
+done
+
+if [ "${#MISE_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
+  log "Installing Mise packages: ${MISE_PACKAGES_NOT_INSTALLED[*]}"
+  execute mise use --global "${MISE_PACKAGES_NOT_INSTALLED[@]}" >>"$LOG_FILE" 2>&1 || log "Mise installation failed."
 else
   log "No Mise packages to install."
 fi
