@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: Should be moved to files script when added
+
 post_install() {
   if $WORK; then
     return

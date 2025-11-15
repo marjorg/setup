@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# TODO: Add flag to update listed deps?
+# TODO: Do I have to source shell to make go install work after mise install?
+# TODO: Add already installed filter to mise?
+
 sudo -v
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -78,7 +82,6 @@ else
 fi
 
 MISE_PACKAGES=($(printf "%s\n" "${MISE_PACKAGES[@]}" | sort -u))
-# TODO: Add already installed filter?
 
 if [ "${#MISE_PACKAGES[@]}" -gt 0 ]; then
   log "Installing Mise packages: ${MISE_PACKAGES[*]}"
@@ -86,8 +89,6 @@ if [ "${#MISE_PACKAGES[@]}" -gt 0 ]; then
 else
   log "No Mise packages to install."
 fi
-
-# TODO: Might have to source shell here to make go install work after mise install
 
 if [ "${#POST_INSTALL_SCRIPTS[@]}" -gt 0 ]; then
   log "Running post-install scripts..."
