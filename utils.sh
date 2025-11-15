@@ -44,7 +44,7 @@ debug() {
 }
 
 execute() {
-  if [[ "$DRY" == true ]]; then
+  if $DRY; then
     log "$@"
 
   else

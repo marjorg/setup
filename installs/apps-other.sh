@@ -8,7 +8,7 @@ PACMAN_PACKAGES+=(
   gimp
 )
 
-if [[ "$WORK" == false ]]; then
+if ! $WORK; then
   YAY_PACKAGES+=(
     brave-bin
     proton-vpn-gtk-app

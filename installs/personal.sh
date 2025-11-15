@@ -1,7 +1,7 @@
 #!/bin/bash
 
 post_install() {
-  if [[ "$WORK" == true ]]; then
+  if $WORK; then
     return
   fi
 
