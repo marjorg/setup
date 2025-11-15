@@ -8,6 +8,10 @@ PACMAN_PACKAGES+=(
   golangci-lint
 )
 
+YAY_PACKAGES+=(
+  gomplate-bin # Used for config files generation
+)
+
 post_install() {
   go install golang.org/x/tools/gopls@latest
   go install github.com/go-delve/delve/cmd/dlv@latest
