@@ -32,3 +32,6 @@ background-opacity = 0.85
 background-blur = 20
 
 command = "/usr/bin/zsh"
+
+# Slowdown mouse scrolling
+mouse-scroll-multiplier = 0.95
