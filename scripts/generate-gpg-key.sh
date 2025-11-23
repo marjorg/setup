@@ -3,8 +3,6 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/utils.sh"
 
-EMAIL="${1}"
-
 # Only have one key per email
 if gpg --list-secret-keys --with-colons "$EMAIL" | grep -q '^sec:'; then
   exit 0
