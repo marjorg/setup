@@ -34,14 +34,16 @@ for d in "$DOTFILES_CONFIG"/*/; do
       ;;
   esac
 
+  dest="$HOME_CONFIG/$folder"
+
   if [[ -L "$dest" ]]; then
     echo "Skip: $folder (already symlink)"
     continue
   fi
 
   if [[ -d "$dest" ]]; then
-    echo "Skip: $folder is an existing directory (not replacing)"
-    continue
+    echo "Renaming existing directory: $dest → ${dest}.bak"
+    mv "$dest" "${dest}.bak"
   fi
 
   link "$d" "$dest"
