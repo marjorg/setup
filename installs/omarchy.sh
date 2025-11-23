@@ -2,6 +2,6 @@
 
 pre_install() {
   if [[ "$(omarchy-theme-current)" != "Tokyo Night" ]]; then
-    omarchy-theme-set Tokyo Night
+    omarchy-theme-set "Tokyo Night"
   fi
 }
