@@ -105,6 +105,33 @@ else
   log "No Mise packages to install."
 fi
 
+GO_PACKAGES=($(printf "%s\n" "${GO_PACKAGES[@]}" | sort -u))
+GO_PACKAGES_NOT_INSTALLED=()
+
+for pkg in "${GO_PACKAGES[@]}"; do
+  # Extract the binary name from the package path. Ex: golang.org/x/tools/gopls -> gopls
+  binary_name="${pkg##*/}"
+  binary_name="${binary_name%%@*}"
+
+  # Check if the binary exists in GOPATH/bin or GOBIN
+  go_bin="${GOBIN:-$(go env GOPATH)/bin}"
+
+  if [ -f "$go_bin/$binary_name" ]; then
+    debug "Go tool '$binary_name' is already installed. Skipping."
+  else
+    GO_PACKAGES_NOT_INSTALLED+=("$pkg")
+  fi
+done
+
+if [ "${#GO_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
+  log "Installing Go packages: ${GO_PACKAGES_NOT_INSTALLED[*]}"
+  for pkg in "${GO_PACKAGES_NOT_INSTALLED[@]}"; do
+    execute go install "$pkg" >>"$LOG_FILE" 2>&1 || log "Failed to install $pkg"
+  done
+else
+  log "No Go packages to install."
+fi
+
 if [ "${#POST_INSTALL_SCRIPTS[@]}" -gt 0 ]; then
   log "Running post-install scripts..."
 
