@@ -10,6 +10,7 @@ TEMPLATE="$HOME/dotfiles/templates/ssh_config.tmpl"
 SSH_KNOWN_HOSTS="$SSH_DIR/known_hosts"
 SSH_CONFIG="$SSH_DIR/config"
 
+mkdir -p "$SSH_DIR"
 chmod 700 "$SSH_DIR"
 
 gomplate -f "$TEMPLATE" -o "$SSH_CONFIG"
