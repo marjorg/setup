@@ -8,6 +8,7 @@ PACMAN_PACKAGES+=(
   7zip
   poppler
   resvg
+  rsync
 )
 
 YAY_PACKAGES+=(
