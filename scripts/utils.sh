@@ -30,11 +30,16 @@ while [[ $# > 0 ]]; do
 done
 
 log() {
+  local msg
+
   if $DRY; then
-    echo "[DRY RUN] $@"
+    msg="[DRY RUN] $@"
   else
-    echo "$@"
+    msg="$@"
   fi
+
+  echo "$msg"
+  echo "$msg" >> "$LOG_FILE"
 }
 
 debug() {

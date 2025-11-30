@@ -15,7 +15,7 @@ link() {
 
   mkdir -p "$(dirname "$dest")"
   ln -sf "$src" "$dest"
-  echo "Linked: $dest → $src"
+  log "Linked: $dest → $src"
 }
 
 link "$DOTFILES_HOME/.zshrc" "$HOME/.zshrc"
@@ -37,12 +37,12 @@ for d in "$DOTFILES_CONFIG"/*/; do
   dest="$HOME_CONFIG/$folder"
 
   if [[ -L "$dest" ]]; then
-    echo "Skip: $folder (already symlink)"
+    log "Skip: $folder (already symlink)"
     continue
   fi
 
   if [[ -d "$dest" ]]; then
-    echo "Renaming existing directory: $dest → ${dest}.bak"
+    log "Renaming existing directory: $dest → ${dest}.bak"
     mv "$dest" "${dest}.bak"
   fi
 

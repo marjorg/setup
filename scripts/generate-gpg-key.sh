@@ -23,6 +23,6 @@ gpg --batch --generate-key gpg-batch
 rm -f gpg-batch
 
 KEY_ID=$(gpg --list-secret-keys --with-colons | grep '^sec:' | cut -d: -f5 | tail -n1)
-echo "GPG key generated with ID: $KEY_ID"
+log "GPG key generated with ID: $KEY_ID"
 
 gpg --armor --export "$KEY_ID"
