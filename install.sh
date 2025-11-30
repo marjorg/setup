@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # TODO: Add flag to update listed deps?
-# TODO: Do I have to source shell to make go install work after mise install?
 
 sudo -v
 
@@ -113,6 +112,7 @@ for pkg in "${GO_PACKAGES[@]}"; do
   binary_name="${pkg##*/}"
   binary_name="${binary_name%%@*}"
 
+  # We need to source env here on first run since Go is not installed when script starts
   # Check if the binary exists in GOPATH/bin or GOBIN
   go_bin="${GOBIN:-$(go env GOPATH)/bin}"
 
