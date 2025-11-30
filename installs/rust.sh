@@ -1,5 +1,5 @@
 #!/bin/bash
 
-MISE_PACKAGES+=(
-  rust@latest
-)
+#MISE_PACKAGES+=(
+  #rust@latest
+#)
