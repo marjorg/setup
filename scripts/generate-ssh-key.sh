@@ -12,12 +12,11 @@ if [ ! -f "$KEY_PATH" ]; then
   log "SSH key generated: $KEY_PATH"
 fi
 
-if [ -z "${SSH_AUTH_SOCK:-}" ] || ! ssh-add -l &>/dev/null; then
-  eval "$(ssh-agent -s)" > /dev/null
-  debug "SSH agent started"
-fi
-
-if ! ssh-add -l 2>/dev/null | grep -q "$KEY_PATH"; then
-  ssh-add "$KEY_PATH" 2>/dev/null
-  debug "SSH key added to agent: $KEY_PATH"
+if [ -n "${SSH_AUTH_SOCK:-}" ] && ssh-add -l &>/dev/null; then
+  if ! ssh-add -l 2>/dev/null | grep -q "$KEY_PATH"; then
+    ssh-add "$KEY_PATH" 2>/dev/null
+    debug "SSH key added to agent: $KEY_PATH"
+  fi
+else
+  debug "No SSH agent running, key will be loaded on first use"
 fi
