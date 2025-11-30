@@ -15,7 +15,7 @@ link() {
 
   mkdir -p "$(dirname "$dest")"
   ln -sf "$src" "$dest"
-  log "Linked: $dest → $src"
+  debug "Linked: $dest → $src"
 }
 
 link "$DOTFILES_HOME/.zshrc" "$HOME/.zshrc"
@@ -37,13 +37,18 @@ for d in "$DOTFILES_CONFIG"/*/; do
   dest="$HOME_CONFIG/$folder"
 
   if [[ -L "$dest" ]]; then
-    log "Skip: $folder (already symlink)"
+    debug "Skip: $folder (already symlink)"
     continue
   fi
 
   if [[ -d "$dest" ]]; then
-    log "Renaming existing directory: $dest → ${dest}.bak"
-    mv "$dest" "${dest}.bak"
+    if [[ -e "${dest}.bak" ]]; then
+      debug "Backup already exists, removing old directory: $dest"
+      rm -rf "$dest"
+    else
+      log "Renaming existing directory: $dest → ${dest}.bak"
+      mv "$dest" "${dest}.bak"
+    fi
   fi
 
   link "$d" "$dest"
