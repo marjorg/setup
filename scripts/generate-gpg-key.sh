@@ -11,7 +11,10 @@ if gpg --list-secret-keys --with-colons "$EMAIL" | grep -q '^sec:'; then
   exit 0
 fi
 
-cat >gpg-batch <<EOF
+BATCH_FILE=$(mktemp)
+trap 'rm -f "$BATCH_FILE"' EXIT
+
+cat >"$BATCH_FILE" <<EOF
 Key-Type: RSA
 Key-Length: 4096
 Subkey-Type: RSA
@@ -23,8 +26,7 @@ Expire-Date: 0
 %commit
 EOF
 
-gpg --batch --generate-key gpg-batch
-rm -f gpg-batch
+gpg --batch --generate-key "$BATCH_FILE"
 
 KEY_ID=$(gpg --list-secret-keys --with-colons "$EMAIL" | grep '^sec:' | cut -d: -f5 | head -n1)
 log "GPG key generated with ID: $KEY_ID"
