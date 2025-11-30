@@ -1,9 +1,13 @@
 #!/bin/bash
 
-EMAIL=$1
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+
+set -euo pipefail
 
 # Only have one key per email
 if gpg --list-secret-keys --with-colons "$EMAIL" | grep -q '^sec:'; then
+  debug "GPG key already exists for $EMAIL"
   exit 0
 fi
 
@@ -22,7 +26,7 @@ EOF
 gpg --batch --generate-key gpg-batch
 rm -f gpg-batch
 
-KEY_ID=$(gpg --list-secret-keys --with-colons | grep '^sec:' | cut -d: -f5 | tail -n1)
+KEY_ID=$(gpg --list-secret-keys --with-colons "$EMAIL" | grep '^sec:' | cut -d: -f5 | head -n1)
 log "GPG key generated with ID: $KEY_ID"
 
 gpg --armor --export "$KEY_ID"
