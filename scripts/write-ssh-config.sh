@@ -1,5 +1,10 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+
+set -euo pipefail
+
 SSH_DIR="$HOME/.ssh"
 TEMPLATE="$HOME/dotfiles/templates/ssh_config.tmpl"
 SSH_KNOWN_HOSTS="$SSH_DIR/known_hosts"
