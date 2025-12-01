@@ -29,7 +29,16 @@ if [ ! -f "$CHROMIUM_EXTENSIONS" ]; then
     "ddkjiahejlhfcafbddmgiahcphecmpfh",
     // 1password
     "aeblfdkhhhdcdjpifhhbdiojplfjncoa"
-  ]
+  ],
+}
+EOF
+fi
+
+CHROMIUM_SETTINGS="/etc/chromium/policies/managed/policy.json"
+if [ ! -f "$CHROMIUM_SETTINGS" ]; then
+  cat >"$CHROMIUM_SETTINGS" <<EOF
+{
+  "PasswordManagerEnabled": false
 }
 EOF
 fi
