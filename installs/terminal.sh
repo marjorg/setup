@@ -9,6 +9,7 @@ PACMAN_PACKAGES+=(
   poppler
   resvg
   rsync
+  wl-clipboard
 )
 
 YAY_PACKAGES+=(
