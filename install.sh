@@ -112,7 +112,10 @@ for pkg in "${GO_PACKAGES[@]}"; do
   binary_name="${pkg##*/}"
   binary_name="${binary_name%%@*}"
 
-  # We need to source env here on first run since Go is not installed when script starts
+  if ! command -v go >/dev/null 2>&1; then
+    eval "$(mise activate bash)"
+  fi
+
   # Check if the binary exists in GOPATH/bin or GOBIN
   go_bin="${GOBIN:-$(go env GOPATH)/bin}"
 
