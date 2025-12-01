@@ -13,12 +13,25 @@ source "$SCRIPT_DIR/scripts/utils.sh"
 BACKGROUNDS="$DOTFILES_DIR/backgrounds"
 OMARCHY_BACKGROUNDS="$HOME/.config/omarchy/current/theme/backgrounds"
 
-
 if [[ -d "$BACKGROUNDS" ]] && [[ -n "$(ls -A "$BACKGROUNDS" 2>/dev/null)" ]]; then
   mkdir -p "$OMARCHY_BACKGROUNDS"
   rsync -a --delete "$BACKGROUNDS/" "$OMARCHY_BACKGROUNDS/"
 else
   log "Warning: Backgrounds directory empty or missing, skipping sync"
+fi
+
+CHROMIUM_EXTENSIONS="/etc/chromium/policies/managed/extensions.json"
+if [ ! -f "$CHROMIUM_EXTENSIONS" ]; then
+  cat >"$CHROMIUM_EXTENSIONS" <<EOF
+{
+  "ExtensionInstallForcelist": [
+    // uBlock Lite
+    "ddkjiahejlhfcafbddmgiahcphecmpfh",
+    // 1password
+    "aeblfdkhhhdcdjpifhhbdiojplfjncoa"
+  ]
+}
+EOF
 fi
 
 log "Files setup."
