@@ -8,7 +8,7 @@ set -euo pipefail
 KEY_ID=$(gpg --list-secret-keys --with-colons "$EMAIL" 2>/dev/null | awk -F: '/^sec:/ {print $5}' | head -n1)
 
 if [[ -z "$KEY_ID" ]]; then
-  echo "No GPG key found for email: $EMAIL" >&2
+  log "No GPG key found for email: $EMAIL" >&2
   exit 1
 fi
 
