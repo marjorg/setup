@@ -6,3 +6,5 @@
 <!-- 4. Restart -->
 
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/marjorg/setup/main/setup.sh)"`
+
+<!-- If WiFi breaks: `sudo systemctl restart iwd` -->
