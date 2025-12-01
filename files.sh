@@ -34,4 +34,14 @@ if [ ! -f "$CHROMIUM_EXTENSIONS" ]; then
 EOF
 fi
 
+# TODO: Handle this in a better place
+code --install-extension enkia.tokyo-night
+code --install-extension golang.go
+code --install-extension mhutchie.git-graph
+code --install-extension bradlc.vscode-tailwindcss
+code --install-extension oderwat.indent-rainbow
+code --install-extension aaron-bond.better-comments
+code --install-extension usernamehw.errorlens
+code --install-extension ms-python.python
+
 log "Files setup."
