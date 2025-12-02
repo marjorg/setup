@@ -4,8 +4,6 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    "stevearc/conform.nvim",
-    "stevearc/conform.nvim",
     "L3MON4D3/LuaSnip",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
