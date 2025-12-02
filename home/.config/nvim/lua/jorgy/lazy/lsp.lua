@@ -5,6 +5,8 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     "stevearc/conform.nvim",
+    "stevearc/conform.nvim",
+    "L3MON4D3/LuaSnip",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "hrsh7th/cmp-nvim-lsp",
@@ -17,6 +19,7 @@ return {
   config = function()
     local cmp = require('cmp')
     local cmp_lsp = require("cmp_nvim_lsp")
+    local luasnip = require('luasnip')
     local capabilities = vim.tbl_deep_extend(
       "force",
       {},
@@ -90,8 +93,17 @@ return {
       mapping = cmp.mapping.preset.insert({
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()           -- select next item in completion menu
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()        -- expand snippet or jump to next placeholder
+          else
+            fallback()                       -- fall back to default tab behavior
+          end
+        end, { "i", "s" }),
+        ["<C-Space>"] = cmp.mapping.complete(),     -- trigger completion manually
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),  -- Enter confirms selection
       }),
       sources = cmp.config.sources({
         { name = "copilot", group_index = 2 },
@@ -103,6 +115,10 @@ return {
 
     vim.diagnostic.config({
       -- update_in_insert = true,
+      virtual_text = {
+        prefix = '●', -- Could be '■', '▎', 'x', etc.
+        source = "if_many", -- Show source if multiple LSPs
+      },
       float = {
         focusable = false,
         style = "minimal",
