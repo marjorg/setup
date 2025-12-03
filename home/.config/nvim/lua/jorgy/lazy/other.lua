@@ -26,10 +26,18 @@ return {
   -- https://github.com/stevearc/conform.nvim
   {
     'stevearc/conform.nvim',
-    opts = {},
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("conform").setup({
-        formatters_by_ft = {}
+        formatters_by_ft = {
+          lua = { "stylua" },
+          rust = { "rustfmt" },
+          go = { "gofmt", "goimports" },
+        },
+        format_on_save = {
+          timeout_ms = 500,
+          lsp_fallback = true,
+        },
       })
     end,
     keys = {
