@@ -52,5 +52,6 @@ code --install-extension oderwat.indent-rainbow
 code --install-extension aaron-bond.better-comments
 code --install-extension usernamehw.errorlens
 code --install-extension ms-python.python
+code --install-extension sumneko.lua
 
 log "Files setup."
