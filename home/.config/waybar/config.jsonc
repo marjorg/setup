@@ -52,7 +52,7 @@
     "on-click": "omarchy-launch-or-focus-tui btop"
   },
   "clock": {
-    "format": "{:%d. %b %H:%M:%S}",
+    "format": "{:%e. %b %H:%M:%S}",
     "interval": 1,
     "format-alt": "{:L%d. %B %Y - W%V}",
     "tooltip": false,
