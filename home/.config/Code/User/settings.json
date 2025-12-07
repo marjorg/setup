@@ -2,6 +2,7 @@
     "workbench.colorTheme": "Tokyo Night",
     "editor.fontFamily": "'JetBrainsMono Nerd Font', 'monospace', monospace",
     "editor.fontLigatures": false,
+    "editor.tabSize": 2,
     "workbench.navigationControl.enabled": false,
     "window.commandCenter": false,
     "chat.commandCenter.enabled": false,
