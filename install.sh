@@ -47,7 +47,9 @@ PACMAN_PACKAGES=($(printf "%s\n" "${PACMAN_PACKAGES[@]}" | sort -u))
 PACMAN_PACKAGES_NOT_INSTALLED=()
 
 for pkg in "${PACMAN_PACKAGES[@]}"; do
-  if ! pacman -Q "$pkg" &>/dev/null; then
+  if [ "$UPDATE_MODE" = true ]; then
+    PACMAN_PACKAGES_NOT_INSTALLED+=("$pkg")
+  elif ! pacman -Q "$pkg" &>/dev/null; then
     PACMAN_PACKAGES_NOT_INSTALLED+=("$pkg")
   else
     debug "Package '$pkg' is already installed. Skipping."
@@ -65,7 +67,9 @@ YAY_PACKAGES=($(printf "%s\n" "${YAY_PACKAGES[@]}" | sort -u))
 YAY_PACKAGES_NOT_INSTALLED=()
 
 for pkg in "${YAY_PACKAGES[@]}"; do
-  if ! yay -Q "$pkg" &>/dev/null; then
+  if [ "$UPDATE_MODE" = true ]; then
+    YAY_PACKAGES_NOT_INSTALLED+=("$pkg")
+  elif ! yay -Q "$pkg" &>/dev/null; then
     YAY_PACKAGES_NOT_INSTALLED+=("$pkg")
   else
     debug "Yay package '$pkg' is already installed. Skipping."
@@ -86,7 +90,9 @@ for pkg in "${MISE_PACKAGES[@]}"; do
   tool="${pkg%%@*}"
   version="${pkg#*@}"
 
-  if mise ls --json | jq -e --arg tool "$tool" --arg version "$version" '
+  if [ "$UPDATE_MODE" = true ]; then
+    MISE_PACKAGES_NOT_INSTALLED+=("$pkg")
+  elif mise ls --json | jq -e --arg tool "$tool" --arg version "$version" '
     .[$tool] // [] |
     map(select(.requested_version == $version and .active == true)) |
     length > 0
@@ -119,7 +125,9 @@ for pkg in "${GO_PACKAGES[@]}"; do
   # Check if the binary exists in GOPATH/bin or GOBIN
   go_bin="${GOBIN:-$(go env GOPATH)/bin}"
 
-  if [ -f "$go_bin/$binary_name" ]; then
+  if [ "$UPDATE_MODE" = true ]; then
+    GO_PACKAGES_NOT_INSTALLED+=("$pkg")
+  elif [ -f "$go_bin/$binary_name" ]; then
     debug "Go tool '$binary_name' is already installed. Skipping."
   else
     GO_PACKAGES_NOT_INSTALLED+=("$pkg")

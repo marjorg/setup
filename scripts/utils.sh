@@ -13,6 +13,7 @@ DRY=false
 DEBUG=false
 WORK=false
 EMAIL="git@mjorg.dev"
+UPDATE_MODE=false
 
 while [[ $# > 0 ]]; do
   if [[ $1 == "--dry" ]]; then
@@ -24,6 +25,8 @@ while [[ $# > 0 ]]; do
   elif [[ $1 == "--email" ]]; then
     shift
     EMAIL="$1"
+  elif [[ $1 == "--update" ]]; then
+    UPDATE_MODE=true
   fi
 
   shift
