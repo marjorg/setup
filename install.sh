@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: Add flag to update listed deps?
-
 sudo -v
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
