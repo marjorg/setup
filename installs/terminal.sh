@@ -10,6 +10,8 @@ PACMAN_PACKAGES+=(
   resvg
   rsync
   wl-clipboard
+  ansible
+  tree
 )
 
 YAY_PACKAGES+=(
