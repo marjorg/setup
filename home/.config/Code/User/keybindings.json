@@ -14,5 +14,19 @@
         "key": "shift+alt+r",
         "command": "editor.action.rename",
         "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "shift+alt+g",
+        "command": "workbench.scm.focus"
+    },
+    {
+        "key": "shift+alt+e",
+        "command": "workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "-workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
     }
 ]
