@@ -16,6 +16,7 @@ PACMAN_PACKAGES+=(
 
 YAY_PACKAGES+=(
   oh-my-posh-bin
+  k6
 )
 
 post_install() {
