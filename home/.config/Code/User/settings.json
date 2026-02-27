@@ -1,34 +1,41 @@
 {
-    "workbench.colorTheme": "Tokyo Night",
-    "editor.fontFamily": "'JetBrainsMono Nerd Font', 'monospace', monospace",
-    "editor.fontLigatures": false,
-    "editor.tabSize": 2,
-    "workbench.navigationControl.enabled": false,
-    "window.commandCenter": false,
-    "chat.commandCenter.enabled": false,
-    "workbench.layoutControl.enabled": false,
-    "window.title": " ",
-    "explorer.confirmDelete": false,
-    "files.insertFinalNewline": true,
-    "git.autofetch": true,
-    "diffEditor.ignoreTrimWhitespace": false,
-    "go.lintTool": "golangci-lint",
-    "go.lintFlags": [
-        "--path-mode=abs",
-        "--fast-only"
-    ],
-    "go.formatTool": "custom",
-    "go.alternateTools": {
-        "customFormatter": "golangci-lint"
-    },
-    "go.formatFlags": [
-        "fmt",
-        "--stdin"
-    ],
-    "git.confirmSync": false,
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "workbench.secondarySideBar.defaultVisibility": "hidden",
-    "scm.defaultViewMode": "tree",
-    "protobuf.autoDetection.prompted": true
+	"workbench.colorTheme": "Tokyo Night",
+	"editor.fontFamily": "'JetBrainsMono Nerd Font', 'monospace', monospace",
+	"editor.fontLigatures": false,
+	"editor.tabSize": 2,
+	"workbench.navigationControl.enabled": false,
+	"window.commandCenter": false,
+	"chat.commandCenter.enabled": false,
+	"workbench.layoutControl.enabled": false,
+	"window.title": " ",
+	"explorer.confirmDelete": false,
+	"files.insertFinalNewline": true,
+	"git.autofetch": true,
+	"diffEditor.ignoreTrimWhitespace": false,
+	"go.lintTool": "golangci-lint",
+	"go.lintFlags": ["--path-mode=abs", "--fast-only"],
+	"go.formatTool": "custom",
+	"go.alternateTools": {
+		"customFormatter": "golangci-lint"
+	},
+	"go.formatFlags": ["fmt", "--stdin"],
+	"git.confirmSync": false,
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"workbench.secondarySideBar.defaultVisibility": "hidden",
+	"scm.defaultViewMode": "tree",
+	"protobuf.autoDetection.prompted": true,
+	"json.schemaDownload.trustedDomains": {
+		"https://schemastore.azurewebsites.net/": true,
+		"https://raw.githubusercontent.com/": true,
+		"https://www.schemastore.org/": true,
+		"https://json.schemastore.org/": true,
+		"https://json-schema.org/": true,
+		"https://biomejs.dev": true
+	},
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.biome": "explicit"
+	}
 }
