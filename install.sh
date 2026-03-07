@@ -8,6 +8,7 @@ source "$SCRIPT_DIR/scripts/utils.sh"
 PACMAN_PACKAGES=()
 YAY_PACKAGES=()
 MISE_PACKAGES=()
+BUN_PACKAGES=()
 PRE_INSTALL_SCRIPTS=()
 POST_INSTALL_SCRIPTS=()
 
@@ -139,6 +140,39 @@ if [ "${#GO_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
   done
 else
   log "No Go packages to install."
+fi
+
+BUN_PACKAGES=($(printf "%s\n" "${BUN_PACKAGES[@]}" | sort -u))
+BUN_PACKAGES_NOT_INSTALLED=()
+
+for pkg in "${BUN_PACKAGES[@]}"; do
+  if [[ "$pkg" == @*/* ]]; then
+    # Scoped package: strip version after the second @
+    pkg_name="${pkg%@*}"
+    # If no version was specified, pkg_name equals pkg, which is fine
+    [[ "$pkg_name" == *"/"* ]] || pkg_name="$pkg"
+  else
+    pkg_name="${pkg%%@*}"
+  fi
+
+  if ! command -v bun >/dev/null 2>&1; then
+    eval "$(mise activate bash)"
+  fi
+
+  if [ "$UPDATE_MODE" = true ]; then
+    BUN_PACKAGES_NOT_INSTALLED+=("$pkg")
+  elif bun pm ls -g 2>/dev/null | grep -q "$pkg_name"; then
+    debug "Bun package '$pkg_name' is already installed. Skipping."
+  else
+    BUN_PACKAGES_NOT_INSTALLED+=("$pkg")
+  fi
+done
+
+if [ "${#BUN_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
+  log "Installing Bun packages: ${BUN_PACKAGES_NOT_INSTALLED[*]}"
+  execute bun install --global "${BUN_PACKAGES_NOT_INSTALLED[@]}" >>"$LOG_FILE" 2>&1 || log "Bun installation failed."
+else
+  log "No Bun packages to install."
 fi
 
 if [ "${#POST_INSTALL_SCRIPTS[@]}" -gt 0 ]; then
