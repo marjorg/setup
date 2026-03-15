@@ -37,5 +37,6 @@
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.biome": "explicit"
-	}
+	},
+	"redhat.telemetry.enabled": false
 }
