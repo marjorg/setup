@@ -11,4 +11,5 @@ YAY_PACKAGES+=(
 
 PACMAN_PACKAGES+=(
   zed
+  intellij-idea-community-edition
 )
