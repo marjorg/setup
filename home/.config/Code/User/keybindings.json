@@ -28,5 +28,20 @@
         "key": "ctrl+shift+e",
         "command": "-workbench.view.explorer",
         "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "ctrl+f12",
+        "command": "-editor.action.revealDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus && isWeb"
+    },
+    {
+        "key": "f12",
+        "command": "-editor.action.revealDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus"
+    },
+    {
+        "key": "alt+d",
+        "command": "editor.action.revealDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus"
     }
 ]
