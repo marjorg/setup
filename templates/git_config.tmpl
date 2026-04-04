@@ -3,7 +3,7 @@
 
 [user]
   signingkey = {{ .Env.git_signing_key }}
-  name = Marius Jørgensen
+  name = {{ .Env.git_user_name }}
   email = {{ .Env.git_user_email }}
 [commit]
   gpgSign = true
