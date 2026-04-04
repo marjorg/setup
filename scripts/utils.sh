@@ -5,7 +5,7 @@ set -euo pipefail
 DOTFILES_DIR="$HOME/dotfiles"
 
 LOG_FILE="$DOTFILES_DIR/install.log"
-: > "$LOG_FILE"
+[[ -f "$LOG_FILE" ]] || : > "$LOG_FILE"
 
 trap 'echo "Error at line $LINENO. Check $LOG_FILE for details." >&2' ERR
 
@@ -25,8 +25,10 @@ while [[ $# > 0 ]]; do
     WORK=true
   elif [[ $1 == "--name" ]]; then
     shift
+    [[ $# -gt 0 ]] || { echo "Error: --name requires a value" >&2; exit 1; }
     NAME="$1"
   elif [[ $1 == "--email" ]]; then
+    [[ $# -gt 0 ]] || { echo "Error: --email requires a value" >&2; exit 1; }
     shift
     EMAIL="$1"
   elif [[ $1 == "--update" ]]; then
