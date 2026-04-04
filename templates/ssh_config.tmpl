@@ -1,0 +1,8 @@
+# Managed by gomplate
+# Last updated: {{ (time.Now).Format "2006-01-02 15:04:05" }}
+
+Host *
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+    ServerAliveInterval 60

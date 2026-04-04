@@ -1,0 +1,40 @@
+# Dynamic theme colors
+config-file = ?"~/.config/omarchy/current/theme/ghostty.conf"
+
+# Font
+font-family = "JetBrainsMonoNL Nerd Font"
+font-style = Regular
+font-size = 10.0
+font-feature = -calt
+
+# Window
+window-theme = ghostty
+window-padding-x = 4
+window-padding-y = 2
+window-decoration = false
+confirm-close-surface=false
+resize-overlay = never
+gtk-toolbar-style = flat
+
+# Cursor styling
+cursor-style = "block"
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+# Keyboard bindings
+keybind = shift+insert=paste_from_clipboard
+keybind = control+insert=copy_to_clipboard
+
+# SSH session terminfo
+shell-integration-features = ssh-env
+
+background-opacity = 0.85
+background-blur = 20
+
+command = "/usr/bin/zsh"
+
+# Slowdown mouse scrolling
+mouse-scroll-multiplier = 0.95
+
+# Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
+async-backend = epoll

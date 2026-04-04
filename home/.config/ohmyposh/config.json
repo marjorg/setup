@@ -1,0 +1,124 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "palette": {
+    "grey": "#6c6c6c"
+  },
+  "console_title_template": "{{ .Folder }}",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "options": {
+            "left_format": "<b>%s</b>",
+            "right_format": "<b>%s</b>",
+            "style": "full"
+          },
+          "template": "{{ .Path }}",
+          "foreground": "blue",
+          "background": "transparent",
+          "type": "path",
+          "style": "plain"
+        },
+        {
+          "options": {
+            "branch_icon": "",
+            "commit_icon": "@",
+            "fetch_status": true
+          },
+          "template": " {{ (abbrev 32 .HEAD) }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}\u2193{{ end }}{{ if gt .Ahead 0 }}\u2191{{ end }}</>",
+          "foreground": "p:grey",
+          "background": "transparent",
+          "type": "git",
+          "style": "plain"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "options": {
+            "cache_duration": "none"
+          },
+          "template": " \udb80\udf99 {{ .Full }} ",
+          "foreground": "#6CA35E",
+          "background": "transparent",
+          "type": "node",
+          "style": "plain"
+        },
+        {
+          "options": {
+            "cache_duration": "none"
+          },
+          "template": " \ue76f {{ .Full }} ",
+          "foreground": "#3C82F6",
+          "background": "transparent",
+          "type": "bun",
+          "style": "plain"
+        },
+        {
+          "options": {
+            "cache_duration": "none"
+          },
+          "template": " \ue627 {{ .Full }} ",
+          "foreground": "#7FD5EA",
+          "background": "transparent",
+          "type": "go",
+          "style": "plain"
+        },
+        {
+          "options": {
+            "cache_duration": "none"
+          },
+          "template": " \ue7a8 {{ .Full }} ",
+          "foreground": "#99908a",
+          "background": "transparent",
+          "type": "rust",
+          "style": "plain"
+        },
+        {
+          "options": {
+            "cache_duration": "none"
+          },
+          "template": " \ue620 {{ .Full }} ",
+          "foreground": "white",
+          "background": "transparent",
+          "type": "lua",
+          "style": "plain"
+        },
+        {
+          "options": {
+            "threshold": 5000
+          },
+          "template": "{{ .FormattedMs }}",
+          "foreground": "yellow",
+          "background": "transparent",
+          "type": "executiontime",
+          "style": "plain"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "options": {
+            "cache_duration": "none"
+          },
+          "template": "❯",
+          "foreground": "magenta",
+          "background": "transparent",
+          "type": "text",
+          "style": "plain"
+        }
+      ],
+      "newline": true
+    }
+  ],
+  "version": 4,
+  "final_space": true
+}

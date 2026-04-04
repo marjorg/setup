@@ -1,28 +1,64 @@
 #!/bin/bash
 
-source ./utils.sh
+sudo -v
 
-if [[ "$WORK" == false ]]; then
-  if [[ ! -f "$DOTFILES_DIR/modules/private/vault.yml" ]]; then
-    echo "🚨 Private submodule required"
-    echo "Generate SSH and GPG keys and add them to GitHub"
-    echo "Then run: 'git submodule update --init --recursive'"
-    exit 1
-  fi
+set -euo pipefail
 
-  read -sp "Vault password: " VAULT_PW
-  echo
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/scripts/utils.sh" "$@"
 
-  VAULT_PW_FILE=$(mktemp)
-  chmod 600 "$VAULT_PW_FILE"
-  echo "$VAULT_PW" > "$VAULT_PW_FILE"
+"$SCRIPT_DIR/scripts/generate-gpg-key.sh" "$@"
+"$SCRIPT_DIR/scripts/generate-ssh-key.sh" "$@"
+"$SCRIPT_DIR/scripts/write-ssh-config.sh" "$@"
+"$SCRIPT_DIR/scripts/set-symlinks.sh" "$@"
+"$SCRIPT_DIR/scripts/write-git-config.sh" "$@"
 
-  ansible-playbook "$DOTFILES_DIR/main.yml" \
-    -e "work_mode=$WORK" \
-    -e "email=$EMAIL" \
-    --vault-password-file "$VAULT_PW_FILE"
+BACKGROUNDS="$DOTFILES_DIR/backgrounds"
+OMARCHY_BACKGROUNDS="$HOME/.config/omarchy/current/theme/backgrounds"
+
+if [[ -d "$BACKGROUNDS" ]] && [[ -n "$(ls -A "$BACKGROUNDS" 2>/dev/null)" ]]; then
+  mkdir -p "$OMARCHY_BACKGROUNDS"
+  rsync -a --delete "$BACKGROUNDS/" "$OMARCHY_BACKGROUNDS/"
 else
-  ansible-playbook "$DOTFILES_DIR/main.yml" \
-    -e "work_mode=$WORK" \
-    -e "email=$EMAIL"
+  log "Warning: Backgrounds directory empty or missing, skipping sync"
 fi
+
+CHROMIUM_EXTENSIONS="/etc/chromium/policies/managed/extensions.json"
+if [ ! -f "$CHROMIUM_EXTENSIONS" ]; then
+  cat >"$CHROMIUM_EXTENSIONS" <<EOF
+{
+  "ExtensionInstallForcelist": [
+    // uBlock Lite
+    "ddkjiahejlhfcafbddmgiahcphecmpfh",
+    // 1password
+    "aeblfdkhhhdcdjpifhhbdiojplfjncoa",
+    // React DevTools
+    "fmkadmapgofadopljbjfkapdkoienihi"
+  ],
+}
+EOF
+fi
+
+CHROMIUM_SETTINGS="/etc/chromium/policies/managed/policy.json"
+if [ ! -f "$CHROMIUM_SETTINGS" ]; then
+  cat >"$CHROMIUM_SETTINGS" <<EOF
+{
+  "PasswordManagerEnabled": false
+}
+EOF
+fi
+
+# TODO: Handle this in a better place
+code --install-extension enkia.tokyo-night
+code --install-extension golang.go
+code --install-extension mhutchie.git-graph
+code --install-extension bradlc.vscode-tailwindcss
+code --install-extension oderwat.indent-rainbow
+code --install-extension aaron-bond.better-comments
+code --install-extension usernamehw.errorlens
+code --install-extension ms-python.python
+code --install-extension sumneko.lua
+code --install-extension biomejs.biome
+code --install-extension mechatroner.rainbow-csv
+
+log "Files setup."
