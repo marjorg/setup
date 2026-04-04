@@ -53,5 +53,7 @@ code --install-extension aaron-bond.better-comments
 code --install-extension usernamehw.errorlens
 code --install-extension ms-python.python
 code --install-extension sumneko.lua
+code --install-extension biomejs.biome
+code --install-extension mechatroner.rainbow-csv
 
 log "Files setup."
