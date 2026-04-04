@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/utils.sh"
+source "$SCRIPT_DIR/utils.sh" "$@"
 
 set -euo pipefail
 
@@ -13,6 +13,7 @@ if [[ -z "$KEY_ID" ]]; then
 fi
 
 export git_signing_key=$KEY_ID
+export git_user_name=$NAME
 export git_user_email=$EMAIL
 export git_gpg_program=$(which gpg)
 
