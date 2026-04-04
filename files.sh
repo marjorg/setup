@@ -28,7 +28,9 @@ if [ ! -f "$CHROMIUM_EXTENSIONS" ]; then
     // uBlock Lite
     "ddkjiahejlhfcafbddmgiahcphecmpfh",
     // 1password
-    "aeblfdkhhhdcdjpifhhbdiojplfjncoa"
+    "aeblfdkhhhdcdjpifhhbdiojplfjncoa",
+    // React DevTools
+    "fmkadmapgofadopljbjfkapdkoienihi"
   ],
 }
 EOF
