@@ -31,6 +31,8 @@
 		"https://www.schemastore.org/": true,
 		"https://json.schemastore.org/": true,
 		"https://json-schema.org/": true,
+		"https://turbo.build": true,
+		"https://ui.shadcn.com": true,
 		"https://biomejs.dev": true
 	},
 	"editor.defaultFormatter": "biomejs.biome",
@@ -38,5 +40,6 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.biome": "explicit"
 	},
-	"redhat.telemetry.enabled": false
+	"redhat.telemetry.enabled": false,
+	"workbench.editor.empty.hint": "hidden"
 }
