@@ -26,7 +26,7 @@ Expire-Date: 0
 %commit
 EOF
 
-gpg --batch --generate-key "$BATCH_FILE"
+execute gpg --batch --generate-key "$BATCH_FILE"
 
 KEY_ID=$(gpg --list-secret-keys --with-colons "$EMAIL" | grep '^sec:' | cut -d: -f5 | head -n1)
 log "GPG key generated with ID: $KEY_ID"
