@@ -13,6 +13,7 @@ DRY=false
 DEBUG=false
 WORK=false
 EMAIL="git@mjorg.dev"
+NAME="Marius Jørgensen"
 UPDATE_MODE=false
 
 while [[ $# > 0 ]]; do
@@ -22,6 +23,9 @@ while [[ $# > 0 ]]; do
     DEBUG=true
   elif [[ $1 == "--work" ]]; then
     WORK=true
+  elif [[ $1 == "--name" ]]; then
+    shift
+    NAME="$1"
   elif [[ $1 == "--email" ]]; then
     shift
     EMAIL="$1"
