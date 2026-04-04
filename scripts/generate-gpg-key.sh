@@ -19,7 +19,7 @@ Key-Type: RSA
 Key-Length: 4096
 Subkey-Type: RSA
 Subkey-Length: 4096
-Name-Real: Marius
+Name-Real: $NAME
 Name-Email: $EMAIL
 Expire-Date: 0
 %no-protection
