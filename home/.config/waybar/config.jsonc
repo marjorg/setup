@@ -55,7 +55,8 @@
 	"cpu": {
 		"interval": 5,
 		"format": "󰍛",
-		"on-click": "omarchy-launch-or-focus-tui btop"
+		"on-click": "omarchy-launch-or-focus-tui btop",
+		"on-click-right": "alacritty"
 	},
 	"clock": {
 		"format": "{:%e. %b %H:%M:%S}",
@@ -70,8 +71,8 @@
 		"format-wifi": "{icon}",
 		"format-ethernet": "󰀂",
 		"format-disconnected": "󰤮",
-		"tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-		"tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+		"tooltip-format-wifi": "{essid} ({frequency} GHz)",
+		"tooltip-format-ethernet": "Connected",
 		"tooltip-format-disconnected": "Disconnected",
 		"interval": 3,
 		"spacing": 1,
@@ -127,13 +128,29 @@
 		"modules": ["custom/expand-icon", "tray"]
 	},
 	"custom/expand-icon": {
-		"format": "",
-		"tooltip": false
+		"format": "",
+		"tooltip": false,
+		"on-scroll-up": "",
+		"on-scroll-down": "",
+		"on-scroll-left": "",
+		"on-scroll-right": ""
 	},
 	"custom/screenrecording-indicator": {
 		"on-click": "omarchy-cmd-screenrecord",
 		"exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
 		"signal": 8,
+		"return-type": "json"
+	},
+	"custom/idle-indicator": {
+		"on-click": "omarchy-toggle-idle",
+		"exec": "$OMARCHY_PATH/default/waybar/indicators/idle.sh",
+		"signal": 9,
+		"return-type": "json"
+	},
+	"custom/notification-silencing-indicator": {
+		"on-click": "omarchy-toggle-notification-silencing",
+		"exec": "$OMARCHY_PATH/default/waybar/indicators/notification-silencing.sh",
+		"signal": 10,
 		"return-type": "json"
 	},
 	"custom/voxtype": {
@@ -148,18 +165,6 @@
 		"tooltip": true,
 		"on-click-right": "omarchy-voxtype-config",
 		"on-click": "omarchy-voxtype-model"
-	},
-	"custom/idle-indicator": {
-		"on-click": "omarchy-toggle-idle",
-		"exec": "$OMARCHY_PATH/default/waybar/indicators/idle.sh",
-		"signal": 9,
-		"return-type": "json"
-	},
-	"custom/notification-silencing-indicator": {
-		"on-click": "omarchy-toggle-notification-silencing",
-		"exec": "$OMARCHY_PATH/default/waybar/indicators/notification-silencing.sh",
-		"signal": 10,
-		"return-type": "json"
 	},
 	"tray": {
 		"icon-size": 12,
