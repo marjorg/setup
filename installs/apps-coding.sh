@@ -19,3 +19,25 @@ if ! $WORK; then
     rider
   )
 fi
+
+VSCODE_EXTENSIONS+=(
+  enkia.tokyo-night
+  golang.go
+  mhutchie.git-graph
+  bradlc.vscode-tailwindcss
+  oderwat.indent-rainbow
+  aaron-bond.better-comments
+  usernamehw.errorlens
+  ms-python.python
+  sumneko.lua
+  biomejs.biome
+  mechatroner.rainbow-csv
+  vstirbu.vscode-mermaid-preview
+)
+
+if ! $WORK; then
+  VSCODE_EXTENSIONS+=(
+    ms-dotnettools.csdevkit
+    visualstudiotoolsforunity.vstuc
+  )
+fi

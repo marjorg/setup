@@ -48,23 +48,4 @@ if [ ! -f "$CHROMIUM_SETTINGS" ]; then
 EOF
 fi
 
-# TODO: Handle this in a better place
-code --install-extension enkia.tokyo-night
-code --install-extension golang.go
-code --install-extension mhutchie.git-graph
-code --install-extension bradlc.vscode-tailwindcss
-code --install-extension oderwat.indent-rainbow
-code --install-extension aaron-bond.better-comments
-code --install-extension usernamehw.errorlens
-code --install-extension ms-python.python
-code --install-extension sumneko.lua
-code --install-extension biomejs.biome
-code --install-extension mechatroner.rainbow-csv
-code --install-extension vstirbu.vscode-mermaid-preview
-
-if ! $WORK; then
-  code --install-extension ms-dotnettools.csdevkit
-  code --install-extension visualstudiotoolsforunity.vstuc
-fi
-
 log "Files setup."

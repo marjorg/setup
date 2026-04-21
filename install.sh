@@ -9,6 +9,7 @@ PACMAN_PACKAGES=()
 YAY_PACKAGES=()
 MISE_PACKAGES=()
 BUN_PACKAGES=()
+VSCODE_EXTENSIONS=()
 PRE_INSTALL_SCRIPTS=()
 POST_INSTALL_SCRIPTS=()
 
@@ -173,6 +174,33 @@ if [ "${#BUN_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
   execute bun install --global "${BUN_PACKAGES_NOT_INSTALLED[@]}" >>"$LOG_FILE" 2>&1 || log "Bun installation failed."
 else
   log "No Bun packages to install."
+fi
+
+if command -v code &>/dev/null && [ "${#VSCODE_EXTENSIONS[@]}" -gt 0 ]; then
+  VSCODE_EXTENSIONS=($(printf "%s\n" "${VSCODE_EXTENSIONS[@]}" | sort -u))
+  INSTALLED_EXTENSIONS=$(code --list-extensions 2>/dev/null)
+  VSCODE_EXTENSIONS_NOT_INSTALLED=()
+
+  for ext in "${VSCODE_EXTENSIONS[@]}"; do
+    if [ "$UPDATE_MODE" = true ]; then
+      VSCODE_EXTENSIONS_NOT_INSTALLED+=("$ext")
+    elif echo "$INSTALLED_EXTENSIONS" | grep -qi "^${ext}$"; then
+      debug "VS Code extension '$ext' is already installed. Skipping."
+    else
+      VSCODE_EXTENSIONS_NOT_INSTALLED+=("$ext")
+    fi
+  done
+
+  if [ "${#VSCODE_EXTENSIONS_NOT_INSTALLED[@]}" -gt 0 ]; then
+    log "Installing VS Code extensions: ${VSCODE_EXTENSIONS_NOT_INSTALLED[*]}"
+    for ext in "${VSCODE_EXTENSIONS_NOT_INSTALLED[@]}"; do
+      execute code --install-extension "$ext" >>"$LOG_FILE" 2>&1 || log "Failed to install VS Code extension: $ext"
+    done
+  else
+    log "No VS Code extensions to install."
+  fi
+else
+  debug "VS Code not found or no extensions to install. Skipping."
 fi
 
 if [ "${#POST_INSTALL_SCRIPTS[@]}" -gt 0 ]; then
