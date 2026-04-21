@@ -61,4 +61,9 @@ code --install-extension sumneko.lua
 code --install-extension biomejs.biome
 code --install-extension mechatroner.rainbow-csv
 
+if ! $WORK; then
+  code --install-extension ms-dotnettools.csdevkit
+  code --install-extension visualstudiotoolsforunity.vstuc
+fi
+
 log "Files setup."

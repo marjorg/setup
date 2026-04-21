@@ -13,6 +13,7 @@ if ! $WORK; then
     proton-vpn-gtk-app
     spotify
     1password-beta
+    unityhub
   )
 
   PACMAN_PACKAGES+=(

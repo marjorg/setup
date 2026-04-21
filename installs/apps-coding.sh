@@ -13,3 +13,9 @@ PACMAN_PACKAGES+=(
   zed
   intellij-idea-community-edition
 )
+
+if ! $WORK; then
+  YAY_PACKAGES+=(
+    rider
+  )
+fi
