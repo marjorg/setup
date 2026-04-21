@@ -60,6 +60,7 @@ code --install-extension ms-python.python
 code --install-extension sumneko.lua
 code --install-extension biomejs.biome
 code --install-extension mechatroner.rainbow-csv
+code --install-extension vstirbu.vscode-mermaid-preview
 
 if ! $WORK; then
   code --install-extension ms-dotnettools.csdevkit
