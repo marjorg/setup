@@ -1,9 +1,16 @@
 {
-  "telemetry": {
-    "diagnostics": false
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)"
   },
-  "features": {
-    "edit_prediction_provider": "zed"
+  "edit_predictions": {
+    "provider": "zed"
+  },
+  "base_keymap": "VSCode",
+  "telemetry": {
+    "metrics": false,
+    "diagnostics": false
   },
   "vim_mode": false,
   "tab_size": 2,
@@ -23,7 +30,7 @@
   "buffer_font_size": 13,
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "ui_font_family": "JetBrainsMono Nerd Font",
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "theme": {
     "mode": "dark",
     "light": "Tokyo Night Light",
