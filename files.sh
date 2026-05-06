@@ -34,7 +34,7 @@ if [ ! -f "$CHROMIUM_EXTENSIONS" ]; then
     "aeblfdkhhhdcdjpifhhbdiojplfjncoa",
     // React DevTools
     "fmkadmapgofadopljbjfkapdkoienihi"
-  ],
+  ]
 }
 EOF
 fi

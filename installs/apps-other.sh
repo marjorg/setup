@@ -7,6 +7,10 @@ PACMAN_PACKAGES+=(
   lazydocker
 )
 
+YAY_PACKAGES+=(
+  google-chrome
+)
+
 if ! $WORK; then
   YAY_PACKAGES+=(
     brave-bin
