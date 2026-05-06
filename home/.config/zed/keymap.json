@@ -36,5 +36,15 @@
 			"cmd-8": ["pane::ActivateItem", 7],
 			"cmd-9": ["pane::ActivateItem", 8]
 		}
-	}
+	},
+ {
+  "bindings": {
+   "alt-shift-g": "git_panel::Toggle"
+  }
+ },
+ {
+  "bindings": {
+   "alt-shift-e": "project_panel::Toggle"
+  }
+ }
 ]

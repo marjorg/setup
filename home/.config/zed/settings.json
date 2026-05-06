@@ -1,4 +1,18 @@
 {
+  "diff_view_style": "split",
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "tree_view": true,
+    "dock": "left"
+  },
   "icon_theme": {
     "mode": "dark",
     "light": "Zed (Default)",
@@ -20,6 +34,7 @@
     "coloring": "indent_aware"
   },
   "agent": {
+    "dock": "right",
     "default_profile": "ask",
     "default_model": {
       "provider": "zed.dev",
