@@ -1,22 +1,42 @@
 {
+  "proxy": "",
+  "tab_bar": {
+    "show_tab_bar_buttons": true,
+    "show_nav_history_buttons": false
+  },
+  "tabs": {
+    "file_icons": false,
+    "git_status": true
+  },
+  "show_whitespaces": "all",
+  "minimap": {
+    "thumb": "always",
+    "show": "auto"
+  },
   "diff_view_style": "split",
   "project_panel": {
+    "git_status_indicator": true,
     "dock": "left"
   },
   "outline_panel": {
     "dock": "left"
   },
   "collaboration_panel": {
+    "button": false,
     "dock": "left"
   },
   "git_panel": {
+    "show_count_badge": false,
+    "file_icons": false,
+    "status_style": "icon",
+    "button": true,
     "tree_view": true,
     "dock": "left"
   },
   "icon_theme": {
     "mode": "dark",
-    "light": "Zed (Default)",
-    "dark": "Zed (Default)"
+    "light": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha"
   },
   "edit_predictions": {
     "provider": "zed"
@@ -30,6 +50,7 @@
   "tab_size": 2,
   "unnecessary_code_fade": 0.7,
   "indent_guides": {
+    "background_coloring": "disabled",
     "enabled": true,
     "coloring": "indent_aware"
   },
@@ -143,6 +164,7 @@
   "auto_install_extensions": {
     "basher": true,
     "biome": true,
+    "catppuccin-icons": true,
     "csv": true,
     "docker-compose": true,
     "dockerfile": true,
