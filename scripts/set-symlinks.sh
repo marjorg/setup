@@ -8,6 +8,7 @@ set -euo pipefail
 DOTFILES_HOME="$HOME/dotfiles/home"
 DOTFILES_CONFIG="$HOME/dotfiles/home/.config"
 HOME_CONFIG="$HOME/.config"
+LOCAL_BIN="$HOME/.local/bin"
 
 link() {
   local src=$1
@@ -20,6 +21,8 @@ link() {
 
 link "$DOTFILES_HOME/.zshrc" "$HOME/.zshrc"
 link "$DOTFILES_HOME/.profile" "$HOME/.profile"
+
+link /usr/bin/zeditor "$LOCAL_BIN/zed"
 
 link "$DOTFILES_CONFIG/Code/User/keybindings.json" "$HOME_CONFIG/Code/User/keybindings.json"
 link "$DOTFILES_CONFIG/Code/User/settings.json" "$HOME_CONFIG/Code/User/settings.json"
