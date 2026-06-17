@@ -62,8 +62,9 @@
       "model": "claude-sonnet-4"
     }
   },
-  "ui_font_size": 14,
-  "buffer_font_size": 13,
+  "ui_font_size": 14.0,
+  "ui_font_weight": 600.0,
+  "buffer_font_size": 13.0,
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "ui_font_family": "JetBrainsMono Nerd Font",
   "relative_line_numbers": "enabled",
