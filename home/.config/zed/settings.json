@@ -172,6 +172,7 @@
     "env": true,
     "git-firefly": true,
     "html": true,
+    "kotlin": true,
     "log": true,
     "lua": true,
     "proto": true,
