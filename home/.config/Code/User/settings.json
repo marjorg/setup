@@ -20,8 +20,7 @@
 	},
 	"go.formatFlags": ["fmt", "--stdin"],
 	"git.confirmSync": false,
-	"typescript.updateImportsOnFileMove.enabled": "always",
-	"javascript.updateImportsOnFileMove.enabled": "always",
+	"js/ts.updateImportsOnFileMove.enabled": "always",
 	"workbench.secondarySideBar.defaultVisibility": "hidden",
 	"scm.defaultViewMode": "tree",
 	"protobuf.autoDetection.prompted": true,
@@ -42,5 +41,6 @@
 	},
 	"redhat.telemetry.enabled": false,
 	"workbench.editor.empty.hint": "hidden",
-	"chat.disableAIFeatures": true
+	"chat.disableAIFeatures": true,
+	"makefile.configureOnOpen": true
 }
