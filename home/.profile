@@ -10,3 +10,7 @@ export PATH=$PATH:"$HOME/go/bin"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# Bun
+export BUN_INSTALL="$HOME/.cache/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
