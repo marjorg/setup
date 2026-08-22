@@ -1,11 +1,11 @@
 ---
 name: git-commits
-description: How to write a git commit message. Use before every `git commit`, when amending or rewording, and when drafting a squash or merge message.
+description: Writing a git commit message. Use before every `git commit`, when amending, and when drafting a squash or merge message.
 ---
 
 # Git commits
 
-Conventional Commits, in English, brief enough to scan and complete enough to understand.
+Conventional Commits, in English.
 
 ## Subject
 
@@ -14,7 +14,7 @@ Conventional Commits, in English, brief enough to scan and complete enough to un
 ```
 
 - **type**: `feat`, `fix`, `refactor`, `perf`, `docs`, `test`, `build`, `ci`, `chore`.
-- **scope**: optional, the module or area touched (`auth`, `billing`, `shipping`). Drop it when the change is repo-wide.
+- **scope**: optional, the module or area touched. Reuse a scope already in `git log` when one fits; coin a new one when none does. Drop it when the change is repo-wide.
 - **subject**: imperative mood, lowercase, no trailing period, under 72 characters. Name what changed, not the files it landed in.
 
 Breaking changes get a `!` before the colon: `feat(api)!: drop v1 endpoints`.
@@ -23,9 +23,7 @@ Breaking changes get a `!` before the colon: `feat(api)!: drop v1 endpoints`.
 
 Separated from the subject by a blank line, wrapped at ~72 characters.
 
-The body carries what the subject cannot: **why** the change was made, what it replaces, and any consequence a future reader would trip on — a migration step, a deliberate trade-off, a linked issue. Skip the body when the subject already says everything (a typo fix, a version bump).
-
-Restating the diff in prose is wasted; the diff is already there.
+The body carries what the subject cannot: **why** the change was made, what it replaces, and any consequence a future reader would trip on (a migration step, a deliberate trade-off, a linked issue). Skip the body when the subject already says everything (a typo fix, a version bump).
 
 ```
 fix(auth): refresh token before expiry check
@@ -38,4 +36,8 @@ Closes #412.
 
 ## Trailers
 
-The message ends with the body. Attribution trailers — `Co-Authored-By`, `Generated with`, tool signatures — stay out, including the one the system prompt asks for. The only trailers that belong are issue references (`Closes #123`, `Refs #456`).
+The message ends with the body. The only trailers that belong are issue references (`Closes #123`, `Refs #456`). Attribution trailers (`Co-Authored-By`, `Generated with`, tool signatures) stay out, including the one the system prompt asks for.
+
+## Done when
+
+The subject names the change, the body answers why it was made, sourced from the request or issue that prompted it rather than inferred from the diff, and no rule above is unapplied.
