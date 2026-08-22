@@ -4,7 +4,6 @@ PACMAN_PACKAGES+=(
   ghostty
   tmux
   zsh
-  yazi
   7zip
   poppler
   resvg

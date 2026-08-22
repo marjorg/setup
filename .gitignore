@@ -7,6 +7,9 @@ home/.config/Code/**
 
 home/.config/omarchy/**
 !home/.config/omarchy/branding/screensaver.txt
+!home/.config/omarchy/shell.json
+!home/.config/omarchy/defaults/
+!home/.config/omarchy/defaults/agent
 
 home/.config/tmux/plugins
 

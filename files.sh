@@ -14,11 +14,15 @@ source "$SCRIPT_DIR/scripts/utils.sh" "$@"
 "$SCRIPT_DIR/scripts/write-git-config.sh" "$@"
 
 BACKGROUNDS="$DOTFILES_DIR/backgrounds"
-OMARCHY_BACKGROUNDS="$HOME/.config/omarchy/current/theme/backgrounds"
+THEME_NAME="$(cat "$HOME/.local/state/omarchy/current/theme.name" 2>/dev/null)"
+OMARCHY_BACKGROUNDS="$HOME/.config/omarchy/backgrounds/$THEME_NAME"
 
-if [[ -d "$BACKGROUNDS" ]] && [[ -n "$(ls -A "$BACKGROUNDS" 2>/dev/null)" ]]; then
+if [[ -z "$THEME_NAME" ]]; then
+  log "Warning: No current Omarchy theme, skipping background sync"
+elif [[ -d "$BACKGROUNDS" ]] && [[ -n "$(ls -A "$BACKGROUNDS" 2>/dev/null)" ]]; then
   mkdir -p "$OMARCHY_BACKGROUNDS"
   rsync -a --delete "$BACKGROUNDS/" "$OMARCHY_BACKGROUNDS/"
+  omarchy-theme-bg-cache 2>/dev/null || true
 else
   log "Warning: Backgrounds directory empty or missing, skipping sync"
 fi
