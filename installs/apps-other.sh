@@ -16,12 +16,12 @@ if ! $WORK; then
     brave-bin
     proton-vpn-gtk-app
     spotify
-    1password-beta
     unityhub
   )
 
   PACMAN_PACKAGES+=(
     discord
     signal-desktop
+    1password
   )
 fi
