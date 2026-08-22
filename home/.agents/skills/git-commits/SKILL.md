@@ -1,11 +1,17 @@
 ---
 name: git-commits
-description: Writing a git commit message. Use before every `git commit`, when amending, and when drafting a squash or merge message.
+description: Writing git commits: how many, and the message for each. Use before staging, before every `git commit`, when amending, and when drafting a squash or merge message.
 ---
 
 # Git commits
 
 Conventional Commits, in English.
+
+## How many commits
+
+One commit per **reason to change**. Read `git diff` before staging and name the reasons: a fix, the refactor that made room for it, and an unrelated typo are three commits. Stage path by path; when a single file mixes reasons, write the hunks to a patch file and `git apply --cached` it. Order them so each commit builds and passes on its own.
+
+One reason means one commit: a change spread across twelve files is still one.
 
 ## Subject
 
@@ -40,4 +46,4 @@ The message ends with the body. The only trailers that belong are issue referenc
 
 ## Done when
 
-The subject names the change, the body answers why it was made, sourced from the request or issue that prompted it rather than inferred from the diff, and no rule above is unapplied.
+The subject names the change, the body answers why it was made, sourced from the request or issue that prompted it rather than inferred from the diff, each commit carries a single reason to change, and no rule above is unapplied.
