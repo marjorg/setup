@@ -49,7 +49,7 @@
     "transparent": false
   },
   "idle": {
-    "lock": 302,
+    "lock": 600,
     "screensaver": 300
   },
   "plugins": [],
