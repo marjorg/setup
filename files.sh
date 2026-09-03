@@ -27,25 +27,26 @@ else
   log "Warning: Backgrounds directory empty or missing, skipping sync"
 fi
 
-CHROMIUM_EXTENSIONS="/etc/chromium/policies/managed/extensions.json"
+CHROMIUM_POLICIES="/etc/chromium/policies/managed"
+sudo mkdir -p "$CHROMIUM_POLICIES"
+
+# Extension IDs: uBlock Lite, 1Password, React DevTools
+CHROMIUM_EXTENSIONS="$CHROMIUM_POLICIES/extensions.json"
 if [ ! -f "$CHROMIUM_EXTENSIONS" ]; then
-  cat >"$CHROMIUM_EXTENSIONS" <<EOF
+  sudo tee "$CHROMIUM_EXTENSIONS" >/dev/null <<EOF
 {
   "ExtensionInstallForcelist": [
-    // uBlock Lite
     "ddkjiahejlhfcafbddmgiahcphecmpfh",
-    // 1password
     "aeblfdkhhhdcdjpifhhbdiojplfjncoa",
-    // React DevTools
     "fmkadmapgofadopljbjfkapdkoienihi"
   ]
 }
 EOF
 fi
 
-CHROMIUM_SETTINGS="/etc/chromium/policies/managed/policy.json"
+CHROMIUM_SETTINGS="$CHROMIUM_POLICIES/policy.json"
 if [ ! -f "$CHROMIUM_SETTINGS" ]; then
-  cat >"$CHROMIUM_SETTINGS" <<EOF
+  sudo tee "$CHROMIUM_SETTINGS" >/dev/null <<EOF
 {
   "PasswordManagerEnabled": false
 }
