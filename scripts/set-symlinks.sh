@@ -15,18 +15,22 @@ link() {
   local dest=$2
 
   mkdir -p "$(dirname "$dest")"
-  ln -sf "$src" "$dest"
+  ln -sfn "$src" "$dest"
   debug "Linked: $dest → $src"
 }
 
 link "$DOTFILES_HOME/.zshrc" "$HOME/.zshrc"
 link "$DOTFILES_HOME/.profile" "$HOME/.profile"
+link "$DOTFILES_HOME/.agents" "$HOME/.agents"
 
 link /usr/bin/zeditor "$LOCAL_BIN/zed"
 
 link "$DOTFILES_CONFIG/Code/User/keybindings.json" "$HOME_CONFIG/Code/User/keybindings.json"
 link "$DOTFILES_CONFIG/Code/User/settings.json" "$HOME_CONFIG/Code/User/settings.json"
 link "$DOTFILES_CONFIG/omarchy/branding/screensaver.txt" "$HOME_CONFIG/omarchy/branding/screensaver.txt"
+link "$DOTFILES_CONFIG/omarchy/shell.json" "$HOME_CONFIG/omarchy/shell.json"
+link "$DOTFILES_CONFIG/omarchy/defaults/agent" "$HOME_CONFIG/omarchy/defaults/agent"
+link "$DOTFILES_CONFIG/xdg-terminals.list" "$HOME_CONFIG/xdg-terminals.list"
 
 for d in "$DOTFILES_CONFIG"/*/; do
   folder=$(basename "$d")
@@ -55,4 +59,22 @@ for d in "$DOTFILES_CONFIG"/*/; do
   fi
 
   link "$d" "$dest"
+done
+
+CLAUDE_SKILLS="$HOME/.claude/skills"
+AGENT_SKILLS="$DOTFILES_HOME/.agents/skills"
+
+mkdir -p "$CLAUDE_SKILLS"
+
+for skill in "$AGENT_SKILLS"/*; do
+  [[ -e "$skill" ]] || continue
+  link "$skill" "$CLAUDE_SKILLS/$(basename "$skill")"
+done
+
+# Drop links left behind by skills that were removed from .agents
+for l in "$CLAUDE_SKILLS"/*; do
+  [[ -L "$l" ]] || continue
+  [[ -e "$l" ]] && continue
+  log "Removing stale skill link: $l"
+  rm "$l"
 done

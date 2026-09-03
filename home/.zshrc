@@ -13,9 +13,12 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{160} The clone has failed.%f%b"
 fi
 
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+# Only load zinit if the clone above succeeded
+if [[ -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+  source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+  autoload -Uz _zinit
+  (( ${+_comps} )) && _comps[zinit]=_zinit
+fi
 
 # fzf, a fuzzy finder
 # Trigger with ctrl+r, needs to be loaded before the plugin for tab completion
@@ -24,22 +27,24 @@ source <(fzf --zsh)
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 
-# Add zsh plugins
-# More plugins can be found on:
-# https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab # Adds fzf keybindings to tab completion
+if (( $+functions[zinit] )); then
+  # Add zsh plugins
+  # More plugins can be found on:
+  # https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
+  zinit light zsh-users/zsh-syntax-highlighting
+  zinit light zsh-users/zsh-completions
+  zinit light zsh-users/zsh-autosuggestions
+  zinit light Aloxaf/fzf-tab # Adds fzf keybindings to tab completion
 
-# Add snippets
-zinit snippet OMZP::sudo # Run current or previous command with sudo by pressing `esc` twice.
-zinit snippet OMZP::command-not-found # Suggests packages for unknown commands.
+  # Add snippets
+  zinit snippet OMZP::sudo # Run current or previous command with sudo by pressing `esc` twice.
+  zinit snippet OMZP::command-not-found # Suggests packages for unknown commands.
+fi
 
 # Load zsh-completions
 autoload -U compinit && compinit
 
-zinit cdreplay -q # Restoring the state of the working directories from the last session.
+(( $+functions[zinit] )) && zinit cdreplay -q # Restoring the state of the working directories from the last session.
 
 # Configure zsh-completions
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # Case-insensitive completion
@@ -62,7 +67,6 @@ bindkey "^[[1;3C" forward-word # Use Option + Right Arrow to move forward a word
 # Aliases
 alias lg='lazygit'
 alias ld='lazydocker'
-alias vim='nvim'
 
 # History
 HISTSIZE=5000

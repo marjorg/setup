@@ -9,19 +9,19 @@ PACMAN_PACKAGES+=(
 
 YAY_PACKAGES+=(
   google-chrome
+  brave-bin
+  signal-desktop
 )
 
 if ! $WORK; then
   YAY_PACKAGES+=(
-    brave-bin
     proton-vpn-gtk-app
     spotify
-    1password-beta
     unityhub
   )
 
   PACMAN_PACKAGES+=(
     discord
-    signal-desktop
+    1password
   )
 fi

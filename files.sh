@@ -14,34 +14,39 @@ source "$SCRIPT_DIR/scripts/utils.sh" "$@"
 "$SCRIPT_DIR/scripts/write-git-config.sh" "$@"
 
 BACKGROUNDS="$DOTFILES_DIR/backgrounds"
-OMARCHY_BACKGROUNDS="$HOME/.config/omarchy/current/theme/backgrounds"
+THEME_NAME="$(cat "$HOME/.local/state/omarchy/current/theme.name" 2>/dev/null)"
+OMARCHY_BACKGROUNDS="$HOME/.config/omarchy/backgrounds/$THEME_NAME"
 
-if [[ -d "$BACKGROUNDS" ]] && [[ -n "$(ls -A "$BACKGROUNDS" 2>/dev/null)" ]]; then
+if [[ -z "$THEME_NAME" ]]; then
+  log "Warning: No current Omarchy theme, skipping background sync"
+elif [[ -d "$BACKGROUNDS" ]] && [[ -n "$(ls -A "$BACKGROUNDS" 2>/dev/null)" ]]; then
   mkdir -p "$OMARCHY_BACKGROUNDS"
   rsync -a --delete "$BACKGROUNDS/" "$OMARCHY_BACKGROUNDS/"
+  omarchy-theme-bg-cache 2>/dev/null || true
 else
   log "Warning: Backgrounds directory empty or missing, skipping sync"
 fi
 
-CHROMIUM_EXTENSIONS="/etc/chromium/policies/managed/extensions.json"
+CHROMIUM_POLICIES="/etc/chromium/policies/managed"
+sudo mkdir -p "$CHROMIUM_POLICIES"
+
+# Extension IDs: uBlock Lite, 1Password, React DevTools
+CHROMIUM_EXTENSIONS="$CHROMIUM_POLICIES/extensions.json"
 if [ ! -f "$CHROMIUM_EXTENSIONS" ]; then
-  cat >"$CHROMIUM_EXTENSIONS" <<EOF
+  sudo tee "$CHROMIUM_EXTENSIONS" >/dev/null <<EOF
 {
   "ExtensionInstallForcelist": [
-    // uBlock Lite
     "ddkjiahejlhfcafbddmgiahcphecmpfh",
-    // 1password
     "aeblfdkhhhdcdjpifhhbdiojplfjncoa",
-    // React DevTools
     "fmkadmapgofadopljbjfkapdkoienihi"
   ]
 }
 EOF
 fi
 
-CHROMIUM_SETTINGS="/etc/chromium/policies/managed/policy.json"
+CHROMIUM_SETTINGS="$CHROMIUM_POLICIES/policy.json"
 if [ ! -f "$CHROMIUM_SETTINGS" ]; then
-  cat >"$CHROMIUM_SETTINGS" <<EOF
+  sudo tee "$CHROMIUM_SETTINGS" >/dev/null <<EOF
 {
   "PasswordManagerEnabled": false
 }
