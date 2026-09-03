@@ -15,7 +15,7 @@ link() {
   local dest=$2
 
   mkdir -p "$(dirname "$dest")"
-  ln -sf "$src" "$dest"
+  ln -sfn "$src" "$dest"
   debug "Linked: $dest → $src"
 }
 
