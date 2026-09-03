@@ -60,3 +60,21 @@ for d in "$DOTFILES_CONFIG"/*/; do
 
   link "$d" "$dest"
 done
+
+CLAUDE_SKILLS="$HOME/.claude/skills"
+AGENT_SKILLS="$DOTFILES_HOME/.agents/skills"
+
+mkdir -p "$CLAUDE_SKILLS"
+
+for skill in "$AGENT_SKILLS"/*; do
+  [[ -e "$skill" ]] || continue
+  link "$skill" "$CLAUDE_SKILLS/$(basename "$skill")"
+done
+
+# Drop links left behind by skills that were removed from .agents
+for l in "$CLAUDE_SKILLS"/*; do
+  [[ -L "$l" ]] || continue
+  [[ -e "$l" ]] && continue
+  log "Removing stale skill link: $l"
+  rm "$l"
+done
