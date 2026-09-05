@@ -41,6 +41,10 @@
           "id": "omarchy.audio"
         },
         {
+          "id": "jankeesvw.notification-center",
+          "keepDays": 3
+        },
+        {
           "id": "omarchy.power"
         }
       ]
