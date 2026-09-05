@@ -19,3 +19,11 @@ hl.config({
     rounding = 2,
   },
 })
+
+-- Stop apps from yanking focus (and the workspace) when they request activation.
+-- They mark themselves urgent instead.
+hl.config({
+  misc = {
+    focus_on_activate = false,
+  },
+})
