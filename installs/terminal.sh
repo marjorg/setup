@@ -19,7 +19,9 @@ YAY_PACKAGES+=(
 )
 
 post_install() {
-  TPM_DIR="$HOME/.tmux/plugins/tpm"
+  # Clone into the repo, not $HOME/.config, so it survives set-symlinks.sh
+  # running afterwards and renaming a real ~/.config/tmux to .bak
+  TPM_DIR="$DOTFILES_DIR/home/.config/tmux/plugins/tpm"
 
   if [[ ! -d "$TPM_DIR" ]]; then
     git clone --quiet https://github.com/tmux-plugins/tpm "$TPM_DIR"
