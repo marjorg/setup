@@ -31,3 +31,10 @@
 -- SUPER+SHIFT+S is bound to the Google Maps web app by default.
 hl.unbind("SUPER + SHIFT + S")
 o.bind("SUPER + SHIFT + S", "Screenshot to clipboard", "omarchy-capture-screenshot smart copy")
+
+-- Swap the launcher menus: Super+Space goes straight to apps, Super+Alt+Space
+-- opens the full Omarchy menu (settings, themes, etc).
+hl.unbind("SUPER + SPACE")
+o.bind("SUPER + SPACE", "Apps menu", "omarchy-menu toggle apps")
+hl.unbind("SUPER + ALT + SPACE")
+o.bind("SUPER + ALT + SPACE", "Omarchy menu", "omarchy-menu toggle")
