@@ -14,6 +14,7 @@ Conventional Commits, in English.
 - **A number is the commit count.** It wins over the reasons you counted in the diff. Three reasons and "commit 1" means one commit whose body names all three.
 - **A branch name is where they land.** Check it out first, creating it off the current tip when it is new. `main` and `master` are targets like any other, so land there when asked instead of offering a feature branch.
 - **Neither given**: split by reason, and commit on the branch you are already on.
+- **The scope is your own work.** Commit the changes you made. Anything already dirty when you arrived is the user's work in progress, so leave it in the tree and name what you left behind. A path, a glob, or "commit everything" widens the scope; nothing else does.
 
 ## How many commits
 
