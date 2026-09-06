@@ -1,0 +1,3 @@
+interface:
+  display_name: "Worktrees"
+  short_description: "Fan work out to parallel agents in isolated worktrees"
