@@ -69,7 +69,6 @@
   "buffer_font_size": 13.0,
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "ui_font_family": "JetBrainsMono Nerd Font",
-  "relative_line_numbers": "enabled",
   "theme": {
     "mode": "dark",
     "light": "Tokyo Night Light",
