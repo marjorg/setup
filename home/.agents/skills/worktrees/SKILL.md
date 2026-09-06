@@ -29,14 +29,12 @@ Branch every worktree from the same base commit, the tip you will merge back int
 
 ## 3. Brief each agent
 
-The agent starts **cold**: a fresh context in a directory it has never seen, with none of this conversation. The brief is the contract. Write it the way [../triage/AGENT-BRIEF.md](../triage/AGENT-BRIEF.md) describes, plus the four things a fanned-out agent needs that a solo one does not:
+Brief it the way [../delegating/SKILL.md](../delegating/SKILL.md) describes, plus the four things a fanned-out agent needs that a solo one does not:
 
 - **Its slice's ownership.** Name the files, modules, or domain concepts it owns, and say the rest of the repo belongs to a sibling agent working right now. This is what keeps the branches mergeable.
 - **Its worktree path and branch name**, and that it works there rather than in the main checkout.
 - **Setup.** A fresh worktree carries only tracked files: no `node_modules`, no `.env`, no build cache. Tell it to install and build in place, and where to get the untracked files it needs.
-- **Where to stop.** Commit to its own branch (calling the Skill tool with "git-commits"), leave it unmerged, and report back. Integration is yours.
-
-It inherits none of the skills you have loaded, so name the ones its slice needs.
+- **Where to stop.** Commit to its own branch, leave it unmerged, and report back. Integration is yours.
 
 ## 4. Integrate
 
