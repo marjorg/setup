@@ -1,5 +1,9 @@
 #!/bin/bash
 
+PACMAN_PACKAGES+=(
+  omacalc
+)
+
 post_install() {
   if [[ "$(omarchy-theme-current)" != "Tokyo Night" ]]; then
     omarchy-theme-set "Tokyo Night"
