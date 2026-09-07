@@ -38,3 +38,11 @@ hl.unbind("SUPER + SPACE")
 o.bind("SUPER + SPACE", "Apps menu", "omarchy-menu toggle apps")
 hl.unbind("SUPER + ALT + SPACE")
 o.bind("SUPER + ALT + SPACE", "Omarchy menu", "omarchy-menu toggle")
+
+-- Move window to workspace without following it
+for workspace = 1, 10 do
+  local key = "SUPER + SHIFT + code:" .. tostring(workspace + 9)
+  hl.unbind(key)
+  o.bind(key, "Move window to workspace " .. workspace,
+    hl.dsp.window.move({ workspace = tostring(workspace), follow = false }))
+end
