@@ -18,3 +18,6 @@ claude = "latest"
 # Send `go install` output to ~/go/bin instead of the versioned mise install
 # dir, so tools survive a Go upgrade.
 go_set_gobin = false
+
+[settings.upgrade]
+auto_prune = false
