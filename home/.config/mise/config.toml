@@ -1,0 +1,20 @@
+[tools]
+bun = "latest"
+node = "lts"
+cmake = "latest"
+deno = "latest"
+go = "latest"
+gradle = "latest"
+java = "25"
+kotlin = { version = "latest", asset_pattern = "kotlin-compiler-*.zip", bin_path = "kotlinc/bin" }
+pnpm = "latest"
+python = "latest"
+rust = "latest"
+maven = "latest"
+codex = "latest"
+claude = "latest"
+
+[settings]
+# Send `go install` output to ~/go/bin instead of the versioned mise install
+# dir, so tools survive a Go upgrade.
+go_set_gobin = false
