@@ -17,6 +17,7 @@
   },
   "diff_view_style": "split",
   "project_panel": {
+    "indent_size": 10.0,
     "git_status_indicator": true,
     "dock": "left"
   },
