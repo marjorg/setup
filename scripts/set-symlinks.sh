@@ -22,6 +22,7 @@ link() {
 link "$DOTFILES_HOME/.zshrc" "$HOME/.zshrc"
 link "$DOTFILES_HOME/.profile" "$HOME/.profile"
 link "$DOTFILES_HOME/.agents" "$HOME/.agents"
+link "$DOTFILES_HOME/.claude/statusline.sh" "$HOME/.claude/statusline.sh"
 
 link /usr/bin/zeditor "$LOCAL_BIN/zed"
 
