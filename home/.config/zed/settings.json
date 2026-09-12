@@ -79,92 +79,100 @@
     "liga": false,
     "calt": false
   },
+  "formatter": "language_server",
+  "terminal": {
+    "working_directory": "current_project_directory"
+  },
   "lsp": {
-    "golangci-lint": {
-      "initialization_options": {
-        "command": [
-          "golangci-lint",
-          "run",
-          "--output.json.path=stdout",
-          "--issues-exit-code=1",
-          "--show-stats=false"
-        ]
-      }
-    },
-    "tailwindcss-language-server": {
-      "settings": {
-        "classAttributes": [
-          "class",
-          "className",
-          "cva",
-          "cn"
-        ]
-      }
-    },
     "biome": {
       "settings": {
         "require_config_file": true
       }
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "classAttributes": [ "class", "className", "cva", "cn" ],
+        "classFunctions": ["cva", "cx"],
+        "experimental": {
+          "classRegex": [
+            "[cls|className]\\s\\:\\=\\s\"([^\"]*)",
+            "\\.classList\\.add\\(['\"]([^'\"]*)['\"]",
+            "\\.classList\\.contains\\(['\"]([^'\"]*)['\"]",
+            "\\.classList\\.remove\\(['\"]([^'\"]*)['\"]",
+            "\\.classList\\.replace\\([^,)]+,\\s*['\"]([^'\"]*)['\"]",
+            "\\.classList\\.replace\\(\\s*['\"]([^'\"]*)['\"]",
+            "\\.classList\\.toggle\\(['\"]([^'\"]*)['\"]",
+            "\\.className\\s*[+]?=\\s*['\"]([^'\"]*)['\"]",
+            "\\.setAttribute\\(['\"]class['\"],\\s*['\"]([^'\"]*)['\"]",
+            "\\.setAttributeNS\\(.*,\\s*['\"]class['\"],\\s*['\"]([^'\"]*)['\"]",
+            "class=\"([^\"]*)\"",
+          ]
+        }
+      }
     }
   },
-  "formatter": "language_server",
   "languages": {
-    "Go": {
+    "Astro": { "formatter": { "language_server": { "name": "biome" } } },
+    "CSS": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.action.useSortedProperties.biome": true,
+        "source.fixAll.biome": true
+      },
       "language_servers": [
-        "gopls",
-        "golangci-lint"
+        "tailwindcss-intellisense-css",
+        "!vscode-css-language-server"
       ]
     },
+    "GraphQL": { "formatter": { "language_server": { "name": "biome" } } },
+    "HTML": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.action.noDuplicateClasses.biome": true,
+        "source.action.useSortedAttributes.biome": true,
+        "source.fixAll.biome": true
+      }
+    },
+    "JSON": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSONC": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSX": { "formatter": { "language_server": { "name": "biome" } } },
     "JavaScript": {
-      "formatter": {
-        "language_server": {
-          "name": "biome"
-        }
-      },
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "Svelte": { "formatter": { "language_server": { "name": "biome" } } },
+    "TSX": {
+      "formatter": { "language_server": { "name": "biome" } },
       "code_actions_on_format": {
         "source.fixAll.biome": true,
         "source.organizeImports.biome": true
       }
     },
     "TypeScript": {
-      "formatter": {
-        "language_server": {
-          "name": "biome"
-        }
-      },
+      "formatter": { "language_server": { "name": "biome" } },
       "code_actions_on_format": {
         "source.fixAll.biome": true,
         "source.organizeImports.biome": true
       }
     },
-    "TSX": {
-      "formatter": {
-        "language_server": {
-          "name": "biome"
-        }
-      },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
-    },
-    "CSS": {
-      "formatter": {
-        "language_server": {
-          "name": "biome"
-        }
-      },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
-    }
+    "Vue.js": { "formatter": { "language_server": { "name": "biome" } } }
   },
-  "terminal": {
-    "working_directory": "current_project_directory"
+  "file_types": {
+    "Helm": [
+      "**/templates/**/*.tpl",
+      "**/templates/**/*.yaml",
+      "**/templates/**/*.yml",
+      "**/helmfile.d/**/*.yaml",
+      "**/helmfile.d/**/*.yml",
+      "**/values*.yaml"
+    ]
   },
+  // Zed built-in support: https://zed.dev/docs/languages
   "auto_install_extensions": {
-    "basher": true,
+    "ansible": true,
     "biome": true,
     "catppuccin-icons": true,
     "csv": true,
@@ -172,16 +180,20 @@
     "dockerfile": true,
     "env": true,
     "git-firefly": true,
+    "helm": true,
     "html": true,
+    "java": true,
     "kotlin": true,
     "log": true,
     "lua": true,
+    "make": true,
     "proto": true,
-    "pylsp": true,
     "sql": true,
+    "terraform": true,
     "tmux": true,
     "tokyo-night": true,
     "toml": true,
-    "typos": true
+    "typos": true,
+    "xml": true
   }
 }
