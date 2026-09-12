@@ -12,6 +12,7 @@ source "$SCRIPT_DIR/scripts/utils.sh" "$@"
 "$SCRIPT_DIR/scripts/write-ssh-config.sh" "$@"
 "$SCRIPT_DIR/scripts/set-symlinks.sh" "$@"
 "$SCRIPT_DIR/scripts/write-git-config.sh" "$@"
+"$SCRIPT_DIR/scripts/write-claude-settings.sh" "$@"
 
 BACKGROUNDS="$DOTFILES_DIR/backgrounds"
 THEME_NAME="$(cat "$HOME/.local/state/omarchy/current/theme.name" 2>/dev/null)"
