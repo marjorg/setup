@@ -11,6 +11,8 @@ PACMAN_PACKAGES+=(
   wl-clipboard
   ansible
   tree
+  # bash-language-server depends on it to provide diagnostics
+  shellcheck
 )
 
 YAY_PACKAGES+=(
