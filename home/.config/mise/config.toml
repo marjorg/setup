@@ -13,6 +13,7 @@ rust = "latest"
 maven = "latest"
 codex = "latest"
 claude = "latest"
+uv = "latest"
 
 [settings]
 # Send `go install` output to ~/go/bin instead of the versioned mise install
