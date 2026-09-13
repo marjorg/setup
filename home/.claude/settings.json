@@ -23,9 +23,14 @@
   "enabledPlugins": {},
   "extraKnownMarketplaces": {},
   "feedbackDrafts": "off",
+  "feedbackSurveyRate": 0,
   "effortLevel": "medium",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
-  "autoCompactEnabled": true
+  "autoCompactEnabled": true,
+  "disableWorkflows": true,
+  "disableBundledSkills": true,
+  "disableClaudeAiConnectors": true,
+  "disableArtifact": true
 }
