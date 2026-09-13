@@ -1,5 +1,5 @@
 #!/bin/bash
-# Claude Code status line: model · context used · cwd · git branch
+# Claude Code status line: model · context used · cwd · worktree · git branch
 # Reads the status line JSON payload on stdin, writes one line to stdout.
 
 set -uo pipefail
@@ -61,7 +61,17 @@ branch_field() {
   printf '\033[35m%s\033[0m' "$branch"
 }
 
-FIELDS=("$MODEL" "$(context_field)" "${CWD/#$HOME/\~}" "$(branch_field)")
+# Only linked worktrees have a git dir apart from the shared one; the main checkout shows nothing.
+worktree_field() {
+  local git_dir common_dir
+  git_dir=$(git -C "$CWD" rev-parse --path-format=absolute --git-dir 2>/dev/null) || return
+  common_dir=$(git -C "$CWD" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || return
+  [[ "$git_dir" != "$common_dir" ]] || return
+
+  printf '\033[36m⎇ %s\033[0m' "$(basename "$(git -C "$CWD" rev-parse --show-toplevel)")"
+}
+
+FIELDS=("$MODEL" "$(context_field)" "${CWD/#$HOME/\~}" "$(worktree_field)" "$(branch_field)")
 
 LINE=""
 for field in "${FIELDS[@]}"; do
