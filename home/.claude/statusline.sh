@@ -58,7 +58,7 @@ branch_field() {
     branch=$(git -C "$CWD" rev-parse --short HEAD 2>/dev/null) ||
     return
 
-  printf '\033[35m%s\033[0m' "$branch"
+  printf '\033[35m %s\033[0m' "$branch"
 }
 
 # Only linked worktrees have a git dir apart from the shared one; the main checkout shows nothing.
@@ -68,7 +68,7 @@ worktree_field() {
   common_dir=$(git -C "$CWD" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || return
   [[ "$git_dir" != "$common_dir" ]] || return
 
-  printf '\033[36m⎇ %s\033[0m' "$(basename "$(git -C "$CWD" rev-parse --show-toplevel)")"
+  printf '\033[36m %s\033[0m' "$(basename "$(git -C "$CWD" rev-parse --show-toplevel)")"
 }
 
 FIELDS=("$MODEL" "$(context_field)" "${CWD/#$HOME/\~}" "$(worktree_field)" "$(branch_field)")
