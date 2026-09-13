@@ -12,6 +12,7 @@ YAY_PACKAGES+=(
 PACMAN_PACKAGES+=(
   zed
   intellij-idea-community-edition
+  go-task
 )
 
 if ! $WORK; then
