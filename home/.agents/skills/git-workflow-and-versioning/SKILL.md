@@ -80,7 +80,7 @@ update auth.ts
 
 **Format:**
 ```
-<type>: <short description>
+<type>(<optional scope>): <short description>
 
 <optional body explaining why, not what>
 ```
