@@ -17,3 +17,6 @@ home/.config/hypr/shaders
 
 home/.config/zed/conversations
 home/.config/zed/prompts
+
+home/.config/opencode/**
+!home/.config/opencode/opencode.json

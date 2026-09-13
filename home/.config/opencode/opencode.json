@@ -1,0 +1,5 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": false,
+  "instructions": ["~/.agents/skills/using-agent-skills/SKILL.md"]
+}

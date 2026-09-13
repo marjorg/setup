@@ -15,6 +15,14 @@ link() {
   local dest=$2
 
   mkdir -p "$(dirname "$dest")"
+
+  # ln -sfn onto a real directory creates the link inside it instead of
+  # replacing it, so move the directory out of the way first.
+  if [[ -d "$dest" && ! -L "$dest" ]]; then
+    log "Renaming existing directory: $dest → ${dest}.bak"
+    mv "$dest" "${dest}.bak"
+  fi
+
   ln -sfn "$src" "$dest"
   debug "Linked: $dest → $src"
 }
@@ -23,6 +31,9 @@ link "$DOTFILES_HOME/.zshrc" "$HOME/.zshrc"
 link "$DOTFILES_HOME/.profile" "$HOME/.profile"
 link "$DOTFILES_HOME/.agents" "$HOME/.agents"
 link "$DOTFILES_HOME/.claude/statusline.sh" "$HOME/.claude/statusline.sh"
+link "$DOTFILES_HOME/.claude/settings.json" "$HOME/.claude/settings.json"
+link "$DOTFILES_HOME/.agents/commands" "$HOME/.claude/commands"
+link "$DOTFILES_HOME/.agents/agents" "$HOME/.claude/agents"
 
 link /usr/bin/zeditor "$LOCAL_BIN/zed"
 
@@ -32,12 +43,15 @@ link "$DOTFILES_CONFIG/omarchy/branding/screensaver.txt" "$HOME_CONFIG/omarchy/b
 link "$DOTFILES_CONFIG/omarchy/shell.json" "$HOME_CONFIG/omarchy/shell.json"
 link "$DOTFILES_CONFIG/omarchy/defaults/agent" "$HOME_CONFIG/omarchy/defaults/agent"
 link "$DOTFILES_CONFIG/xdg-terminals.list" "$HOME_CONFIG/xdg-terminals.list"
+link "$DOTFILES_CONFIG/opencode/opencode.json" "$HOME_CONFIG/opencode/opencode.json"
+link "$DOTFILES_HOME/.agents/commands" "$HOME_CONFIG/opencode/commands"
+link "$DOTFILES_HOME/.agents/agents" "$HOME_CONFIG/opencode/agents"
 
 for d in "$DOTFILES_CONFIG"/*/; do
   folder=$(basename "$d")
 
   case "$folder" in
-    Code|omarchy)
+    Code|omarchy|opencode)
       continue
       ;;
   esac
@@ -66,6 +80,10 @@ CLAUDE_SKILLS="$HOME/.claude/skills"
 AGENT_SKILLS="$DOTFILES_HOME/.agents/skills"
 
 mkdir -p "$CLAUDE_SKILLS"
+
+# Skills are linked one by one, so ../../references inside a skill only
+# resolves if references also sits beside the skills dir.
+link "$DOTFILES_HOME/.agents/references" "$HOME/.claude/references"
 
 for skill in "$AGENT_SKILLS"/*; do
   [[ -e "$skill" ]] || continue
