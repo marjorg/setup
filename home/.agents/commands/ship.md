@@ -23,7 +23,7 @@ Constraints (from Claude Code's subagent model):
 - Each subagent gets its own context window and returns only its report to this main session.
 - If you need teammates that talk to each other instead of just reporting back, use Claude Code Agent Teams and reference these personas as teammate types (see `references/orchestration-patterns.md`).
 
-**Persona resolution.** If you've defined your own `code-reviewer`, `security-auditor`, or `test-engineer` in `.claude/agents/` or `~/.claude/agents/`, those take precedence over this plugin's versions — `/ship` picks up your customizations automatically. This is intentional: plugin subagents sit at the bottom of Claude Code's scope priority table, so user-level definitions win by design.
+**Persona resolution.** If you've defined your own `code-reviewer`, `security-auditor`, or `test-engineer` — in `.claude/agents/` or `~/.claude/agents/` on Claude Code, or `.opencode/agents/` or `~/.config/opencode/agents/` on opencode — those take precedence over this plugin's versions, so `/ship` picks up your customizations automatically. This is intentional: on Claude Code, plugin subagents sit at the bottom of the scope priority table, so user-level definitions win by design; on opencode, project agents override global ones the same way.
 
 ## Phase B — Merge in main context
 
