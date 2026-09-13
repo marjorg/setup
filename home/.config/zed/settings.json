@@ -84,6 +84,15 @@
     "working_directory": "current_project_directory"
   },
   "lsp": {
+    // Use the kotlin-lsp-bin AUR package (installs/java.sh) instead of the copy
+    // the Zed Kotlin extension downloads, which expires when JetBrains forgets to
+    // refresh RELEASES.md. See https://github.com/Kotlin/kotlin-lsp/issues/271
+    "kotlin-lsp": {
+      "binary": {
+        "path": "/usr/bin/kotlin-lsp",
+        "arguments": ["--stdio"]
+      }
+    },
     "biome": {
       "settings": {
         "require_config_file": true
