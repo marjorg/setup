@@ -1,6 +1,6 @@
 ---
 name: comments
-description: Commenting code. Use when writing or editing code, or leaving a TODO.
+description: Always when writing code, use when writing or editing comments, code, or leaving a TODO.
 ---
 
 # Comments
@@ -51,20 +51,16 @@ Same fact, five times the upkeep. When trimming, keep the surprise and drop the 
 
 ## File headers
 
-Working something out is satisfying, and the write-up wants to go somewhere. Watch for that pull, because the top of the file is not where it goes. A header essay is read once, by nobody, and is the first thing to rot.
+Default is no header, same as any comment. The name, path, and package already say what the file is — repeating them is noise, and the essay that tends to follow it is read once, by nobody, and rots first.
 
-A file header is worth a line, and only when the file's job is not already clear from its name and location. Anything past that — the architecture, the ordering rule, the deviation from a spec and its justification, the tour of what each step does — does not go in the file.
+Write one only when a reader would be wrong about the file after seeing those three things. That's rare — usually just an entry point that isn't what it looks like.
 
 ```go
-// Command server is the demo's policy enforcement point.
+// Debug shim, not the production entry point — see cmd/server.
 package main
 ```
 
-Not a twenty-line tour of the boot sequence, the thing step two fails to prove, and which other file closes the gap. Configuration files are no different: a compose file or a manifest gets a line, not a commentary with section banners.
-
-Where the longer story goes is the repo's business, not this file's. If the repo keeps that kind of writing somewhere — a README section, a docs directory, decision records — put it there and let the header point at it in the same line. If it keeps none, the commit message is the right home. Either way, don't invent a new document for it, and don't leave it in the source as a consolation prize.
-
-Facts that constrain one specific line still go next to that line, short, as above. The header is not where they are collected.
+Anything longer than that — architecture, boot sequence, spec deviations — goes in the README, docs, or the commit message, not the file. A fact that constrains one line still goes next to that line, not the header.
 
 ## What to cut
 
