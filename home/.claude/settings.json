@@ -4,6 +4,8 @@
     "pr": "",
     "sessionUrl": false
   },
+  "disableClaudeAiConnectors": true,
+  "disableBundledSkills": true,
   "hooks": {
     "SessionStart": [
       {
@@ -16,21 +18,24 @@
       }
     ]
   },
+  "disableWorkflows": true,
+  "disableArtifact": true,
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
   "enabledPlugins": {},
   "extraKnownMarketplaces": {},
-  "feedbackDrafts": "off",
   "feedbackSurveyRate": 0,
+  "feedbackDrafts": "off",
   "effortLevel": "medium",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "autoCompactEnabled": true,
-  "disableWorkflows": true,
-  "disableBundledSkills": true,
-  "disableClaudeAiConnectors": true,
-  "disableArtifact": true
+  "modelSettings": {
+    "claude-sonnet-5": {
+      "effortLevel": "high"
+    }
+  }
 }
