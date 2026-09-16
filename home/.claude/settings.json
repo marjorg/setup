@@ -29,13 +29,14 @@
   "feedbackSurveyRate": 0,
   "feedbackDrafts": "off",
   "effortLevel": "medium",
-  "awaySummaryEnabled": false,
-  "tui": "fullscreen",
-  "autoMemoryEnabled": false,
-  "autoCompactEnabled": true,
   "modelSettings": {
     "claude-sonnet-5": {
       "effortLevel": "high"
     }
-  }
+  },
+  "awaySummaryEnabled": false,
+  "tui": "fullscreen",
+  "autoMemoryEnabled": false,
+  "autoCompactEnabled": true,
+  "model": "opus"
 }
