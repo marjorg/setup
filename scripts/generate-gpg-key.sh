@@ -5,6 +5,8 @@ source "$SCRIPT_DIR/utils.sh" "$@"
 
 set -euo pipefail
 
+require_identity
+
 # Only have one key per email
 if gpg --list-secret-keys --with-colons "$EMAIL" | grep -q '^sec:'; then
   debug "GPG key already exists for $EMAIL"

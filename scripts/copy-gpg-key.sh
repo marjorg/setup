@@ -5,6 +5,8 @@ source "$SCRIPT_DIR/utils.sh" "$@"
 
 set -euo pipefail
 
+require_identity
+
 KEY_ID=$(gpg --list-secret-keys --with-colons "$EMAIL" | grep '^sec:' | cut -d: -f5 | head -n1)
 
 if [ -z "$KEY_ID" ]; then

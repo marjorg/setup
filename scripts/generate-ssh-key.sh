@@ -5,6 +5,8 @@ source "$SCRIPT_DIR/utils.sh" "$@"
 
 set -euo pipefail
 
+require_identity
+
 KEY_PATH="$HOME/.ssh/id_ed25519"
 
 if [ ! -f "$KEY_PATH" ]; then
