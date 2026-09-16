@@ -20,3 +20,5 @@ home/.config/zed/prompts
 
 home/.config/opencode/**
 !home/.config/opencode/opencode.json
+
+home/.agents/AGENTS.local.md

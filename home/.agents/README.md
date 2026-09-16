@@ -31,6 +31,16 @@ then re-apply the local edits below or the files break outside the Claude plugin
 
 3. Keep `references/` beside `skills/`. Skills link to it with `../../references/`.
 
+## Global instructions
+
+`AGENTS.md` here is local, not vendored. It holds the rules that apply to every
+session on this machine. `set-symlinks.sh` links it to `~/.claude/CLAUDE.md`;
+OpenCode reads it through `instructions` in `opencode.json`.
+
+`AGENTS.md` also tells the agent to read `AGENTS.local.md` beside it, for rules
+that belong to one machine and not the repo. That one is gitignored, so create
+it by hand where you want it — there is nothing to sync.
+
 ## Session-start context
 
 `hooks/session-start.sh` prints the `using-agent-skills` meta skill, replacing

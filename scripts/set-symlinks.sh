@@ -32,6 +32,7 @@ link "$DOTFILES_HOME/.profile" "$HOME/.profile"
 link "$DOTFILES_HOME/.agents" "$HOME/.agents"
 link "$DOTFILES_HOME/.claude/statusline.sh" "$HOME/.claude/statusline.sh"
 link "$DOTFILES_HOME/.claude/settings.json" "$HOME/.claude/settings.json"
+link "$DOTFILES_HOME/.agents/AGENTS.md" "$HOME/.claude/CLAUDE.md"
 link "$DOTFILES_HOME/.agents/commands" "$HOME/.claude/commands"
 link "$DOTFILES_HOME/.agents/agents" "$HOME/.claude/agents"
 
