@@ -38,5 +38,5 @@
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "autoCompactEnabled": true,
-  "model": "opus"
+  "model": "sonnet"
 }
