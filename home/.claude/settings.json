@@ -4,6 +4,7 @@
     "pr": "",
     "sessionUrl": false
   },
+  "model": "sonnet",
   "disableClaudeAiConnectors": true,
   "disableBundledSkills": true,
   "hooks": {
@@ -32,11 +33,13 @@
   "modelSettings": {
     "claude-sonnet-5": {
       "effortLevel": "high"
+    },
+    "claude-fable-5-1": {
+      "effortLevel": "high"
     }
   },
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
-  "autoCompactEnabled": true,
-  "model": "sonnet"
+  "autoCompactEnabled": true
 }
