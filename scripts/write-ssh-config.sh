@@ -6,7 +6,7 @@ source "$SCRIPT_DIR/utils.sh" "$@"
 set -euo pipefail
 
 SSH_DIR="$HOME/.ssh"
-TEMPLATE="$HOME/dotfiles/templates/ssh_config.tmpl"
+TEMPLATE="$DOTFILES_DIR/templates/ssh_config.tmpl"
 SSH_KNOWN_HOSTS="$SSH_DIR/known_hosts"
 SSH_CONFIG="$SSH_DIR/config"
 

@@ -5,8 +5,8 @@ source "$SCRIPT_DIR/utils.sh" "$@"
 
 set -euo pipefail
 
-DOTFILES_HOME="$HOME/dotfiles/home"
-DOTFILES_CONFIG="$HOME/dotfiles/home/.config"
+DOTFILES_HOME="$DOTFILES_DIR/home"
+DOTFILES_CONFIG="$DOTFILES_DIR/home/.config"
 HOME_CONFIG="$HOME/.config"
 LOCAL_BIN="$HOME/.local/bin"
 

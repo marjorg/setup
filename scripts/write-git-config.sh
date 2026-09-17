@@ -20,4 +20,4 @@ export git_user_email=$EMAIL
 export git_gpg_program=$(which gpg)
 
 mkdir -p "$HOME/.config/git"
-gomplate -f "$HOME/dotfiles/templates/git_config.tmpl" -o "$HOME/.config/git/config"
+gomplate -f "$DOTFILES_DIR/templates/git_config.tmpl" -o "$HOME/.config/git/config"
