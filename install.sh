@@ -99,62 +99,54 @@ bun_installed() {
   debug "Bun package '$pkg_name' is already installed. Skipping."
 }
 
-PACMAN_PACKAGES=($(printf "%s\n" "${PACMAN_PACKAGES[@]}" | sort -u))
-PACMAN_PACKAGES_NOT_INSTALLED=()
-filter_not_installed PACMAN_PACKAGES PACMAN_PACKAGES_NOT_INSTALLED pacman_installed
+# Sorts and dedupes $1 (package array name), filters it down to items that
+# fail $3 (predicate), then installs the remainder in one call to "$4...".
+install_bulk() {
+  local pkg_array_name=$1 label=$2 predicate=$3
+  shift 3
 
-if [ "${#PACMAN_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
-  log "Installing Pacman packages: ${PACMAN_PACKAGES_NOT_INSTALLED[*]}"
-  execute sudo pacman -Sy --noconfirm --needed "${PACMAN_PACKAGES_NOT_INSTALLED[@]}" >>"$LOG_FILE" 2>&1 || log "Pacman installation failed."
-else
-  log "No Pacman packages to install."
-fi
+  local -n _pkgs=$pkg_array_name
+  _pkgs=($(printf "%s\n" "${_pkgs[@]}" | sort -u))
 
-YAY_PACKAGES=($(printf "%s\n" "${YAY_PACKAGES[@]}" | sort -u))
-YAY_PACKAGES_NOT_INSTALLED=()
-filter_not_installed YAY_PACKAGES YAY_PACKAGES_NOT_INSTALLED yay_installed
+  local not_installed=()
+  filter_not_installed "$pkg_array_name" not_installed "$predicate"
 
-if [ "${#YAY_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
-  log "Installing Yay packages: ${YAY_PACKAGES_NOT_INSTALLED[*]}"
-  execute yay -Sy --noconfirm --needed "${YAY_PACKAGES_NOT_INSTALLED[@]}" >>"$LOG_FILE" 2>&1 || log "Yay installation failed."
-else
-  log "No Yay packages to install."
-fi
+  if [ "${#not_installed[@]}" -gt 0 ]; then
+    log "Installing $label: ${not_installed[*]}"
+    execute "$@" "${not_installed[@]}" >>"$LOG_FILE" 2>&1 || log "$label installation failed."
+  else
+    log "No $label to install."
+  fi
+}
 
-MISE_PACKAGES=($(printf "%s\n" "${MISE_PACKAGES[@]}" | sort -u))
-MISE_PACKAGES_NOT_INSTALLED=()
-filter_not_installed MISE_PACKAGES MISE_PACKAGES_NOT_INSTALLED mise_installed
+# Same as install_bulk, but invokes "$4..." once per item instead of once
+# for the whole batch.
+install_each() {
+  local pkg_array_name=$1 label=$2 predicate=$3
+  shift 3
 
-if [ "${#MISE_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
-  log "Installing Mise packages: ${MISE_PACKAGES_NOT_INSTALLED[*]}"
-  execute mise use --global "${MISE_PACKAGES_NOT_INSTALLED[@]}" >>"$LOG_FILE" 2>&1 || log "Mise installation failed."
-else
-  log "No Mise packages to install."
-fi
+  local -n _pkgs=$pkg_array_name
+  _pkgs=($(printf "%s\n" "${_pkgs[@]}" | sort -u))
 
-GO_PACKAGES=($(printf "%s\n" "${GO_PACKAGES[@]}" | sort -u))
-GO_PACKAGES_NOT_INSTALLED=()
-filter_not_installed GO_PACKAGES GO_PACKAGES_NOT_INSTALLED go_installed
+  local not_installed=()
+  filter_not_installed "$pkg_array_name" not_installed "$predicate"
 
-if [ "${#GO_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
-  log "Installing Go packages: ${GO_PACKAGES_NOT_INSTALLED[*]}"
-  for pkg in "${GO_PACKAGES_NOT_INSTALLED[@]}"; do
-    execute go install "$pkg" >>"$LOG_FILE" 2>&1 || log "Failed to install $pkg"
-  done
-else
-  log "No Go packages to install."
-fi
+  if [ "${#not_installed[@]}" -gt 0 ]; then
+    log "Installing $label: ${not_installed[*]}"
+    local item
+    for item in "${not_installed[@]}"; do
+      execute "$@" "$item" >>"$LOG_FILE" 2>&1 || log "Failed to install $item"
+    done
+  else
+    log "No $label to install."
+  fi
+}
 
-BUN_PACKAGES=($(printf "%s\n" "${BUN_PACKAGES[@]}" | sort -u))
-BUN_PACKAGES_NOT_INSTALLED=()
-filter_not_installed BUN_PACKAGES BUN_PACKAGES_NOT_INSTALLED bun_installed
-
-if [ "${#BUN_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
-  log "Installing Bun packages: ${BUN_PACKAGES_NOT_INSTALLED[*]}"
-  execute bun install --global "${BUN_PACKAGES_NOT_INSTALLED[@]}" >>"$LOG_FILE" 2>&1 || log "Bun installation failed."
-else
-  log "No Bun packages to install."
-fi
+install_bulk PACMAN_PACKAGES "Pacman packages" pacman_installed sudo pacman -Sy --noconfirm --needed
+install_bulk YAY_PACKAGES "Yay packages" yay_installed yay -Sy --noconfirm --needed
+install_bulk MISE_PACKAGES "Mise packages" mise_installed mise use --global
+install_each GO_PACKAGES "Go packages" go_installed go install
+install_bulk BUN_PACKAGES "Bun packages" bun_installed bun install --global
 
 vscode_ext_installed() {
   echo "$INSTALLED_EXTENSIONS" | grep -qi "^${1}$" || return 1
@@ -162,19 +154,8 @@ vscode_ext_installed() {
 }
 
 if command -v code &>/dev/null && [ "${#VSCODE_EXTENSIONS[@]}" -gt 0 ]; then
-  VSCODE_EXTENSIONS=($(printf "%s\n" "${VSCODE_EXTENSIONS[@]}" | sort -u))
   INSTALLED_EXTENSIONS=$(code --list-extensions 2>/dev/null)
-  VSCODE_EXTENSIONS_NOT_INSTALLED=()
-  filter_not_installed VSCODE_EXTENSIONS VSCODE_EXTENSIONS_NOT_INSTALLED vscode_ext_installed
-
-  if [ "${#VSCODE_EXTENSIONS_NOT_INSTALLED[@]}" -gt 0 ]; then
-    log "Installing VS Code extensions: ${VSCODE_EXTENSIONS_NOT_INSTALLED[*]}"
-    for ext in "${VSCODE_EXTENSIONS_NOT_INSTALLED[@]}"; do
-      execute code --install-extension "$ext" >>"$LOG_FILE" 2>&1 || log "Failed to install VS Code extension: $ext"
-    done
-  else
-    log "No VS Code extensions to install."
-  fi
+  install_each VSCODE_EXTENSIONS "VS Code extensions" vscode_ext_installed code --install-extension
 else
   debug "VS Code not found or no extensions to install. Skipping."
 fi
