@@ -30,18 +30,30 @@ for script in "$SCRIPT_DIR"/installs/*.sh; do
   unset -f post_install 2>/dev/null || true
 done
 
-if [ "${#PRE_INSTALL_SCRIPTS[@]}" -gt 0 ]; then
-  log "Running pre-install scripts..."
+# Sources each script in $2 (array name) again and calls the $1 hook
+# function ("pre_install" or "post_install") that it defines.
+run_lifecycle_scripts() {
+  local hook=$1 scripts_array_name=$2
+  local -n _scripts=$scripts_array_name
+  local label="${hook/_/-}"
 
-  for script in "${PRE_INSTALL_SCRIPTS[@]}"; do
-    log "Executing pre_install from $script"
+  if [ "${#_scripts[@]}" -eq 0 ]; then
+    debug "No $label scripts to run."
+    return
+  fi
+
+  log "Running $label scripts..."
+
+  local script
+  for script in "${_scripts[@]}"; do
+    log "Executing $hook from $script"
     source "$script"
-    execute pre_install >>"$LOG_FILE" 2>&1 || log "pre_install in $script failed."
-    unset -f pre_install 2>/dev/null || true
+    execute "$hook" >>"$LOG_FILE" 2>&1 || log "$hook in $script failed."
+    unset -f "$hook" 2>/dev/null || true
   done
-else
-  debug "No pre-install scripts to run."
-fi
+}
+
+run_lifecycle_scripts pre_install PRE_INSTALL_SCRIPTS
 
 pacman_installed() {
   pacman -Q "$1" &>/dev/null || return 1
@@ -160,17 +172,6 @@ else
   debug "VS Code not found or no extensions to install. Skipping."
 fi
 
-if [ "${#POST_INSTALL_SCRIPTS[@]}" -gt 0 ]; then
-  log "Running post-install scripts..."
-
-  for script in "${POST_INSTALL_SCRIPTS[@]}"; do
-    log "Executing post_install from $script"
-    source "$script"
-    execute post_install >>"$LOG_FILE" 2>&1 || log "post_install in $script failed."
-    unset -f post_install 2>/dev/null || true
-  done
-else
-  debug "No post-install scripts to run."
-fi
+run_lifecycle_scripts post_install POST_INSTALL_SCRIPTS
 
 log "Installation completed."
