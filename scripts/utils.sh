@@ -61,6 +61,25 @@ debug() {
   fi
 }
 
+# Fills $2 (nameref, cleared first) with the entries of $1 (nameref) that
+# fail the $3 predicate, i.e. still need installing. UPDATE_MODE treats
+# everything as not-installed so upgrades still run. The predicate is
+# expected to log its own debug message when it finds a package installed.
+filter_not_installed() {
+  local -n _src=$1
+  local -n _dst=$2
+  local predicate=$3
+  local pkg
+
+  _dst=()
+
+  for pkg in "${_src[@]}"; do
+    if [ "$UPDATE_MODE" = true ] || ! "$predicate" "$pkg"; then
+      _dst+=("$pkg")
+    fi
+  done
+}
+
 execute() {
   if $DRY; then
     log "$@"

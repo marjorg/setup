@@ -43,18 +43,65 @@ else
   debug "No pre-install scripts to run."
 fi
 
+pacman_installed() {
+  pacman -Q "$1" &>/dev/null || return 1
+  debug "Package '$1' is already installed. Skipping."
+}
+
+yay_installed() {
+  yay -Q "$1" &>/dev/null || return 1
+  debug "Yay package '$1' is already installed. Skipping."
+}
+
+mise_installed() {
+  local tool="${1%%@*}" version="${1#*@}"
+
+  mise ls --json | jq -e --arg tool "$tool" --arg version "$version" '
+    .[$tool] // [] |
+    map(select(.requested_version == $version and .active == true)) |
+    length > 0
+  ' &>/dev/null || return 1
+
+  debug "Package '$1' is already installed and active. Skipping."
+}
+
+go_installed() {
+  local binary_name="${1##*/}"
+  binary_name="${binary_name%%@*}"
+
+  if ! command -v go >/dev/null 2>&1; then
+    eval "$(mise activate bash)"
+  fi
+
+  local go_bin="${GOBIN:-$(go env GOPATH)/bin}"
+
+  [ -f "$go_bin/$binary_name" ] || return 1
+  debug "Go tool '$binary_name' is already installed. Skipping."
+}
+
+bun_installed() {
+  local pkg_name
+
+  if [[ "$1" == @*/* ]]; then
+    # Scoped package: strip version after the second @
+    pkg_name="${1%@*}"
+    # If no version was specified, pkg_name equals pkg, which is fine
+    [[ "$pkg_name" == *"/"* ]] || pkg_name="$1"
+  else
+    pkg_name="${1%%@*}"
+  fi
+
+  if ! command -v bun >/dev/null 2>&1; then
+    eval "$(mise activate bash)"
+  fi
+
+  bun pm ls -g 2>/dev/null | grep -q "$pkg_name" || return 1
+  debug "Bun package '$pkg_name' is already installed. Skipping."
+}
+
 PACMAN_PACKAGES=($(printf "%s\n" "${PACMAN_PACKAGES[@]}" | sort -u))
 PACMAN_PACKAGES_NOT_INSTALLED=()
-
-for pkg in "${PACMAN_PACKAGES[@]}"; do
-  if [ "$UPDATE_MODE" = true ]; then
-    PACMAN_PACKAGES_NOT_INSTALLED+=("$pkg")
-  elif ! pacman -Q "$pkg" &>/dev/null; then
-    PACMAN_PACKAGES_NOT_INSTALLED+=("$pkg")
-  else
-    debug "Package '$pkg' is already installed. Skipping."
-  fi
-done
+filter_not_installed PACMAN_PACKAGES PACMAN_PACKAGES_NOT_INSTALLED pacman_installed
 
 if [ "${#PACMAN_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
   log "Installing Pacman packages: ${PACMAN_PACKAGES_NOT_INSTALLED[*]}"
@@ -65,16 +112,7 @@ fi
 
 YAY_PACKAGES=($(printf "%s\n" "${YAY_PACKAGES[@]}" | sort -u))
 YAY_PACKAGES_NOT_INSTALLED=()
-
-for pkg in "${YAY_PACKAGES[@]}"; do
-  if [ "$UPDATE_MODE" = true ]; then
-    YAY_PACKAGES_NOT_INSTALLED+=("$pkg")
-  elif ! yay -Q "$pkg" &>/dev/null; then
-    YAY_PACKAGES_NOT_INSTALLED+=("$pkg")
-  else
-    debug "Yay package '$pkg' is already installed. Skipping."
-  fi
-done
+filter_not_installed YAY_PACKAGES YAY_PACKAGES_NOT_INSTALLED yay_installed
 
 if [ "${#YAY_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
   log "Installing Yay packages: ${YAY_PACKAGES_NOT_INSTALLED[*]}"
@@ -85,23 +123,7 @@ fi
 
 MISE_PACKAGES=($(printf "%s\n" "${MISE_PACKAGES[@]}" | sort -u))
 MISE_PACKAGES_NOT_INSTALLED=()
-
-for pkg in "${MISE_PACKAGES[@]}"; do
-  tool="${pkg%%@*}"
-  version="${pkg#*@}"
-
-  if [ "$UPDATE_MODE" = true ]; then
-    MISE_PACKAGES_NOT_INSTALLED+=("$pkg")
-  elif mise ls --json | jq -e --arg tool "$tool" --arg version "$version" '
-    .[$tool] // [] |
-    map(select(.requested_version == $version and .active == true)) |
-    length > 0
-  ' &>/dev/null; then
-    debug "Package '$pkg' is already installed and active. Skipping."
-  else
-    MISE_PACKAGES_NOT_INSTALLED+=("$pkg")
-  fi
-done
+filter_not_installed MISE_PACKAGES MISE_PACKAGES_NOT_INSTALLED mise_installed
 
 if [ "${#MISE_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
   log "Installing Mise packages: ${MISE_PACKAGES_NOT_INSTALLED[*]}"
@@ -112,27 +134,7 @@ fi
 
 GO_PACKAGES=($(printf "%s\n" "${GO_PACKAGES[@]}" | sort -u))
 GO_PACKAGES_NOT_INSTALLED=()
-
-for pkg in "${GO_PACKAGES[@]}"; do
-  # Extract the binary name from the package path. Ex: golang.org/x/tools/gopls -> gopls
-  binary_name="${pkg##*/}"
-  binary_name="${binary_name%%@*}"
-
-  if ! command -v go >/dev/null 2>&1; then
-    eval "$(mise activate bash)"
-  fi
-
-  # Check if the binary exists in GOPATH/bin or GOBIN
-  go_bin="${GOBIN:-$(go env GOPATH)/bin}"
-
-  if [ "$UPDATE_MODE" = true ]; then
-    GO_PACKAGES_NOT_INSTALLED+=("$pkg")
-  elif [ -f "$go_bin/$binary_name" ]; then
-    debug "Go tool '$binary_name' is already installed. Skipping."
-  else
-    GO_PACKAGES_NOT_INSTALLED+=("$pkg")
-  fi
-done
+filter_not_installed GO_PACKAGES GO_PACKAGES_NOT_INSTALLED go_installed
 
 if [ "${#GO_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
   log "Installing Go packages: ${GO_PACKAGES_NOT_INSTALLED[*]}"
@@ -145,29 +147,7 @@ fi
 
 BUN_PACKAGES=($(printf "%s\n" "${BUN_PACKAGES[@]}" | sort -u))
 BUN_PACKAGES_NOT_INSTALLED=()
-
-for pkg in "${BUN_PACKAGES[@]}"; do
-  if [[ "$pkg" == @*/* ]]; then
-    # Scoped package: strip version after the second @
-    pkg_name="${pkg%@*}"
-    # If no version was specified, pkg_name equals pkg, which is fine
-    [[ "$pkg_name" == *"/"* ]] || pkg_name="$pkg"
-  else
-    pkg_name="${pkg%%@*}"
-  fi
-
-  if ! command -v bun >/dev/null 2>&1; then
-    eval "$(mise activate bash)"
-  fi
-
-  if [ "$UPDATE_MODE" = true ]; then
-    BUN_PACKAGES_NOT_INSTALLED+=("$pkg")
-  elif bun pm ls -g 2>/dev/null | grep -q "$pkg_name"; then
-    debug "Bun package '$pkg_name' is already installed. Skipping."
-  else
-    BUN_PACKAGES_NOT_INSTALLED+=("$pkg")
-  fi
-done
+filter_not_installed BUN_PACKAGES BUN_PACKAGES_NOT_INSTALLED bun_installed
 
 if [ "${#BUN_PACKAGES_NOT_INSTALLED[@]}" -gt 0 ]; then
   log "Installing Bun packages: ${BUN_PACKAGES_NOT_INSTALLED[*]}"
@@ -176,20 +156,16 @@ else
   log "No Bun packages to install."
 fi
 
+vscode_ext_installed() {
+  echo "$INSTALLED_EXTENSIONS" | grep -qi "^${1}$" || return 1
+  debug "VS Code extension '$1' is already installed. Skipping."
+}
+
 if command -v code &>/dev/null && [ "${#VSCODE_EXTENSIONS[@]}" -gt 0 ]; then
   VSCODE_EXTENSIONS=($(printf "%s\n" "${VSCODE_EXTENSIONS[@]}" | sort -u))
   INSTALLED_EXTENSIONS=$(code --list-extensions 2>/dev/null)
   VSCODE_EXTENSIONS_NOT_INSTALLED=()
-
-  for ext in "${VSCODE_EXTENSIONS[@]}"; do
-    if [ "$UPDATE_MODE" = true ]; then
-      VSCODE_EXTENSIONS_NOT_INSTALLED+=("$ext")
-    elif echo "$INSTALLED_EXTENSIONS" | grep -qi "^${ext}$"; then
-      debug "VS Code extension '$ext' is already installed. Skipping."
-    else
-      VSCODE_EXTENSIONS_NOT_INSTALLED+=("$ext")
-    fi
-  done
+  filter_not_installed VSCODE_EXTENSIONS VSCODE_EXTENSIONS_NOT_INSTALLED vscode_ext_installed
 
   if [ "${#VSCODE_EXTENSIONS_NOT_INSTALLED[@]}" -gt 0 ]; then
     log "Installing VS Code extensions: ${VSCODE_EXTENSIONS_NOT_INSTALLED[*]}"
