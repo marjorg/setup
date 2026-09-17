@@ -83,16 +83,14 @@ filter_not_installed() {
 execute() {
   if $DRY; then
     log "$@"
-
   else
-    if [[ "$1" == "eval" ]]; then
-      eval "${@:2}"
-    elif [[ "$1" == "capture" ]]; then
-      "${@:2}"
-    else
-      "$@"
-    fi
+    "$@"
   fi
+}
+
+# Prints the ID of the first secret key for $1, or nothing if none exists.
+gpg_key_id() {
+  gpg --list-secret-keys --with-colons "$1" 2>/dev/null | awk -F: '/^sec:/ {print $5; exit}'
 }
 
 SAVED_NAME=""

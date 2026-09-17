@@ -8,7 +8,7 @@ set -euo pipefail
 require_identity
 
 # Only have one key per email
-if gpg --list-secret-keys --with-colons "$EMAIL" | grep -q '^sec:'; then
+if [[ -n "$(gpg_key_id "$EMAIL")" ]]; then
   debug "GPG key already exists for $EMAIL"
   exit 0
 fi
@@ -30,7 +30,7 @@ EOF
 
 execute gpg --batch --generate-key "$BATCH_FILE"
 
-KEY_ID=$(gpg --list-secret-keys --with-colons "$EMAIL" | grep '^sec:' | cut -d: -f5 | head -n1)
+KEY_ID=$(gpg_key_id "$EMAIL")
 log "GPG key generated with ID: $KEY_ID"
 
 gpg --armor --export "$KEY_ID"

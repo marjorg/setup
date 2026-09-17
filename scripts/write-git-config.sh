@@ -7,7 +7,7 @@ set -euo pipefail
 
 require_identity
 
-KEY_ID=$(gpg --list-secret-keys --with-colons "$EMAIL" 2>/dev/null | awk -F: '/^sec:/ {print $5}' | head -n1)
+KEY_ID=$(gpg_key_id "$EMAIL")
 
 if [[ -z "$KEY_ID" ]]; then
   log "No GPG key found for email: $EMAIL" >&2

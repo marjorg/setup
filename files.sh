@@ -30,10 +30,13 @@ fi
 CHROMIUM_POLICIES="/etc/chromium/policies/managed"
 sudo mkdir -p "$CHROMIUM_POLICIES"
 
+write_chromium_policy() {
+  [ -f "$1" ] && return
+  sudo tee "$1" >/dev/null
+}
+
 # Extension IDs: uBlock Lite, 1Password, React DevTools
-CHROMIUM_EXTENSIONS="$CHROMIUM_POLICIES/extensions.json"
-if [ ! -f "$CHROMIUM_EXTENSIONS" ]; then
-  sudo tee "$CHROMIUM_EXTENSIONS" >/dev/null <<EOF
+write_chromium_policy "$CHROMIUM_POLICIES/extensions.json" <<EOF
 {
   "ExtensionInstallForcelist": [
     "ddkjiahejlhfcafbddmgiahcphecmpfh",
@@ -42,15 +45,11 @@ if [ ! -f "$CHROMIUM_EXTENSIONS" ]; then
   ]
 }
 EOF
-fi
 
-CHROMIUM_SETTINGS="$CHROMIUM_POLICIES/policy.json"
-if [ ! -f "$CHROMIUM_SETTINGS" ]; then
-  sudo tee "$CHROMIUM_SETTINGS" >/dev/null <<EOF
+write_chromium_policy "$CHROMIUM_POLICIES/policy.json" <<EOF
 {
   "PasswordManagerEnabled": false
 }
 EOF
-fi
 
 log "Files setup."
