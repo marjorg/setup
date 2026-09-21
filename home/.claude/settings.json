@@ -7,18 +7,6 @@
   "model": "sonnet",
   "disableClaudeAiConnectors": true,
   "disableBundledSkills": true,
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.agents/hooks/session-start.sh"
-          }
-        ]
-      }
-    ]
-  },
   "disableWorkflows": true,
   "disableArtifact": true,
   "statusLine": {
@@ -32,10 +20,13 @@
   "effortLevel": "medium",
   "modelSettings": {
     "claude-sonnet-5": {
-      "effortLevel": "high"
+      "effortLevel": "xhigh"
     },
     "claude-fable-5-1": {
       "effortLevel": "high"
+    },
+    "claude-opus-5": {
+      "effortLevel": "medium"
     }
   },
   "awaySummaryEnabled": false,
