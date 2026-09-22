@@ -13,6 +13,8 @@ PACMAN_PACKAGES+=(
   tree
   # bash-language-server depends on it to provide diagnostics
   shellcheck
+  kubectl
+  k9s
 )
 
 YAY_PACKAGES+=(
