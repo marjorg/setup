@@ -11,8 +11,6 @@ pnpm = "latest"
 python = "latest"
 rust = "latest"
 maven = "latest"
-codex = "latest"
-claude = "latest"
 uv = "latest"
 
 [settings]
