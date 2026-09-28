@@ -29,10 +29,10 @@
           "id": "omarchy.tray"
         },
         {
-          "id": "omarchy.agents"
+          "id": "omarchy.bluetooth"
         },
         {
-          "id": "omarchy.bluetooth"
+          "id": "omarchy.agents"
         },
         {
           "id": "omarchy.network"

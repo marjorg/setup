@@ -5,7 +5,4 @@ If `~/.agents/AGENTS.local.md` exists, read it too. Its overrides win wherever i
 ## Rules
 
 - Don't wrap lines manually when writing docs, such as markdown and commit bodies.
-
-## Always-on skills
-
-Load these without waiting for a description match: `comments`, `unslop`. unslop covers commit message bodies, PR bodies, and replies to me, not just docs.
+- Git commit bodies never have more than 2 short paragraphs.
