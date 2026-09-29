@@ -80,7 +80,7 @@ update auth.ts
 
 **Format:**
 ```
-<type>(<optional scope>): <short description>
+<type>: <short description>
 
 <optional body explaining why, not what>
 ```
@@ -89,15 +89,9 @@ update auth.ts
 - `feat` — New feature
 - `fix` — Bug fix
 - `refactor` — Code change that neither fixes a bug nor adds a feature
-- `perf` — Performance improvement
 - `test` — Adding or updating tests
 - `docs` — Documentation only
-- `build` — Build system or dependency changes
-- `ci` — CI configuration changes
 - `chore` — Tooling, dependencies, config
-- `revert` — Reverts a previous commit
-
-`!` before the colon (e.g. `feat!:`) marks a breaking change.
 
 ### 4. Keep Concerns Separate
 
