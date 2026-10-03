@@ -76,12 +76,12 @@ patch_tree() {
 
   # Skills are installed loose, not as a plugin, so the plugin namespace in
   # "invoke the agent-skills:foo skill" doesn't resolve.
-  # grep -rlZ "agent-skills:" "$dir/commands" | xargs -0 -r sed -i 's/agent-skills://g'
+  grep -rlZ "agent-skills:" "$dir/commands" | xargs -0 -r sed -i 's/agent-skills://g'
 
   # /plan collides with the built-in plan mode command in both harnesses.
-  # if [[ -f "$dir/commands/plan.md" ]]; then
-  #   mv "$dir/commands/plan.md" "$dir/commands/planning.md"
-  # fi
+  if [[ -f "$dir/commands/plan.md" ]]; then
+    mv "$dir/commands/plan.md" "$dir/commands/planning.md"
+  fi
 
   # OpenCode treats agents without a mode as primary agents.
   for f in "$dir"/agents/*.md; do
