@@ -51,7 +51,7 @@ Store ADRs in `docs/decisions/` with sequential numbering (unless the project al
 # ADR-001: Use PostgreSQL for primary database
 
 ## Status
-Accepted | Superseded by ADR-XXX | Deprecated
+Proposed | Accepted | Superseded by ADR-XXX | Deprecated
 
 ## Date
 2025-01-15
@@ -251,7 +251,7 @@ For shipped features:
 
 Special consideration for AI agent context:
 
-- **CLAUDE.md / rules files** — Document project conventions so agents follow them
+- **AGENTS.md / rules files** — Document project conventions so agents follow them
 - **Spec files** — Keep specs updated so agents build the right thing
 - **ADRs** — Help agents understand why past decisions were made (prevents re-deciding)
 - **Inline gotchas** — Prevent agents from falling into known traps
@@ -285,4 +285,4 @@ After documenting:
 - [ ] API functions have parameter and return type documentation
 - [ ] Known gotchas are documented inline where they matter
 - [ ] No commented-out code remains
-- [ ] Rules files (CLAUDE.md etc.) are current and accurate
+- [ ] Rules files (AGENTS.md etc.) are current and accurate
