@@ -1,10 +1,9 @@
 #!/bin/bash
 
 # Updates the skills, agents, commands and references vendored from
-# addyosmani/agent-skills, and the unslop skill from cursor/plugins. Pass a tag
-# to pin an agent-skills version, else the latest tag is used. cursor/plugins
-# has no tags, so unslop always follows the last commit that changed it. What
-# is currently vendored is read from home/.agents/README.md.
+# addyosmani/agent-skills, and the single skills in SKILL_SOURCES. Pass a tag
+# to pin an agent-skills version, else the latest tag is used. What is
+# currently vendored is read from home/.agents/README.md.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/utils.sh" "$@"
@@ -12,8 +11,6 @@ source "$SCRIPT_DIR/utils.sh" "$@"
 set -euo pipefail
 
 UPSTREAM_REPO="https://github.com/addyosmani/agent-skills"
-UNSLOP_REPO="https://github.com/cursor/plugins"
-UNSLOP_PATH="pstack/skills/unslop"
 AGENTS_DIR="$DOTFILES_DIR/home/.agents"
 README="$AGENTS_DIR/README.md"
 # What the last update installed, so the next one knows what it may delete:
@@ -30,6 +27,15 @@ MAPPINGS=(
   ".claude/commands:commands"
 )
 
+# Single skills as name|repo|path. Their repos don't tag releases, so each
+# follows the last commit that changed its folder. A new one also needs a
+# "- `name` from <url> (commit none)" line in the README.
+SKILL_SOURCES=(
+  "unslop|https://github.com/cursor/plugins|pstack/skills/unslop"
+  "diagram-design|https://github.com/cathrynlavery/diagram-design|skills/diagram-design"
+)
+declare -A SKILL_CURRENT SKILL_TARGET
+
 TARGET=""
 for arg in "$@"; do
   [[ "$arg" == --* ]] || TARGET="$arg"
@@ -41,11 +47,14 @@ if [[ -z "$CURRENT" ]]; then
   exit 1
 fi
 
-UNSLOP_CURRENT="$(sed -n 's/.*(commit \([0-9a-f]*\)).*/\1/p' "$README")"
-if [[ -z "$UNSLOP_CURRENT" ]]; then
-  echo "Error: no \"(commit SHA)\" found in $README" >&2
-  exit 1
-fi
+for source in "${SKILL_SOURCES[@]}"; do
+  IFS='|' read -r name _ _ <<< "$source"
+  SKILL_CURRENT[$name]="$(sed -n "s/^- \`$name\` .*(commit \([0-9a-f]\+\|none\)).*/\1/p" "$README")"
+  if [[ -z "${SKILL_CURRENT[$name]}" ]]; then
+    echo "Error: no \"- \`$name\` ... (commit SHA)\" line found in $README" >&2
+    exit 1
+  fi
+done
 
 # Upstream overwrites hand edits, so start from a clean tree. Then git diff
 # shows exactly what was lost, and git restore -p brings back what to keep.
@@ -59,22 +68,28 @@ trap 'rm -rf "$WORK_DIR"' EXIT
 
 log "Fetching $UPSTREAM_REPO"
 git clone --quiet --filter=blob:none "$UPSTREAM_REPO" "$WORK_DIR/repo"
-log "Fetching $UNSLOP_REPO"
-git clone --quiet --filter=blob:none "$UNSLOP_REPO" "$WORK_DIR/unslop"
 
-UNSLOP_TARGET="$(git -C "$WORK_DIR/unslop" log -1 --format=%h --abbrev=7 -- "$UNSLOP_PATH")"
-if [[ -z "$UNSLOP_TARGET" ]]; then
-  echo "Error: $UNSLOP_REPO has no $UNSLOP_PATH" >&2
-  exit 1
-fi
+skills_current=true
+for source in "${SKILL_SOURCES[@]}"; do
+  IFS='|' read -r name repo path <<< "$source"
+  log "Fetching $repo"
+  git clone --quiet --filter=blob:none "$repo" "$WORK_DIR/sources/$name"
+
+  SKILL_TARGET[$name]="$(git -C "$WORK_DIR/sources/$name" log -1 --format=%h --abbrev=7 -- "$path")"
+  if [[ -z "${SKILL_TARGET[$name]}" ]]; then
+    echo "Error: $repo has no $path" >&2
+    exit 1
+  fi
+  [[ "${SKILL_TARGET[$name]}" == "${SKILL_CURRENT[$name]}" ]] || skills_current=false
+done
 
 # Naming the vendored version re-syncs it, which resets hand edits and clears
 # out stale files without waiting for a new release.
 if [[ -z "$TARGET" ]]; then
   TARGET="$(git -C "$WORK_DIR/repo" tag --sort=-v:refname | head -n 1)"
 
-  if [[ "$TARGET" == "$CURRENT" && "$UNSLOP_TARGET" == "$UNSLOP_CURRENT" ]]; then
-    log "agent-skills is already at $CURRENT, and unslop at $UNSLOP_CURRENT"
+  if [[ "$TARGET" == "$CURRENT" ]] && $skills_current; then
+    log "agent-skills $CURRENT and every single skill are already up to date"
     exit 0
   fi
 fi
@@ -84,7 +99,11 @@ if ! git -C "$WORK_DIR/repo" rev-parse --verify --quiet "refs/tags/$TARGET" > /d
   exit 1
 fi
 
-log "Updating agent-skills $CURRENT → $TARGET, and unslop $UNSLOP_CURRENT → $UNSLOP_TARGET"
+log "Updating agent-skills $CURRENT → $TARGET"
+for source in "${SKILL_SOURCES[@]}"; do
+  IFS='|' read -r name _ _ <<< "$source"
+  log "Updating $name ${SKILL_CURRENT[$name]} → ${SKILL_TARGET[$name]}"
+done
 
 # Patches every upstream file needs to work here, unlike hand edits, which
 # are optional.
@@ -135,7 +154,10 @@ extract() {
 for mapping in "${MAPPINGS[@]}"; do
   extract "$WORK_DIR/repo" "$TARGET" "${mapping%%:*}" "${mapping#*:}"
 done
-extract "$WORK_DIR/unslop" "$UNSLOP_TARGET" "$UNSLOP_PATH" skills/unslop
+for source in "${SKILL_SOURCES[@]}"; do
+  IFS='|' read -r name _ path <<< "$source"
+  extract "$WORK_DIR/sources/$name" "${SKILL_TARGET[$name]}" "$path" "skills/$name"
+done
 
 patch_tree "$NEW"
 
@@ -188,7 +210,12 @@ else
   find "${MAPPINGS[@]/#*:/$AGENTS_DIR/}" -mindepth 1 -type d -empty -delete
 fi
 
-execute sed -i -e "s/(version $CURRENT)/(version $TARGET)/" -e "s/(commit $UNSLOP_CURRENT)/(commit $UNSLOP_TARGET)/" "$README"
+readme_edits=(-e "s/(version $CURRENT)/(version $TARGET)/")
+for source in "${SKILL_SOURCES[@]}"; do
+  IFS='|' read -r name _ _ <<< "$source"
+  readme_edits+=(-e "/^- \`$name\` /s/(commit ${SKILL_CURRENT[$name]})/(commit ${SKILL_TARGET[$name]})/")
+done
+execute sed -i "${readme_edits[@]}" "$README"
 
-log "agent-skills $TARGET, unslop $UNSLOP_TARGET: $updated updated, $added added, $removed removed"
+log "agent-skills $TARGET and ${#SKILL_SOURCES[@]} single skills: $updated updated, $added added, $removed removed"
 log "Hand edits were overwritten. Review with git diff, and bring back the ones to keep with: git -C $DOTFILES_DIR restore -p -- home/.agents"
