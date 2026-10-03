@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # Updates the skills, agents, commands and references vendored from
-# addyosmani/agent-skills. Pass a tag to pin a version, else the latest tag is
-# used. The version currently vendored is read from home/.agents/README.md.
+# addyosmani/agent-skills, and the unslop skill from cursor/plugins. Pass a tag
+# to pin an agent-skills version, else the latest tag is used. cursor/plugins
+# has no tags, so unslop always follows the last commit that changed it. What
+# is currently vendored is read from home/.agents/README.md.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/utils.sh" "$@"
@@ -10,6 +12,8 @@ source "$SCRIPT_DIR/utils.sh" "$@"
 set -euo pipefail
 
 UPSTREAM_REPO="https://github.com/addyosmani/agent-skills"
+UNSLOP_REPO="https://github.com/cursor/plugins"
+UNSLOP_PATH="pstack/skills/unslop"
 AGENTS_DIR="$DOTFILES_DIR/home/.agents"
 README="$AGENTS_DIR/README.md"
 # What the last update installed, so the next one knows what it may delete:
@@ -17,7 +21,7 @@ README="$AGENTS_DIR/README.md"
 # hold local ones too. Anything not listed is a local addition.
 MANIFEST="$AGENTS_DIR/.vendored-files"
 
-# Upstream path → local path. Upstream's top-level commands/ are Gemini TOML;
+# agent-skills path → local path. Upstream's top-level commands/ are Gemini TOML;
 # the Markdown ones Claude Code and OpenCode read live under .claude/commands.
 MAPPINGS=(
   "skills:skills"
@@ -37,6 +41,12 @@ if [[ -z "$CURRENT" ]]; then
   exit 1
 fi
 
+UNSLOP_CURRENT="$(sed -n 's/.*(commit \([0-9a-f]*\)).*/\1/p' "$README")"
+if [[ -z "$UNSLOP_CURRENT" ]]; then
+  echo "Error: no \"(commit SHA)\" found in $README" >&2
+  exit 1
+fi
+
 # Upstream overwrites hand edits, so start from a clean tree. Then git diff
 # shows exactly what was lost, and git restore -p brings back what to keep.
 if ! $DRY && [[ -n "$(git -C "$DOTFILES_DIR" status --porcelain -- "$AGENTS_DIR")" ]]; then
@@ -49,14 +59,22 @@ trap 'rm -rf "$WORK_DIR"' EXIT
 
 log "Fetching $UPSTREAM_REPO"
 git clone --quiet --filter=blob:none "$UPSTREAM_REPO" "$WORK_DIR/repo"
+log "Fetching $UNSLOP_REPO"
+git clone --quiet --filter=blob:none "$UNSLOP_REPO" "$WORK_DIR/unslop"
+
+UNSLOP_TARGET="$(git -C "$WORK_DIR/unslop" log -1 --format=%h --abbrev=7 -- "$UNSLOP_PATH")"
+if [[ -z "$UNSLOP_TARGET" ]]; then
+  echo "Error: $UNSLOP_REPO has no $UNSLOP_PATH" >&2
+  exit 1
+fi
 
 # Naming the vendored version re-syncs it, which resets hand edits and clears
 # out stale files without waiting for a new release.
 if [[ -z "$TARGET" ]]; then
   TARGET="$(git -C "$WORK_DIR/repo" tag --sort=-v:refname | head -n 1)"
 
-  if [[ "$TARGET" == "$CURRENT" ]]; then
-    log "agent-skills is already at $CURRENT"
+  if [[ "$TARGET" == "$CURRENT" && "$UNSLOP_TARGET" == "$UNSLOP_CURRENT" ]]; then
+    log "agent-skills is already at $CURRENT, and unslop at $UNSLOP_CURRENT"
     exit 0
   fi
 fi
@@ -66,7 +84,7 @@ if ! git -C "$WORK_DIR/repo" rev-parse --verify --quiet "refs/tags/$TARGET" > /d
   exit 1
 fi
 
-log "Updating agent-skills $CURRENT → $TARGET"
+log "Updating agent-skills $CURRENT → $TARGET, and unslop $UNSLOP_CURRENT → $UNSLOP_TARGET"
 
 # Patches every upstream file needs to work here, unlike hand edits, which
 # are optional.
@@ -98,15 +116,26 @@ patch_tree() {
     awk '{ print } !done && /^name:/ { print "mode: subagent"; done = 1 }' "$f" > "$f.tmp"
     mv "$f.tmp" "$f"
   done
+
+  # pstack turned off model invocation for unslop, so it would only run when
+  # typed as /unslop. It's meant to cover every piece of writing.
+  sed -i '/^disable-model-invocation:/d' "$dir/skills/unslop/SKILL.md"
 }
 
 NEW="$WORK_DIR/new"
 
+extract() {
+  local repo=$1 ref=$2 src=$3 dest=$4
+
+  mkdir -p "$NEW/$dest"
+  git -C "$repo" archive "$ref" "$src" |
+    tar -x -C "$NEW/$dest" --strip-components="$(tr -cd / <<< "$src/" | wc -c)"
+}
+
 for mapping in "${MAPPINGS[@]}"; do
-  mkdir -p "$NEW/${mapping#*:}"
-  git -C "$WORK_DIR/repo" archive "$TARGET" "${mapping%%:*}" |
-    tar -x -C "$NEW/${mapping#*:}" --strip-components="$(tr -cd / <<< "${mapping%%:*}/" | wc -c)"
+  extract "$WORK_DIR/repo" "$TARGET" "${mapping%%:*}" "${mapping#*:}"
 done
+extract "$WORK_DIR/unslop" "$UNSLOP_TARGET" "$UNSLOP_PATH" skills/unslop
 
 patch_tree "$NEW"
 
@@ -159,7 +188,7 @@ else
   find "${MAPPINGS[@]/#*:/$AGENTS_DIR/}" -mindepth 1 -type d -empty -delete
 fi
 
-execute sed -i "s/(version $CURRENT)/(version $TARGET)/" "$README"
+execute sed -i -e "s/(version $CURRENT)/(version $TARGET)/" -e "s/(commit $UNSLOP_CURRENT)/(commit $UNSLOP_TARGET)/" "$README"
 
-log "agent-skills $TARGET: $updated updated, $added added, $removed removed"
+log "agent-skills $TARGET, unslop $UNSLOP_TARGET: $updated updated, $added added, $removed removed"
 log "Hand edits were overwritten. Review with git diff, and bring back the ones to keep with: git -C $DOTFILES_DIR restore -p -- home/.agents"

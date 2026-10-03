@@ -1,6 +1,6 @@
 # Agent config shared across harnesses
 
-Various skills, references, commands and agents are vendored from https://github.com/addyosmani/agent-skills (version 0.6.12). The `unslop` skill is vendored from https://github.com/cursor/plugins/tree/main/pstack/skills/unslop (commit 99559f2).
+Various skills, references, commands and agents are vendored from https://github.com/addyosmani/agent-skills (version 0.6.12). The `unslop` skill is vendored from https://github.com/cursor/plugins/tree/main/pstack/skills/unslop (commit 70b2dc8).
 
 ## Updating
 
