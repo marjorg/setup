@@ -34,7 +34,8 @@ SKILL_SOURCES=(
   "unslop|https://github.com/cursor/plugins|pstack/skills/unslop"
   "diagram-design|https://github.com/cathrynlavery/diagram-design|skills/diagram-design"
 )
-declare -A SKILL_CURRENT SKILL_TARGET
+SKILL_NAMES=()
+declare -A SKILL_REPO SKILL_PATH SKILL_CURRENT SKILL_TARGET
 
 TARGET=""
 for arg in "$@"; do
@@ -48,7 +49,10 @@ if [[ -z "$CURRENT" ]]; then
 fi
 
 for source in "${SKILL_SOURCES[@]}"; do
-  IFS='|' read -r name _ _ <<< "$source"
+  IFS='|' read -r name repo path <<< "$source"
+  SKILL_NAMES+=("$name")
+  SKILL_REPO[$name]=$repo
+  SKILL_PATH[$name]=$path
   SKILL_CURRENT[$name]="$(sed -n "s/^- \`$name\` .*(commit \([0-9a-f]\+\|none\)).*/\1/p" "$README")"
   if [[ -z "${SKILL_CURRENT[$name]}" ]]; then
     echo "Error: no \"- \`$name\` ... (commit SHA)\" line found in $README" >&2
@@ -70,14 +74,13 @@ log "Fetching $UPSTREAM_REPO"
 git clone --quiet --filter=blob:none "$UPSTREAM_REPO" "$WORK_DIR/repo"
 
 skills_current=true
-for source in "${SKILL_SOURCES[@]}"; do
-  IFS='|' read -r name repo path <<< "$source"
-  log "Fetching $repo"
-  git clone --quiet --filter=blob:none "$repo" "$WORK_DIR/sources/$name"
+for name in "${SKILL_NAMES[@]}"; do
+  log "Fetching ${SKILL_REPO[$name]}"
+  git clone --quiet --filter=blob:none "${SKILL_REPO[$name]}" "$WORK_DIR/sources/$name"
 
-  SKILL_TARGET[$name]="$(git -C "$WORK_DIR/sources/$name" log -1 --format=%h --abbrev=7 -- "$path")"
+  SKILL_TARGET[$name]="$(git -C "$WORK_DIR/sources/$name" log -1 --format=%h --abbrev=7 -- "${SKILL_PATH[$name]}")"
   if [[ -z "${SKILL_TARGET[$name]}" ]]; then
-    echo "Error: $repo has no $path" >&2
+    echo "Error: ${SKILL_REPO[$name]} has no ${SKILL_PATH[$name]}" >&2
     exit 1
   fi
   [[ "${SKILL_TARGET[$name]}" == "${SKILL_CURRENT[$name]}" ]] || skills_current=false
@@ -100,8 +103,7 @@ if ! git -C "$WORK_DIR/repo" rev-parse --verify --quiet "refs/tags/$TARGET" > /d
 fi
 
 log "Updating agent-skills $CURRENT → $TARGET"
-for source in "${SKILL_SOURCES[@]}"; do
-  IFS='|' read -r name _ _ <<< "$source"
+for name in "${SKILL_NAMES[@]}"; do
   log "Updating $name ${SKILL_CURRENT[$name]} → ${SKILL_TARGET[$name]}"
 done
 
@@ -154,9 +156,8 @@ extract() {
 for mapping in "${MAPPINGS[@]}"; do
   extract "$WORK_DIR/repo" "$TARGET" "${mapping%%:*}" "${mapping#*:}"
 done
-for source in "${SKILL_SOURCES[@]}"; do
-  IFS='|' read -r name _ path <<< "$source"
-  extract "$WORK_DIR/sources/$name" "${SKILL_TARGET[$name]}" "$path" "skills/$name"
+for name in "${SKILL_NAMES[@]}"; do
+  extract "$WORK_DIR/sources/$name" "${SKILL_TARGET[$name]}" "${SKILL_PATH[$name]}" "skills/$name"
 done
 
 patch_tree "$NEW"
@@ -196,7 +197,7 @@ if [[ -f "$MANIFEST" ]]; then
     elif [[ -d "$NEW/$entry" ]]; then
       while IFS= read -r rel; do
         [[ -f "$NEW/$entry/$rel" ]] || remove "$entry/$rel"
-      done < <(cd "$AGENTS_DIR/$entry" && find . -type f -printf '%P\n' | sort)
+      done < <(find "$AGENTS_DIR/$entry" -type f -printf '%P\n' | sort)
     fi
   done < "$MANIFEST"
 else
@@ -207,12 +208,11 @@ if $DRY; then
   log "Writing $MANIFEST"
 else
   (cd "$NEW" && { find skills -mindepth 1 -maxdepth 1; find agents commands references -type f; } | sort) > "$MANIFEST"
-  find "${MAPPINGS[@]/#*:/$AGENTS_DIR/}" -mindepth 1 -type d -empty -delete
+  find "$AGENTS_DIR"/{skills,agents,commands,references} -mindepth 1 -type d -empty -delete
 fi
 
 readme_edits=(-e "s/(version $CURRENT)/(version $TARGET)/")
-for source in "${SKILL_SOURCES[@]}"; do
-  IFS='|' read -r name _ _ <<< "$source"
+for name in "${SKILL_NAMES[@]}"; do
   readme_edits+=(-e "/^- \`$name\` /s/(commit ${SKILL_CURRENT[$name]})/(commit ${SKILL_TARGET[$name]})/")
 done
 execute sed -i "${readme_edits[@]}" "$README"
