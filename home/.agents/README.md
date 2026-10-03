@@ -1,10 +1,13 @@
 # Agent config shared across harnesses
 
-Various skills, references, commands and agents are vendored from https://github.com/addyosmani/agent-skills (version 0.6.12). The `unslop` skill is vendored from https://github.com/cursor/plugins/tree/main/pstack/skills/unslop (commit 70b2dc8).
+Various skills, references, commands and agents are vendored from https://github.com/addyosmani/agent-skills (version 0.6.12). These single skills are vendored from repos that don't tag releases, so they're pinned by commit:
+
+- `unslop` from https://github.com/cursor/plugins/tree/main/pstack/skills/unslop (commit 70b2dc8)
+- `diagram-design` from https://github.com/cathrynlavery/diagram-design/tree/main/skills/diagram-design (commit none)
 
 ## Updating
 
-Run `./scripts/update-agent-skills.sh` from the repo root to update to the latest upstream tag, or pass a tag (`./scripts/update-agent-skills.sh 0.6.12`) to pin one. Passing the current version re-syncs it. cursor/plugins has no tags, so `unslop` always moves to the last commit that changed it. `--dry` previews the changes. The script reads the current version and commit from the lines above and bumps them when done.
+Run `./scripts/update-agent-skills.sh` from the repo root to update to the latest upstream tag, or pass a tag (`./scripts/update-agent-skills.sh 0.6.12`) to pin one. Passing the current version re-syncs it. Each single skill always moves to the last commit that changed it. `--dry` previews the changes. The script reads the current version and commits from the lines above and bumps them when done. To vendor another single skill, add it to `SKILL_SOURCES` in the script and add a line above ending in `(commit none)`.
 
 Every upstream file overwrites its local copy, hand edits included. Review the result with `git diff`, and bring back the hand edits worth keeping with `git restore -p -- home/.agents`. Upstream files deleted locally come back, so drop them again if still unwanted.
 
