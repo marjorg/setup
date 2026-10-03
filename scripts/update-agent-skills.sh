@@ -78,6 +78,15 @@ patch_tree() {
   # "invoke the agent-skills:foo skill" doesn't resolve.
   grep -rlZ "agent-skills:" "$dir/commands" | xargs -0 -r sed -i 's/agent-skills://g'
 
+  # AGENTS.md is the one rules file here; Claude Code reads it through a
+  # CLAUDE.md symlink. Pairs naming both are collapsed first so the swap
+  # doesn't leave "AGENTS.md and AGENTS.md".
+  # shellcheck disable=SC2016  # the backticks are Markdown
+  grep -rlZ "CLAUDE\.md" "$dir" | xargs -0 -r sed -E -i \
+    -e 's/(`?)AGENTS\.md\1 (and|or) `?CLAUDE\.md`?/\1AGENTS.md\1/g' \
+    -e 's/(`?)CLAUDE\.md\1, `?AGENTS\.md`?/\1AGENTS.md\1/g' \
+    -e 's/CLAUDE\.md/AGENTS.md/g'
+
   # /plan collides with the built-in plan mode command in both harnesses.
   if [[ -f "$dir/commands/plan.md" ]]; then
     mv "$dir/commands/plan.md" "$dir/commands/planning.md"

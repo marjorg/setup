@@ -15,6 +15,7 @@ Every upstream file overwrites its local copy, hand edits included. Review the r
 The script applies these to every upstream file automatically, so they never need redoing by hand:
 
 - `agent-skills:` namespace stripped from commands, since the skills aren't installed as a plugin.
+- `CLAUDE.md` renamed to `AGENTS.md` everywhere, since `AGENTS.md` is the one rules file here and Claude Code reads it through a `CLAUDE.md` symlink. Phrases naming both, like "`AGENTS.md` or `CLAUDE.md`", collapse to just `AGENTS.md`.
 - `.claude/commands/plan.md` renamed to `commands/planning.md`, because `/plan` collides with the built-in plan mode.
 - `mode: subagent` added to agent frontmatter, otherwise OpenCode treats them as primary agents.
 
