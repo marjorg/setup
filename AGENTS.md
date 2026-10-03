@@ -18,6 +18,7 @@ Personal dotfiles + machine setup for Arch Linux running Omarchy. No app code, n
 - Full install: `./install.sh` (add `--dry` to preview, `--debug` for verbose logging, `--update` to force-check every package instead of skipping installed ones, `--work` to skip personal-only packages, `--name`/`--email` to set the git identity).
 - Post-install machine setup (symlinks, keys, git config, backgrounds): `./setup.sh` (same flags as above).
 - Just symlinks (fastest loop when editing `home/`): `./scripts/set-symlinks.sh`.
+- Update the vendored agent skills: `./scripts/update-agent-skills.sh [tag]` (see `home/.agents/README.md`).
 - Lint a shell script before committing: `shellcheck path/to/script.sh` (installed via `installs/terminal.sh`; there's no CI, so this is manual).
 - There is no test suite and no build step — verification is `--dry` runs, `shellcheck`, and reading the diff.
 
