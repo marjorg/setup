@@ -53,7 +53,7 @@ Don't use the dot pattern when the diagram sits inside a product page, slide, or
 
 These six rules are **non-negotiable**. Run the pre-output checklist (SKILL.md §9) to verify before producing any diagram.
 
-1. **Rounded right-angle (orthogonal) connectors are mandatory.** Never use diagonal `<line>` or straight slanted paths between nodes that don't share an x or y axis. Every bend must be a quarter-arc with `r=8` (or `r=6` minimum for tight layouts). See `references/type-architecture.md` for the elbow-path formula. Reserve plain straight `<line>` only for connections whose endpoints share the same x or y coordinate. Diagonal connectors are an automatic fail.
+1. **Rounded right-angle (orthogonal) connectors are mandatory.** Never use diagonal `<line>` or straight slanted paths between nodes that don't share an x or y axis. Every bend must be a quarter-arc with `r=8` (or `r=6` minimum for tight layouts). See `references/type-architecture.md` for the elbow-path formula. Reserve plain straight `<line>` only for connections whose endpoints share the same x or y coordinate. Diagonal connectors are an automatic fail. A connector also leaves and enters each box perpendicular to the edge it touches, at a port on the straight part of that edge at least 8px from a corner. A horizontal segment that starts on a top or bottom edge, or a vertical one that starts on a side edge, runs along the border behind the node fill and reads as an arrow coming out of the corner. From a repository checkout, `python3 <repo-root>/scripts/verify-geometry.py <file>` reports diagonal connectors, border-riding segments, and corner ports.
 
 2. **Label-to-connector margin: 6–10px gap, always.** A label must never sit *on* its arrow — the connector must remain visible. Place the label centered above (or beside, for vertical segments) the line with a **minimum 6px gap** between the bottom of the label's mask rect and the connector stroke. The opaque mask rect prevents the arrow from bleeding through, but the *visible* gap between mask edge and line preserves the reader's ability to trace the connection. If the label is large enough that 6px feels cramped, push it to 8–10px. Never let the mask rect touch or overlap the stroke.
 
@@ -111,6 +111,8 @@ Rules:
 - **Mandatory 6–10px gap** between the bottom of the mask rect and the arrow stroke. The connector must remain visible — a label that hides its own arrow is a hard fail.
 - Never `writing-mode` vertical.
 - For vertical segments, place the label to the side (not on the line) with the same 6–10px horizontal gap.
+
+**Font substitution.** Don't estimate per-character widths — use the `style-guide.md` budget (0.60em sans / 0.62em mono per char). A production run sized mono labels at ~0.47em/char and clipped twice; the calibrated budget fits both Geist Mono and the common substituted mono faces (Menlo, Courier New, Monaco, all ≈0.60em). Previews via `rsvg`/`inkscape` can't fetch the injected Google Fonts, so verify with `python3 <repo-root>/scripts/verify-geometry.py` — it checks masks against later-painted nodes, not text fit; holding the budget is yours.
 
 ## Legend — horizontal strip at the bottom
 

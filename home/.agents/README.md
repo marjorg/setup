@@ -3,7 +3,7 @@
 Various skills, references, commands and agents are vendored from https://github.com/addyosmani/agent-skills (version 0.6.12). These single skills are vendored from repos that don't tag releases, so they're pinned by commit:
 
 - `unslop` from https://github.com/cursor/plugins/tree/main/pstack/skills/unslop (commit 70b2dc8)
-- `diagram-design` from https://github.com/cathrynlavery/diagram-design/tree/main/skills/diagram-design (commit 767595d)
+- `diagram-design` from https://github.com/cathrynlavery/diagram-design/tree/main/skills/diagram-design (commit 1d29cb2)
 
 ## Updating
 
