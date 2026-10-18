@@ -6,7 +6,6 @@ YAY_PACKAGES+=(
   tableplus
   postman-bin
   hoppscotch-bin
-  beekeeper-studio-bin
   redisinsight-bin
 )
 
