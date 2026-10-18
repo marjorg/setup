@@ -1,5 +1,8 @@
 {
 	"$schema": "https://opencode.ai/config.json",
-	"autoupdate": false,
-	"instructions": ["~/.agents/AGENTS.md"]
+	"update": "disable",
+	"instructions": ["~/.agents/AGENTS.md"],
+	"permissions": [
+	  { "action": "shell", "resource": "git push *", "effect": "ask" }
+	]
 }

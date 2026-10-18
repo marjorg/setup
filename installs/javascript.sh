@@ -10,5 +10,5 @@ MISE_PACKAGES+=(
 BUN_PACKAGES+=(
   @biomejs/biome@latest
   @anthropic-ai/claude-code@latest
-  opencode-ai
+  @opencode/cli@latest
 )
