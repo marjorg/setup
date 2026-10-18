@@ -5,6 +5,9 @@
     "sessionUrl": false
   },
   "model": "opus",
+  "permissions": {
+    "ask": ["Bash(git push:*)"]
+  },
   "disableClaudeAiConnectors": true,
   "disableBundledSkills": true,
   "disableWorkflows": true,

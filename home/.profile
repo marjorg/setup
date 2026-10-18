@@ -14,3 +14,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # Bun
 export BUN_INSTALL="$HOME/.cache/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# OpenCode reads ~/.agents/skills natively, so the ~/.claude/skills fallback only adds duplicates.
+export OPENCODE_DISABLE_CLAUDE_CODE_SKILLS=1
