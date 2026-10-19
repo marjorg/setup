@@ -45,6 +45,7 @@ link "$DOTFILES_CONFIG/omarchy/shell.json" "$HOME_CONFIG/omarchy/shell.json"
 link "$DOTFILES_CONFIG/omarchy/defaults/agent" "$HOME_CONFIG/omarchy/defaults/agent"
 link "$DOTFILES_CONFIG/xdg-terminals.list" "$HOME_CONFIG/xdg-terminals.list"
 link "$DOTFILES_CONFIG/opencode/opencode.json" "$HOME_CONFIG/opencode/opencode.json"
+link "$DOTFILES_CONFIG/opencode/cli.json" "$HOME_CONFIG/opencode/cli.json"
 link "$DOTFILES_HOME/.agents/commands" "$HOME_CONFIG/opencode/commands"
 link "$DOTFILES_HOME/.agents/agents" "$HOME_CONFIG/opencode/agents"
 
