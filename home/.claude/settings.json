@@ -5,9 +5,7 @@
     "sessionUrl": false
   },
   "model": "opus",
-  "permissions": {
-    "ask": ["Bash(git push:*)"]
-  },
+  "permissions": {},
   "disableClaudeAiConnectors": true,
   "disableBundledSkills": true,
   "disableWorkflows": true,
@@ -16,8 +14,17 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
-  "enabledPlugins": {},
-  "extraKnownMarketplaces": {},
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
+  },
   "feedbackSurveyRate": 0,
   "feedbackDrafts": "off",
   "effortLevel": "medium",
