@@ -46,7 +46,7 @@ Full task detail (acceptance criteria, verification, files) is in `tasks/todo.md
 - [ ] Link diff empty, `~/.local/bin/zed` still → `/usr/bin/zeditor`, shellcheck no new findings, human review
 
 ### Phase 2: Ubuntu paths
-- [ ] Task 3: End-to-end file setup in an `ubuntu:24.04` container (fix anything it surfaces)
+- [x] Task 3: End-to-end file setup in an `ubuntu:24.04` container (fix anything it surfaces)
 - [ ] Task 4: `setup.sh` bootstrap accepts Ubuntu and installs git with apt-get
 
 ### Checkpoint B: Ubuntu works

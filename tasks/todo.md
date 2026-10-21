@@ -76,14 +76,14 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 **Description:** In `ubuntu:24.04` (the SPEC's `docker run` command), install `git gnupg openssh-client`, then run the five file-setup scripts with `--name Test --email test@example.com` and check every Ubuntu item in SPEC Testing Strategy step 3. Fix anything Ubuntu-specific this turns up in the scripts, within SPEC boundaries. Anything that would need an "Ask first" change gets raised, not patched.
 
 **Acceptance criteria:**
-- [ ] All five scripts exit 0 in order; `~/.ssh/id_ed25519`, `~/.ssh/config`, `~/.config/git/config` (with `signingkey` set) exist
-- [ ] Expected links exist (`~/.zshrc`, `~/.profile`, `~/.config/{ghostty,zed,tmux,lazygit,ohmyposh,mise}`, `Code/User/settings.json`, `opencode/opencode.json`, `~/.claude/settings.json`, `~/.claude/skills/*`) and `~/.config/{hypr,uwsm,omarchy}`, `~/.config/xdg-terminals.list`, `~/.local/bin/zed` do not
-- [ ] Second `set-symlinks.sh` run exits 0 and changes nothing (same `find` listing before and after)
+- [x] All five scripts exit 0 in order; `~/.ssh/id_ed25519`, `~/.ssh/config`, `~/.config/git/config` (with `signingkey` set) exist
+- [x] Expected links exist (`~/.zshrc`, `~/.profile`, `~/.config/{ghostty,zed,tmux,lazygit,ohmyposh,mise}`, `Code/User/settings.json`, `opencode/opencode.json`, `~/.claude/settings.json`, `~/.claude/skills/*`) and `~/.config/{hypr,uwsm,omarchy}`, `~/.config/xdg-terminals.list`, `~/.local/bin/zed` do not
+- [x] Second `set-symlinks.sh` run exits 0 and changes nothing (same `find` listing before and after)
 
 **Verification:**
-- [ ] `gomplate --version` works in the container first (see the gomplate risk in the plan)
-- [ ] Manual check: the step 3 checklist from SPEC, ticked item by item, including `set-login-logo.sh` exiting 0
-- [ ] `copy-ssh-key.sh` / `copy-gpg-key.sh`: read through to confirm there are no Omarchy-only calls (both only need `wl-copy`). A real clipboard test waits for the desktop run.
+- [x] `gomplate --version` works in the container first (see the gomplate risk in the plan)
+- [x] Manual check: the step 3 checklist from SPEC, ticked item by item, including `set-login-logo.sh` exiting 0
+- [x] `copy-ssh-key.sh` / `copy-gpg-key.sh`: read through to confirm there are no Omarchy-only calls (both only need `wl-copy`). A real clipboard test waits for the desktop run.
 
 **Dependencies:** Tasks 1, 2
 
