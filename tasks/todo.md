@@ -149,13 +149,13 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 **Description:** Wrap the three fzf `source` lines (`home/.zshrc:26-28`) in an Omarchy check so Ubuntu shells start without errors. Ubuntu gets no fzf integration for now, which is an accepted trade-off. `.zshrc` can't source `utils.sh` (it sets `set -euo pipefail` and writes `install.log`), so it does its own check against `/etc/os-release`, like `setup.sh` does. Add a short why-comment saying the paths and `fzf --zsh` (0.48+) are Arch-specific and Ubuntu 24.04 ships 0.44. The lines themselves stay as they are.
 
 **Acceptance criteria:**
-- [ ] On Omarchy, a new zsh has fzf completion and Ctrl-R/Ctrl-T bindings as before
-- [ ] On Ubuntu, shell start prints no fzf errors
-- [ ] The three `source` lines are unchanged apart from the wrapper; the fzf block still loads before zinit/fzf-tab
+- [x] On Omarchy, a new zsh has fzf completion and Ctrl-R/Ctrl-T bindings as before
+- [x] On Ubuntu, shell start prints no fzf errors
+- [x] The three `source` lines are unchanged apart from the wrapper; the fzf block still loads before zinit/fzf-tab
 
 **Verification:**
 - [ ] Omarchy: `zsh -i -c exit` prints nothing on stderr, plus a manual Ctrl-R and `**<Tab>` check
-- [ ] Ubuntu container (Task 3 setup, `apt-get install -y zsh`): `zsh -i -c exit 2>&1 | grep -i fzf` is empty (zinit/plugin noise from a bare container is out of scope)
+- [x] Ubuntu container (Task 3 setup, `apt-get install -y zsh`): `zsh -i -c exit 2>&1 | grep -i fzf` is empty (zinit/plugin noise from a bare container is out of scope)
 
 **Dependencies:** None (container check after Task 3)
 

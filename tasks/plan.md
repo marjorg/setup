@@ -59,7 +59,7 @@ Full task detail (acceptance criteria, verification, files) is in `tasks/todo.md
 - [x] All SPEC acceptance items met, ready for the real-desktop run
 
 ### Phase 4: Shell
-- [ ] Task 6: Load fzf in `.zshrc` only on Omarchy
+- [x] Task 6: Load fzf in `.zshrc` only on Omarchy
 
 ## Risks and mitigations
 
