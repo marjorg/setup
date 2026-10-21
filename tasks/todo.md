@@ -69,7 +69,7 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 - [x] Link diff empty, zed link intact
 - [x] Shellcheck output for touched files has no findings beyond the baseline
 - [x] `git diff` reviewed: only `utils.sh`, `set-login-logo.sh`, `set-symlinks.sh` changed
-- [ ] Human review before moving to Ubuntu
+- [x] Human review before moving to Ubuntu
 
 ## Task 3: End-to-end file setup on Ubuntu
 
@@ -117,7 +117,7 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 ## Checkpoint B: Ubuntu works
 - [x] SPEC Testing Strategy steps 1–4 all pass
 - [x] Omarchy link diff still empty if any script changed during Task 3
-- [ ] Human review
+- [x] Human review
 
 ## Task 5: Docs
 
@@ -154,7 +154,7 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 - [x] The three `source` lines are unchanged apart from the wrapper; the fzf block still loads before zinit/fzf-tab
 
 **Verification:**
-- [ ] Omarchy: `zsh -i -c exit` prints nothing on stderr, plus a manual Ctrl-R and `**<Tab>` check
+- [x] Omarchy: `zsh -i -c exit` prints nothing on stderr, plus a manual Ctrl-R and `**<Tab>` check
 - [x] Ubuntu container (Task 3 setup, `apt-get install -y zsh`): `zsh -i -c exit 2>&1 | grep -i fzf` is empty (zinit/plugin noise from a bare container is out of scope)
 
 **Dependencies:** None (container check after Task 3)

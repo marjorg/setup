@@ -43,14 +43,14 @@ Full task detail (acceptance criteria, verification, files) is in `tasks/todo.md
 - [x] Task 2: Gate Omarchy-only links in `set-symlinks.sh`, prove Omarchy is unchanged
 
 ### Checkpoint A: Omarchy unchanged
-- [ ] Link diff empty, `~/.local/bin/zed` still → `/usr/bin/zeditor`, shellcheck no new findings, human review
+- [x] Link diff empty, `~/.local/bin/zed` still → `/usr/bin/zeditor`, shellcheck no new findings, human review
 
 ### Phase 2: Ubuntu paths
 - [x] Task 3: End-to-end file setup in an `ubuntu:24.04` container (fix anything it surfaces)
 - [x] Task 4: `setup.sh` bootstrap accepts Ubuntu and installs git with apt-get
 
 ### Checkpoint B: Ubuntu works
-- [ ] Testing Strategy steps 1–4 from `SPEC.md` all pass, human review
+- [x] Testing Strategy steps 1–4 from `SPEC.md` all pass, human review
 
 ### Phase 3: Docs
 - [x] Task 5: README Ubuntu prerequisites/script order, AGENTS.md corrections
