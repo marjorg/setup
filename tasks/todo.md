@@ -26,14 +26,14 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 **Description:** Add `OS_ID` and `is_omarchy` to `scripts/utils.sh` as the single OS check. Make `set-login-logo.sh` log a line and exit 0 before touching Plymouth paths when not on Omarchy. Together these are the first complete Ubuntu path.
 
 **Acceptance criteria:**
-- [ ] `utils.sh` defines `OS_ID` (read in a subshell from `/etc/os-release`) and `is_omarchy`, as in SPEC Code Style
-- [ ] `set-login-logo.sh` off Omarchy: one `log` line, exit 0, no `cmp`/`grep`/`sudo`/`omarchy` calls
-- [ ] On Omarchy, `set-login-logo.sh` behaves exactly as before
+- [x] `utils.sh` defines `OS_ID` (read in a subshell from `/etc/os-release`) and `is_omarchy`, as in SPEC Code Style
+- [x] `set-login-logo.sh` off Omarchy: one `log` line, exit 0, no `cmp`/`grep`/`sudo`/`omarchy` calls
+- [x] On Omarchy, `set-login-logo.sh` behaves exactly as before
 
 **Verification:**
-- [ ] `shellcheck` on both files: no findings beyond `/tmp/shellcheck-before.txt`
-- [ ] Omarchy: `./scripts/set-login-logo.sh --debug` prints "Login logo already up to date" (or the same as on `main`)
-- [ ] Ubuntu container (no `sudo` installed): `./scripts/set-login-logo.sh; echo $?` prints the log line and `0`
+- [x] `shellcheck` on both files: no findings beyond `/tmp/shellcheck-before.txt`
+- [x] Omarchy: `./scripts/set-login-logo.sh --debug` prints "Login logo already up to date" (or the same as on `main`)
+- [x] Ubuntu container (no `sudo` installed): `./scripts/set-login-logo.sh; echo $?` prints the log line and `0`
 
 **Dependencies:** Task 0
 

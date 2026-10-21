@@ -5,6 +5,11 @@ source "$SCRIPT_DIR/utils.sh" "$@"
 
 set -euo pipefail
 
+if ! is_omarchy; then
+  log "Skipping login logo, Plymouth theming is Omarchy-only."
+  exit 0
+fi
+
 # Rendered from home/.config/omarchy/branding/screensaver.txt in Adwaita Mono
 # at 10pt, since JetBrains Mono's ligatures merge runs like == and ** and wreck
 # the art.

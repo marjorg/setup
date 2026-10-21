@@ -39,7 +39,7 @@ Full task detail (acceptance criteria, verification, files) is in `tasks/todo.md
 - [x] Task 0: Capture the Omarchy link baseline on unmodified `main`
 
 ### Phase 1: Foundation and Omarchy safety
-- [ ] Task 1: `is_omarchy` in `utils.sh`, and `set-login-logo.sh` exits cleanly off Omarchy
+- [x] Task 1: `is_omarchy` in `utils.sh`, and `set-login-logo.sh` exits cleanly off Omarchy
 - [ ] Task 2: Gate Omarchy-only links in `set-symlinks.sh`, prove Omarchy is unchanged
 
 ### Checkpoint A: Omarchy unchanged
