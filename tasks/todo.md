@@ -124,13 +124,13 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 **Description:** README gets an Ubuntu section with the hand-installed prerequisites and the script order. AGENTS.md drops its stale `setup.sh` description (it's a curl bootstrap, not the post-install setup) and the "only targets Omarchy" gotcha. Instead it notes that file setup works on Ubuntu, package install is Arch-only, and OS checks go through `is_omarchy`.
 
 **Acceptance criteria:**
-- [ ] README lists Ubuntu prerequisites (`git`, `gnupg`, `openssh-client`, `gomplate`, `wl-clipboard`) and the five-script order
-- [ ] AGENTS.md's Structure, Commands and "Things a newcomer would get wrong" entries for `setup.sh` / Omarchy-only match the code
-- [ ] No manual line wrapping (user rule)
+- [x] README lists Ubuntu prerequisites (`git`, `gnupg`, `openssh-client`, `gomplate`, `wl-clipboard`) and the five-script order
+- [x] AGENTS.md's Structure, Commands and "Things a newcomer would get wrong" entries for `setup.sh` / Omarchy-only match the code
+- [x] No manual line wrapping (user rule)
 
 **Verification:**
-- [ ] Manual check: every command in README runs as written on Omarchy (`--dry` where available)
-- [ ] `git diff README.md AGENTS.md` reviewed against SPEC
+- [x] Manual check: every command in README runs as written on Omarchy (`--dry` where available)
+- [x] `git diff README.md AGENTS.md` reviewed against SPEC
 
 **Dependencies:** Tasks 1–4
 
@@ -141,8 +141,8 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 **Estimated scope:** S
 
 ## Checkpoint C: Complete
-- [ ] Every SPEC acceptance bullet met
-- [ ] Ready for the real-desktop success check (signed commit + ssh push to GitHub)
+- [x] Every SPEC acceptance bullet met
+- [x] Ready for the real-desktop success check (signed commit + ssh push to GitHub)
 
 ## Task 6: Load fzf in `.zshrc` only on Omarchy
 

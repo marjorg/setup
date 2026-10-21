@@ -1,13 +1,14 @@
 # dotfiles
 
-Personal dotfiles + machine setup for Arch Linux running Omarchy. No app code, no test suite — the deliverable is idempotent shell scripts and symlinked config, and "correctness" means re-running them doesn't break a live machine.
+Personal dotfiles + machine setup for Arch Linux running Omarchy, with the file setup also working on Ubuntu. No app code, no test suite — the deliverable is idempotent shell scripts and symlinked config, and "correctness" means re-running them doesn't break a live machine.
 
 ## Structure
 
 - `install.sh` — package installer. Sources every `installs/*.sh`, collects package-array declarations from each, then installs them (pacman → yay → mise → go → bun → VS Code extensions), skipping anything already installed unless `--update` is passed.
 - `installs/*.sh` — one file per tool/app group (e.g. `go.sh`, `rust.sh`, `apps-coding.sh`). Each just appends to shared arrays (`PACMAN_PACKAGES`, `YAY_PACKAGES`, `MISE_PACKAGES`, `GO_PACKAGES`, `BUN_PACKAGES`, `VSCODE_EXTENSIONS`) and optionally defines `pre_install()` / `post_install()` hook functions. These files are *sourced*, not executed — see Gotchas.
-- `setup.sh` — post-install machine setup: GPG/SSH key generation, git config templating, symlinking, background sync, Chromium policy files.
-- `scripts/*.sh` — helpers called by `setup.sh` (and `install.sh` via `utils.sh`). `set-symlinks.sh` is the one you'll touch most: it links `home/` into `$HOME`.
+- `setup.sh` — curl bootstrap (see `README.md`). Runs before the repo exists, so it can't source `utils.sh`: it checks the OS inline, installs git, and clones the repo to `~/dotfiles`.
+- `files.sh` — post-install machine setup on Omarchy: GPG/SSH key generation, git config templating, symlinking, login logo, background sync, Chromium policy files.
+- `scripts/*.sh` — helpers called by `files.sh` (and `install.sh` via `utils.sh`), each also runnable on its own. `set-symlinks.sh` is the one you'll touch most: it links `home/` into `$HOME`.
 - `templates/*.tmpl` — `gomplate` templates (currently just git config), rendered with env vars exported by the corresponding `scripts/*.sh`.
 - `home/` — mirrors `$HOME`. Everything under here gets symlinked in place by `scripts/set-symlinks.sh`; nothing here is copied.
 - `home/.agents/` — shared skills/commands/agents config, vendored from the upstream `agent-skills` plugin and synced into both Claude Code and OpenCode. See `home/.agents/README.md` before editing anything under here — it documents the local patches you must reapply after a sync.
@@ -16,7 +17,7 @@ Personal dotfiles + machine setup for Arch Linux running Omarchy. No app code, n
 ## Commands
 
 - Full install: `./install.sh` (add `--dry` to preview, `--debug` for verbose logging, `--update` to force-check every package instead of skipping installed ones, `--work` to skip personal-only packages, `--name`/`--email` to set the git identity).
-- Post-install machine setup (symlinks, keys, git config, backgrounds): `./setup.sh` (same flags as above).
+- Post-install machine setup (symlinks, keys, git config, backgrounds): `./files.sh` (same flags as above). On Ubuntu, run the five file-setup scripts by hand instead, in the order listed in `README.md`.
 - Just symlinks (fastest loop when editing `home/`): `./scripts/set-symlinks.sh`.
 - Update the vendored agent skills: `./scripts/update-agent-skills.sh [tag]` (see `home/.agents/README.md`).
 - Lint a shell script before committing: `shellcheck path/to/script.sh` (installed via `installs/terminal.sh`; there's no CI, so this is manual).
@@ -41,6 +42,6 @@ Personal dotfiles + machine setup for Arch Linux running Omarchy. No app code, n
 - **Editing files under `$HOME` directly doesn't persist.** Real config lives under `home/` in this repo; `$HOME` paths are symlinks onto it. If a symlink didn't exist yet, `set-symlinks.sh` will have renamed whatever real directory was there to `<name>.bak` — check for that before assuming data was lost.
 - **`.gitignore` allow-lists specific files inside otherwise-ignored config dirs** (`home/.config/Code/**`, `home/.config/omarchy/**`, `home/.config/opencode/**`). Adding a new file under one of these directories requires an explicit `!home/.config/.../newfile` negation line, or it silently won't be tracked.
 - **`install.log` and `myfile.txt`-style stray files aren't part of the project.** `*.log` is gitignored; don't treat local log output or scratch files in the repo root as something to preserve or clean up as part of a change.
-- **This only targets Omarchy.** `setup.sh`'s bootstrap (see `README.md`) hard-fails on any other `/etc/os-release` `ID`. Don't add generic-Linux fallbacks without checking whether that's actually wanted.
+- **Omarchy first, Ubuntu for file setup only.** `setup.sh` accepts `/etc/os-release` `ID=omarchy` or `ID=ubuntu` and hard-fails on anything else, derivatives such as Pop!_OS included. On Ubuntu only the key, ssh/git config and symlink scripts are supported. `install.sh` and `files.sh` stay Arch/Omarchy-only. Inside `scripts/`, OS checks go through `is_omarchy` from `utils.sh`, never a direct `/etc/os-release` read, and Omarchy-only links in `set-symlinks.sh` sit behind it. Don't add generic-Linux fallbacks without checking whether that's actually wanted.
 - **Identity prompts fail instead of hanging without a TTY.** `require_identity` errors out when stdin isn't a terminal and no identity is on disk. CI or piped runs must pass `--name`/`--email`, or pre-seed `$XDG_CONFIG_HOME/dotfiles/identity` (`name=` / `email=`, one per line).
 - **`--dry` only fakes `execute`, not everything.** Code paths that check system state directly (e.g. `pacman -Q`, `[[ -d ... ]]`) still run for real during a dry run; only the mutating command itself is skipped and logged instead.

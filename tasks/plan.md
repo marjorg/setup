@@ -53,10 +53,10 @@ Full task detail (acceptance criteria, verification, files) is in `tasks/todo.md
 - [ ] Testing Strategy steps 1–4 from `SPEC.md` all pass, human review
 
 ### Phase 3: Docs
-- [ ] Task 5: README Ubuntu prerequisites/script order, AGENTS.md corrections
+- [x] Task 5: README Ubuntu prerequisites/script order, AGENTS.md corrections
 
 ### Checkpoint C: Complete
-- [ ] All SPEC acceptance items met, ready for the real-desktop run
+- [x] All SPEC acceptance items met, ready for the real-desktop run
 
 ### Phase 4: Shell
 - [ ] Task 6: Load fzf in `.zshrc` only on Omarchy
