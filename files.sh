@@ -31,9 +31,13 @@ fi
 CHROMIUM_POLICIES="/etc/chromium/policies/managed"
 sudo mkdir -p "$CHROMIUM_POLICIES"
 
+# Rewrites on any difference, not just when missing, so switching between
+# work and personal runs actually flips the policies on an existing machine.
 write_chromium_policy() {
-  [ -f "$1" ] && return
-  sudo tee "$1" >/dev/null
+  local content
+  content="$(cat)"
+  [[ -f "$1" && "$(cat "$1")" == "$content" ]] && return
+  execute sudo cp /dev/stdin "$1" <<< "$content"
 }
 
 # Extension IDs: uBlock Lite, 1Password, React DevTools
@@ -47,9 +51,10 @@ write_chromium_policy "$CHROMIUM_POLICIES/extensions.json" <<EOF
 }
 EOF
 
+# 1Password isn't installed on work machines, so Chromium's own manager fills in.
 write_chromium_policy "$CHROMIUM_POLICIES/policy.json" <<EOF
 {
-  "PasswordManagerEnabled": false
+  "PasswordManagerEnabled": $WORK
 }
 EOF
 
