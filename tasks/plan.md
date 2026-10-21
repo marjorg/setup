@@ -47,7 +47,7 @@ Full task detail (acceptance criteria, verification, files) is in `tasks/todo.md
 
 ### Phase 2: Ubuntu paths
 - [x] Task 3: End-to-end file setup in an `ubuntu:24.04` container (fix anything it surfaces)
-- [ ] Task 4: `setup.sh` bootstrap accepts Ubuntu and installs git with apt-get
+- [x] Task 4: `setup.sh` bootstrap accepts Ubuntu and installs git with apt-get
 
 ### Checkpoint B: Ubuntu works
 - [ ] Testing Strategy steps 1–4 from `SPEC.md` all pass, human review

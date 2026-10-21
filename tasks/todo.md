@@ -97,15 +97,15 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 **Description:** `setup.sh` accepts `ID=ubuntu` alongside `omarchy` (inline, no `utils.sh`) and installs git with `sudo apt-get update && sudo apt-get install -y git` when it's missing. Other IDs still hard-fail. This doesn't depend on Tasks 1–3 and can run in parallel with them.
 
 **Acceptance criteria:**
-- [ ] `ID=ubuntu` passes the OS check; `ID=pop` and other IDs still print "Unsupported OS" and exit 1
-- [ ] Missing git on Ubuntu → installed via apt-get; on Omarchy the pacman path is unchanged
-- [ ] Existing SC2086 on the `git clone` line is not made worse (quoting `$DOTFILES_DIR` is fine to fix in passing)
+- [x] `ID=ubuntu` passes the OS check; `ID=pop` and other IDs still print "Unsupported OS" and exit 1
+- [x] Missing git on Ubuntu → installed via apt-get; on Omarchy the pacman path is unchanged
+- [x] Existing SC2086 on the `git clone` line is not made worse (quoting `$DOTFILES_DIR` is fine to fix in passing)
 
 **Verification:**
-- [ ] `shellcheck setup.sh`: no new findings
-- [ ] Fresh `ubuntu:24.04` with the repo mounted at `/src` (not `~/dotfiles`): `apt-get update && apt-get install -y sudo`, then `bash /src/setup.sh` installs git and clones into `~/dotfiles`
-- [ ] Unsupported-ID check: `docker run --rm -v "$PWD:/src" debian:stable bash /src/setup.sh` exits 1 with the unsupported message
-- [ ] Omarchy: `bash setup.sh` prints "Repository already exist" as before
+- [x] `shellcheck setup.sh`: no new findings
+- [x] Fresh `ubuntu:24.04` with the repo mounted at `/src` (not `~/dotfiles`): `apt-get update && apt-get install -y sudo`, then `bash /src/setup.sh` installs git and clones into `~/dotfiles`
+- [x] Unsupported-ID check: `docker run --rm -v "$PWD:/src" debian:stable bash /src/setup.sh` exits 1 with the unsupported message
+- [x] Omarchy: `bash setup.sh` prints "Repository already exist" as before
 
 **Dependencies:** None
 
@@ -115,8 +115,8 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 **Estimated scope:** XS
 
 ## Checkpoint B: Ubuntu works
-- [ ] SPEC Testing Strategy steps 1–4 all pass
-- [ ] Omarchy link diff still empty if any script changed during Task 3
+- [x] SPEC Testing Strategy steps 1–4 all pass
+- [x] Omarchy link diff still empty if any script changed during Task 3
 - [ ] Human review
 
 ## Task 5: Docs
