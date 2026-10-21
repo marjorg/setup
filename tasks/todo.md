@@ -48,15 +48,15 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 **Description:** Wrap the zeditor, `omarchy/branding/screensaver.txt`, `omarchy/shell.json`, `omarchy/defaults/agent` and `xdg-terminals.list` links in `if is_omarchy`, and skip `hypr`/`uwsm` in the `.config/*/` loop when not on Omarchy. Then prove Omarchy's link set is unchanged. This is the highest-risk task because it runs for real against the live `$HOME`.
 
 **Acceptance criteria:**
-- [ ] The five explicit Omarchy-only links sit in one `is_omarchy` block, all still via `link()`
-- [ ] The loop skips `hypr` and `uwsm` only when `! is_omarchy`; `Code|omarchy|opencode` handling is unchanged
-- [ ] Omarchy link set is byte-identical to the baseline
+- [x] The five explicit Omarchy-only links sit in one `is_omarchy` block, all still via `link()`
+- [x] The loop skips `hypr` and `uwsm` only when `! is_omarchy`; `Code|omarchy|opencode` handling is unchanged
+- [x] Omarchy link set is byte-identical to the baseline
 
 **Verification:**
-- [ ] `shellcheck scripts/set-symlinks.sh`: no new findings
-- [ ] Omarchy: `./scripts/set-symlinks.sh`, then write `/tmp/links-after.txt` with the same `find`, and `diff /tmp/links-before.txt /tmp/links-after.txt` is empty
-- [ ] Omarchy: `readlink ~/.local/bin/zed` is still `/usr/bin/zeditor`
-- [ ] No new "Renaming existing directory" lines in `install.log` from this run
+- [x] `shellcheck scripts/set-symlinks.sh`: no new findings
+- [x] Omarchy: `./scripts/set-symlinks.sh`, then write `/tmp/links-after.txt` with the same `find`, and `diff /tmp/links-before.txt /tmp/links-after.txt` is empty
+- [x] Omarchy: `readlink ~/.local/bin/zed` is still `/usr/bin/zeditor`
+- [x] No new "Renaming existing directory" lines in `install.log` from this run
 
 **Dependencies:** Tasks 0, 1
 
@@ -66,9 +66,9 @@ See `tasks/plan.md` for decisions and risks, `SPEC.md` for requirements.
 **Estimated scope:** S
 
 ## Checkpoint A: Omarchy unchanged
-- [ ] Link diff empty, zed link intact
-- [ ] Shellcheck output for touched files has no findings beyond the baseline
-- [ ] `git diff` reviewed: only `utils.sh`, `set-login-logo.sh`, `set-symlinks.sh` changed
+- [x] Link diff empty, zed link intact
+- [x] Shellcheck output for touched files has no findings beyond the baseline
+- [x] `git diff` reviewed: only `utils.sh`, `set-login-logo.sh`, `set-symlinks.sh` changed
 - [ ] Human review before moving to Ubuntu
 
 ## Task 3: End-to-end file setup on Ubuntu

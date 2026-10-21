@@ -40,7 +40,7 @@ Full task detail (acceptance criteria, verification, files) is in `tasks/todo.md
 
 ### Phase 1: Foundation and Omarchy safety
 - [x] Task 1: `is_omarchy` in `utils.sh`, and `set-login-logo.sh` exits cleanly off Omarchy
-- [ ] Task 2: Gate Omarchy-only links in `set-symlinks.sh`, prove Omarchy is unchanged
+- [x] Task 2: Gate Omarchy-only links in `set-symlinks.sh`, prove Omarchy is unchanged
 
 ### Checkpoint A: Omarchy unchanged
 - [ ] Link diff empty, `~/.local/bin/zed` still → `/usr/bin/zeditor`, shellcheck no new findings, human review
