@@ -3,7 +3,6 @@ export TERM=xterm-256color
 export PATH=$PATH:"$HOME/.local/bin"
 
 # Go
-export GOPRIVATE=github.com/marjorg
 export PATH=$PATH:/usr/local/go/bin
 # For binaries installed with go install
 export PATH=$PATH:"$HOME/go/bin"
