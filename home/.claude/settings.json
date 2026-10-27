@@ -4,8 +4,8 @@
     "pr": "",
     "sessionUrl": false
   },
-  "model": "opus",
   "permissions": {},
+  "model": "opus",
   "disableClaudeAiConnectors": true,
   "disableBundledSkills": true,
   "disableWorkflows": true,
@@ -15,7 +15,11 @@
     "command": "~/.claude/statusline.sh"
   },
   "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "kotlin-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -46,6 +50,6 @@
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "autoCompactEnabled": true,
-  "agentPushNotifEnabled": true,
-  "switchModelsOnFlag": false
+  "switchModelsOnFlag": false,
+  "agentPushNotifEnabled": true
 }
