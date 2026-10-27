@@ -3,7 +3,6 @@ export TERM=xterm-256color
 export PATH=$PATH:"$HOME/.local/bin"
 
 # Go
-export GOPRIVATE=github.com/marjorg
 export PATH=$PATH:/usr/local/go/bin
 # For binaries installed with go install
 export PATH=$PATH:"$HOME/go/bin"
@@ -17,3 +16,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # OpenCode reads ~/.agents/skills natively, so the ~/.claude/skills fallback only adds duplicates.
 export OPENCODE_DISABLE_CLAUDE_CODE_SKILLS=1
+
+# Secrets stay outside the repo so they can't be committed.
+[ -f "$HOME/.profile.local" ] && . "$HOME/.profile.local"

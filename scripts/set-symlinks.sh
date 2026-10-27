@@ -36,18 +36,23 @@ link "$DOTFILES_HOME/.agents/AGENTS.md" "$HOME/.claude/CLAUDE.md"
 link "$DOTFILES_HOME/.agents/commands" "$HOME/.claude/commands"
 link "$DOTFILES_HOME/.agents/agents" "$HOME/.claude/agents"
 
-link /usr/bin/zeditor "$LOCAL_BIN/zed"
-
 link "$DOTFILES_CONFIG/Code/User/keybindings.json" "$HOME_CONFIG/Code/User/keybindings.json"
 link "$DOTFILES_CONFIG/Code/User/settings.json" "$HOME_CONFIG/Code/User/settings.json"
-link "$DOTFILES_CONFIG/omarchy/branding/screensaver.txt" "$HOME_CONFIG/omarchy/branding/screensaver.txt"
-link "$DOTFILES_CONFIG/omarchy/shell.json" "$HOME_CONFIG/omarchy/shell.json"
-link "$DOTFILES_CONFIG/omarchy/defaults/agent" "$HOME_CONFIG/omarchy/defaults/agent"
-link "$DOTFILES_CONFIG/xdg-terminals.list" "$HOME_CONFIG/xdg-terminals.list"
 link "$DOTFILES_CONFIG/opencode/opencode.json" "$HOME_CONFIG/opencode/opencode.json"
 link "$DOTFILES_CONFIG/opencode/cli.json" "$HOME_CONFIG/opencode/cli.json"
 link "$DOTFILES_HOME/.agents/commands" "$HOME_CONFIG/opencode/commands"
 link "$DOTFILES_HOME/.agents/agents" "$HOME_CONFIG/opencode/agents"
+
+# Elsewhere there is no Hyprland or Omarchy to read these, and Zed's own
+# installer already owns ~/.local/bin/zed, which this would replace with a
+# dangling link.
+if is_omarchy; then
+  link /usr/bin/zeditor "$LOCAL_BIN/zed"
+  link "$DOTFILES_CONFIG/omarchy/branding/screensaver.txt" "$HOME_CONFIG/omarchy/branding/screensaver.txt"
+  link "$DOTFILES_CONFIG/omarchy/shell.json" "$HOME_CONFIG/omarchy/shell.json"
+  link "$DOTFILES_CONFIG/omarchy/defaults/agent" "$HOME_CONFIG/omarchy/defaults/agent"
+  link "$DOTFILES_CONFIG/xdg-terminals.list" "$HOME_CONFIG/xdg-terminals.list"
+fi
 
 for d in "$DOTFILES_CONFIG"/*/; do
   folder=$(basename "$d")
@@ -55,6 +60,9 @@ for d in "$DOTFILES_CONFIG"/*/; do
   case "$folder" in
     Code|omarchy|opencode)
       continue
+      ;;
+    hypr|uwsm)
+      is_omarchy || continue
       ;;
   esac
 

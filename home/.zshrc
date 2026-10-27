@@ -23,9 +23,13 @@ fi
 # fzf, a fuzzy finder
 # Trigger with ctrl+r, needs to be loaded before the plugin for tab completion
 # https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration
-source <(fzf --zsh)
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
+# Omarchy only: the /usr/share/fzf paths are Arch's layout, and `fzf --zsh`
+# needs 0.48+ while Ubuntu 24.04 ships 0.44.
+if grep -qx 'ID=omarchy' /etc/os-release 2>/dev/null; then
+  source <(fzf --zsh)
+  source /usr/share/fzf/completion.zsh
+  source /usr/share/fzf/key-bindings.zsh
+fi
 
 if (( $+functions[zinit] )); then
   # Add zsh plugins

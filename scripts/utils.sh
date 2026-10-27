@@ -13,6 +13,14 @@ trap 'echo "Error at line $LINENO. Check $LOG_FILE for details." >&2' ERR
 # https://specifications.freedesktop.org/basedir/latest/#variables
 IDENTITY_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/identity"
 
+# Read in a subshell so the rest of os-release doesn't leak into script scope.
+# shellcheck source=/dev/null
+OS_ID=$(. /etc/os-release && echo "$ID")
+
+is_omarchy() {
+  [[ "$OS_ID" == "omarchy" ]]
+}
+
 DRY=false
 DEBUG=false
 WORK=false

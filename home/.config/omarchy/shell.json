@@ -4,7 +4,13 @@
     "layout": {
       "center": [
         {
-          "id": "omarchy.indicators"
+          "id": "omarchy.indicators",
+          "items": [
+            "ScreenRecording",
+            "NightLight",
+            "Dnd",
+            "StayAwake"
+          ]
         },
         {
           "format": "d. MMM 'W'ww HH:mm:ss",
