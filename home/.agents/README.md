@@ -1,9 +1,9 @@
 # Agent config shared across harnesses
 
-Various skills, references, commands and agents are vendored from https://github.com/addyosmani/agent-skills (version 0.6.13). These single skills are vendored from repos that don't tag releases, so they're pinned by commit:
+Various skills, references, commands and agents are vendored from https://github.com/addyosmani/agent-skills (version 0.6.14). These single skills are vendored from repos that don't tag releases, so they're pinned by commit:
 
 - `unslop` from https://github.com/cursor/plugins/tree/main/pstack/skills/unslop (commit bc697d0)
-- `diagram-design` from https://github.com/cathrynlavery/diagram-design/tree/main/skills/diagram-design (commit 05a858c)
+- `diagram-design` from https://github.com/cathrynlavery/diagram-design/tree/main/skills/diagram-design (commit d39a365)
 
 ## Updating
 
